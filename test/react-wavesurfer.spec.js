@@ -1,8 +1,9 @@
 /* global before, describe, it */
+
 const TestUtils = require('react-addons-test-utils');
 const React = require('react');
 const expect = require('chai').expect;
-const WaveSurfer = require('../vendor/wavesurfer-bundle.js');
+
 const Wavesurfer = require('../src/react-wavesurfer.js');
 
 describe('React Wavesurfer component', () => {

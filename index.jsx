@@ -5,6 +5,6 @@ import Wavesurfer from './src/react-wavesurfer';
 
 ReactDOM.render(
   <div>
-    <Wavesurfer />
+    <Wavesurfer audioFile='/resources/demo.wav' />
   </div>
   , document.getElementById('app'));

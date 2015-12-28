@@ -6,7 +6,7 @@ fs.readFile('./node_modules/wavesurfer.js/dist/wavesurfer.min.js', (err, data) =
   if (err) {
     throw new Error('Error reading ./node_modules/wavesurfer.js/dist/wavesurfer.min.js', err);
   }
-  exportingWavesurfer += data
+  exportingWavesurfer += data;
   exportingWavesurfer += `
   if (typeof module !== 'undefined') {
     module.exports = WaveSurfer;

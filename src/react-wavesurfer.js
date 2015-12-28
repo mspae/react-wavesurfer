@@ -1,7 +1,10 @@
 /* global WaveSurfer */
 import React, {PropTypes} from 'react';
 
-const WaveSurfer = WaveSurfer || {};
+// either use an already included WaveSurfer, or import it here
+// the bundle file is built with `npm run wavesurfer`, this is
+// necessary for testing
+const WaveSurfer = WaveSurfer || require('../vendor/wavesurfer-bundle.js');
 
 const EVENTS = [
   'audioprocess',
@@ -40,23 +43,50 @@ class Wavesurfer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    console.log(WaveSurfer);
     if (typeof WaveSurfer === undefined) {
       throw new Error('WaveSurfer is undefined! Either include the Wavesurfer file(s) in a script tag before the react-wavesurfer component or require/import it (but be sure to append module.exports = WaveSurfer; to the Wavesurfer bundle file as it only exports to window.WaveSurfer by default)');
     }
     this._wavesurfer = Object.create(WaveSurfer);
+
+    this._loadAudio = this._loadAudio.bind(this);
   }
 
   componentDidMount() {
     let options = Object.assign({}, {
       container: this.refs.wavesurfer
     }, this.props.options);
+
     this._wavesurfer.init(options);
 
     EVENTS.forEach((e) => {
-      let callbackPropName = 'on' + capitaliseFirstLetter(e);
-      this._wavesurfer.on(e, this.props[callbackPropName]);
+      let propCallback = this.props['on' + capitaliseFirstLetter(e)];
+      if (propCallback) {
+        this._wavesurfer.on(e, propCallback);
+      }
     });
+
+    if (this.props.audioFile) {
+      this._loadAudio(this.props.audioFile);
+    }
+  }
+
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.audioFile !== nextProps.audioFile) {
+      this._loadAudio(nextProps.audioFile);
+    }
+  }
+
+  _loadAudio(audioFile) {
+    // bog-standard string is handled by load method and ajax call
+    if (typeof audioFile === 'string') {
+      this._wavesurfer.load(audioFile);
+    } else if (audioFile instanceof Blob || audioFile instanceof File) {
+      // blob or file is loaded with loadBlob method
+      this._wavesurfer.loadBlob(audioFile);
+    } else {
+      throw new Error('Wavesurfer._loadAudio expexts prop audioFile to be either string or file/blob');
+    }
   }
 
   componentWillUnmount() {
@@ -76,6 +106,14 @@ class Wavesurfer extends React.Component {
 }
 
 Wavesurfer.propTypes = {
+  audioFile: function(props, propName, componentName) {
+    let prop = props[propName];
+
+    if (prop && typeof prop !== 'string' && !prop instanceof Blob && !prop instanceof File) {
+      return new Error('Invalid `' + propName + '` supplied to `' + componentName +
+          '` expected either string or file/blob');
+    }
+  },
   options: PropTypes.shape({
     audioRate: PropTypes.number,
     backend: PropTypes.oneOf(['WebAudio', 'MediaElement']),
@@ -107,6 +145,7 @@ Wavesurfer.propTypes = {
 };
 
 Wavesurfer.defaultProps = {
+  audioFile: undefined,
   options: {
     audioRate: 1,
     backend: 'WebAudio',

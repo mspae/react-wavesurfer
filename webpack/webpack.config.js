@@ -36,7 +36,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['react-hot', 'babel-loader'], include: path.join(__dirname, '../') },
-      { test: /\.js$/, loader: 'eslint-loader', exclude: /node_modules/ }
+      { test: /\.js$/, loader: 'eslint-loader', exclude: /[node_modules|vendor]/ }
     ]
   }
 };

@@ -47,8 +47,9 @@ class Wavesurfer extends React.Component {
       throw new Error('WaveSurfer is undefined! Either include the Wavesurfer file(s) in a script tag before the react-wavesurfer component or require/import it (but be sure to append module.exports = WaveSurfer; to the Wavesurfer bundle file as it only exports to window.WaveSurfer by default)');
     }
     this._wavesurfer = Object.create(WaveSurfer);
-
+    this._fileLoaded = false;
     this._loadAudio = this._loadAudio.bind(this);
+    this._seekTo = this._seekTo.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +59,16 @@ class Wavesurfer extends React.Component {
 
     this._wavesurfer.init(options);
 
+    // file was loaded, wave was drawn, update the _fileLoaded flag
+    this._wavesurfer.on('ready', () => {
+      this._fileLoaded = true;
+      // if there is a position set via prop, go there …
+      if (this.props.pos) {
+        this._seekTo(this.props.pos);
+      }
+    });
+
+    // hook up events to callback handlers passed in as props
     EVENTS.forEach((e) => {
       let propCallback = this.props['on' + capitaliseFirstLetter(e)];
       if (propCallback) {
@@ -65,15 +76,29 @@ class Wavesurfer extends React.Component {
       }
     });
 
+    // if audioFile prop, load file
     if (this.props.audioFile) {
       this._loadAudio(this.props.audioFile);
     }
   }
 
-
+  // update wavesurfer rendering manually
   componentWillReceiveProps(nextProps) {
     if (this.props.audioFile !== nextProps.audioFile) {
       this._loadAudio(nextProps.audioFile);
+    }
+    if (this.props.pos && this._fileLoaded) {
+      this._seekTo(this.props.pos);
+    }
+  }
+
+  // pos is in seconds, the 0-1 proportional position we calculate here …
+  _seekTo(sec) {
+    let pos = 1 / this._wavesurfer.getDuration() * sec;
+    if (this.props.autoCenter) {
+      this._wavesurfer.seekAndCenter(pos);
+    } else {
+      this._wavesurfer.seekTo(pos);
     }
   }
 
@@ -92,7 +117,7 @@ class Wavesurfer extends React.Component {
   componentWillUnmount() {
     // remove listeners
     EVENTS.forEach((e) => {
-      this._wavesurfer.off(e);
+      this._wavesurfer.un(e);
     });
     // destroy wavesurfer instance
     this._wavesurfer.destroy();
@@ -106,6 +131,7 @@ class Wavesurfer extends React.Component {
 }
 
 Wavesurfer.propTypes = {
+  pos: PropTypes.number,
   audioFile: function(props, propName, componentName) {
     let prop = props[propName];
 
@@ -145,6 +171,7 @@ Wavesurfer.propTypes = {
 };
 
 Wavesurfer.defaultProps = {
+  pos: 0,
   audioFile: undefined,
   options: {
     audioRate: 1,

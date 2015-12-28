@@ -1,0 +1,52 @@
+{
+  "name": "react-wavesurfer",
+  "version": "1.0.0",
+  "description": "React component wrapper for wavesurfer.js",
+  "main": "react-wavesurfer.js",
+  "scripts": {
+    "lint": "eslint ./src",
+    "start": "npm run lint && node index.js",
+    "wavesurfer": "babel-node tools/wavesurfer.js",
+    "test": "npm run wavesurfer && ./node_modules/.bin/mocha --compilers js:babel/register --recursive --require=test/setup.js",
+    "dist": "./node_modules/.bin/webpack --progress --colors --config webpack/dist.config.js",
+    "dist.min": "./node_modules/.bin/webpack --progress --colors --optimize-minimize --optimize-occurence-order --optimize-dedupe --config webpack/dist.config.min.js",
+    "build": "npm run dist && npm run dist.min"
+  },
+  "author": "Martin Spencer",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": ">=0.13"
+  },
+  "dependencies": {
+    "react": ">=0.13",
+    "object-assign": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel": "^5.2.15",
+    "babel-core": "^5.6.x",
+    "babel-eslint": "^4.1.x",
+    "babel-loader": "^5.0.x",
+    "chai": "^2.3.0",
+    "escope": "^3.3.0",
+    "eslint": "^0.23.x",
+    "eslint-loader": "^0.14.x",
+    "eslint-plugin-react": "^2.2.0",
+    "jsdom": "^3.1.2",
+    "jsx-loader": "^0.13.2",
+    "mocha": "^2.2.4",
+    "react-addons-test-utils": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-hot-loader": "^1.2.2",
+    "wavesurfer.js": "^1.0.48",
+    "webpack": "^1.7.2",
+    "webpack-dev-server": "^1.7.0"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "wavesurfer",
+    "audio",
+    "react-component",
+    "component"
+  ]
+}

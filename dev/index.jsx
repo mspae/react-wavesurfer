@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Wavesurfer from './src/react-wavesurfer';
+import Wavesurfer from '../src/react-wavesurfer';
 
 class WavesurferParent extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      audioFile: '/resources/demo.wav',
+      audioFile: '../resources/demo.wav',
       pos: 20,
       playing: false
     };

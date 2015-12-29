@@ -3,4 +3,5 @@ test
 vendor
 tools
 webpack
+dev
 *.log

@@ -5,7 +5,7 @@
   "main": "dist/react-wavesurfer.js",
   "scripts": {
     "lint": "eslint ./src",
-    "start": "npm run lint && node index.js",
+    "start": "npm run lint && node dev/index.js",
     "wavesurfer": "babel-node tools/wavesurfer.js",
     "test": "npm run wavesurfer && nodemon ./node_modules/.bin/jest",
     "dist": "./node_modules/.bin/webpack --progress --colors --config webpack/dist.config.js",

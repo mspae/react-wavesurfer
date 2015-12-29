@@ -1,2 +1,2 @@
 require('babel-core/register');
-require('./webpack/server');
+require('../webpack/server');

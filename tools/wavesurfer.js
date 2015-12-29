@@ -16,6 +16,6 @@ fs.readFile('./node_modules/wavesurfer.js/dist/wavesurfer.min.js', (err, data) =
     if (err) {
       throw new Error('Errror writing wavesurfer-bundle.js', err);
     }
-    console.log('Successfully bundled wavesurfer!');
+    console.log('> Successfully bundled wavesurfer!\n');
   });
 });

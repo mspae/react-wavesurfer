@@ -84,17 +84,31 @@ class Wavesurfer extends React.Component {
 
   // update wavesurfer rendering manually
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     if (this.props.audioFile !== nextProps.audioFile) {
       this._loadAudio(nextProps.audioFile);
     }
-    if (this.props.pos && this._fileLoaded) {
-      this._seekTo(this.props.pos);
+    if (typeof nextProps.pos === 'number' && this._fileLoaded) {
+      this._seekTo(nextProps.pos);
     }
+    if (this.props.playing !== nextProps.playing) {
+      if (nextProps.playing) {
+        this._wavesurfer.play();
+      } else {
+        this._wavesurfer.pause();
+      }
+    }
+  }
+
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
   }
 
   // pos is in seconds, the 0-1 proportional position we calculate here …
   _seekTo(sec) {
     let pos = 1 / this._wavesurfer.getDuration() * sec;
+    console.log(sec);
     if (this.props.autoCenter) {
       this._wavesurfer.seekAndCenter(pos);
     } else {
@@ -131,6 +145,7 @@ class Wavesurfer extends React.Component {
 }
 
 Wavesurfer.propTypes = {
+  playing: PropTypes.bool,
   pos: PropTypes.number,
   audioFile: function(props, propName, componentName) {
     let prop = props[propName];
@@ -171,6 +186,7 @@ Wavesurfer.propTypes = {
 };
 
 Wavesurfer.defaultProps = {
+  playing: false,
   pos: 0,
   audioFile: undefined,
   options: {

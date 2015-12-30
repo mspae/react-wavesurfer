@@ -19,7 +19,7 @@
     "url": "https://github.com/mspae/react-wavesurfer"
   },
   "bugs": {
-    "url": "https://github.com/mspae/react-wavesurfer/issues",
+    "url": "https://github.com/mspae/react-wavesurfer/issues"
   },
   "peerDependencies": {
     "react": ">=0.13"

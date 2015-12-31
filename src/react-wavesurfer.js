@@ -2,9 +2,8 @@
 import React, {PropTypes} from 'react';
 
 // either use an already included WaveSurfer, or import it here
-// the bundle file is built with `npm run wavesurfer`, this is
-// necessary for testing
-//const WaveSurfer = WaveSurfer || require('../vendor/wavesurfer-bundle.js');
+// the bundle file is built with `npm run wavesurfer`
+const WaveSurfer = WaveSurfer || require('../vendor/wavesurfer-bundle.js');
 
 const EVENTS = [
   'audioprocess',

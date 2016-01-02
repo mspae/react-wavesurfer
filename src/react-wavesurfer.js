@@ -83,7 +83,6 @@ class Wavesurfer extends React.Component {
 
   // update wavesurfer rendering manually
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (this.props.audioFile !== nextProps.audioFile) {
       this._loadAudio(nextProps.audioFile);
     }
@@ -107,7 +106,6 @@ class Wavesurfer extends React.Component {
   // pos is in seconds, the 0-1 proportional position we calculate here …
   _seekTo(sec) {
     let pos = 1 / this._wavesurfer.getDuration() * sec;
-    console.log(sec);
     if (this.props.autoCenter) {
       this._wavesurfer.seekAndCenter(pos);
     } else {

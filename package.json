@@ -6,8 +6,7 @@
   "scripts": {
     "lint": "eslint ./src",
     "start": "npm run lint && node example/index.js",
-    "wavesurfer": "babel-node tools/wavesurfer.js",
-    "test": "npm run wavesurfer && nodemon ./node_modules/.bin/jest",
+    "test": "nodemon ./node_modules/.bin/jest",
     "dist": "./node_modules/.bin/webpack --progress --colors --config webpack/dist.config.js",
     "dist.min": "./node_modules/.bin/webpack --progress --colors --optimize-minimize --optimize-occurence-order --optimize-dedupe --config webpack/dist.config.min.js",
     "build": "npm run dist && npm run dist.min",
@@ -27,7 +26,8 @@
   },
   "dependencies": {
     "object-assign": "^2.0.0",
-    "react": ">=0.13"
+    "react": ">=0.13",
+    "wavesurfer.js": "^1.0.48"
   },
   "devDependencies": {
     "babel-cli": "^6.3.17",
@@ -46,7 +46,6 @@
     "react-addons-test-utils": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-hot-loader": "^1.2.2",
-    "wavesurfer.js": "^1.0.48",
     "webpack": "^1.7.2",
     "webpack-dev-server": "^1.7.0"
   },

@@ -55,16 +55,12 @@ class Wavesurfer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    let WaveSurferLib = WaveSurfer;
+
     if (typeof WaveSurfer === undefined) {
       throw new Error('WaveSurfer is undefined!');
     }
-    // if we need regions support, require the wavesurfer.regions.js bundle,
-    // which will add the region functionality to the main wavesurfer lib
-    if (props.regions) {
-      WaveSurferLib = require('../vendor/wavesurfer.regions.js');
-    }
-    this._wavesurfer = Object.create(WaveSurferLib);
+
+    this._wavesurfer = Object.create(WaveSurfer);
     this._fileLoaded = false;
     this._loadAudio = this._loadAudio.bind(this);
     this._seekTo = this._seekTo.bind(this);
@@ -248,7 +244,6 @@ Wavesurfer.defaultProps = {
   pos: 0,
   audioFile: undefined
 };
-
 
 export default Wavesurfer;
 

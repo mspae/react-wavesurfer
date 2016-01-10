@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Wavesurfer from '../src/react-wavesurfer';
-
-
+import Wavesurfer from '../src/react-wavesurfer-regions';
 
 class ExampleParent extends React.Component {
   constructor(props) {

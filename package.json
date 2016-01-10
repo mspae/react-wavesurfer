@@ -9,7 +9,7 @@
     "test": "nodemon ./node_modules/.bin/jest",
     "dist": "./node_modules/.bin/webpack --progress --colors --config webpack/dist.config.js",
     "dist.min": "./node_modules/.bin/webpack --progress --colors --optimize-minimize --optimize-occurence-order --optimize-dedupe --config webpack/dist.config.min.js",
-    "build": "npm run bundle-wavesurfer && npm run dist && npm run dist.min",
+    "build": "npm run bundle-plugins && npm run dist && npm run dist.min",
     "prepublish": "npm run build",
     "bundle-plugins": "babel-node tools/plugins.js"
   },

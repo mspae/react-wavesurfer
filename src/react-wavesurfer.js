@@ -1,8 +1,17 @@
 /* global WaveSurfer */
 import React, {PropTypes} from 'react';
+import merge from 'merge';
 
 // import wavesurfer.js commonjs build
 const WaveSurfer = require('wavesurfer.js/dist/wavesurfer.cjs.js');
+
+export const Timeline = (() => {
+  const Timeline = require('../vendor/wavesurfer.timeline.js');
+  return Timeline;
+})();
+
+
+
 
 const EVENTS = [
   'audioprocess',
@@ -30,7 +39,7 @@ function capitaliseFirstLetter(string) {
  */
 function positiveIntegerProptype(props, propName, componentName) {
   let n = props[propName];
-  if (!n || typeof n !== 'number' || n !== parseInt(n, 10) || n < 0) {
+  if (n !== undefined && (typeof n !== 'number' || n !== parseInt(n, 10) || n < 0)) {
     return new Error('Invalid `' + propName + '` supplied to `' + componentName + '`' +
       ', expected a positive integer');
   }
@@ -51,7 +60,7 @@ class Wavesurfer extends React.Component {
   }
 
   componentDidMount() {
-    let options = Object.assign({}, {
+    let options = merge.recursive({}, {
       container: this.refs.wavesurfer
     }, this.props.options);
 
@@ -70,7 +79,12 @@ class Wavesurfer extends React.Component {
     EVENTS.forEach((e) => {
       let propCallback = this.props['on' + capitaliseFirstLetter(e)];
       if (propCallback) {
-        this._wavesurfer.on(e, propCallback);
+        this._wavesurfer.on(e, () => {
+          propCallback({
+            wavesurfer: this._wavesurfer,
+            originalArgs: [...arguments]
+          });
+        });
       }
     });
 
@@ -206,4 +220,6 @@ Wavesurfer.defaultProps = {
   }
 };
 
+
 export default Wavesurfer;
+

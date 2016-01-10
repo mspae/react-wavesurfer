@@ -10,7 +10,8 @@
     "dist": "./node_modules/.bin/webpack --progress --colors --config webpack/dist.config.js",
     "dist.min": "./node_modules/.bin/webpack --progress --colors --optimize-minimize --optimize-occurence-order --optimize-dedupe --config webpack/dist.config.min.js",
     "build": "npm run dist && npm run dist.min",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "bundle-wavesurfer": "babel-node tools/timeline.js"
   },
   "author": "Martin Spencer <mail@martinspencer.de>",
   "license": "ISC",
@@ -25,7 +26,7 @@
     "react": ">=0.13"
   },
   "dependencies": {
-    "object-assign": "^2.0.0",
+    "merge": "^1.2.0",
     "react": ">=0.13",
     "wavesurfer.js": "^1.0.48"
   },

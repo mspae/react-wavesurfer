@@ -1,11 +1,33 @@
 <html>
   <head>
-    <title>React Wavesurfer</title>
+    <title>React Wavesurfer Example</title>
   </head>
+  <style type="text/css">
+    body {
+      font-family: helvetiva, sans-serif;
+      font-size: 16px;
+      line-height: 1.6em;
+      color: #222;
+    }
+    #app {
+      margin: 2em auto;
+      max-width: 960px;
+      padding: 0 2em;
+    }
+    .example {
+      margin-bottom: 3em;
+      padding-bottom: 3em;
+      border-bottom: 1px solid #eee;
+    }
+    .example:last-child {
+      border-bottom: none;
+    }
+    h1 {
+      margin-bottom: 1.5em;
+    }
+  </style>
   <body>
-    <div id='app'>
-    </div>
-    <script src="../vendor/wavesurfer-bundle.js"></script>
+    <div id='app'></div>
     <script src="../src/bundle.js"></script>
   </body>
 </html>

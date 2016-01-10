@@ -46,17 +46,27 @@ Prop name | type | description
 `options` | object | the instantiation options for wavesurfer. See [documentation of wavesurfer.js](https://github.com/katspaugh/wavesurfer.js#wavesurfer-options). The defaults values are the default values of wavesurfer.js
 
 ### Callback props
-Prop name | description
---- | ---
-`onAudioprocess` | Hooks into the respective wavesurfer.js event. See [documentation of wavesurfer.js](https://github.com/katspaugh/wavesurfer.js#wavesurfer-events)
-`onError` | See above
-`onFinish` | See above
-`onLoading` | See above
-`onMouseup` | See above
-`onPause` | See above
-`onPlay` | See above
-`onReady` | See above
-`onScroll` | See above
-`onSeek` | See above
-`onZoom` | See above
+
+You can hook into wavesurfer events via functions you define as props. They receive an object of parameters:
+
+```javascript
+{
+  wavesurfer, // the wavesurfer instance
+  originalArgs // an array of the arguments the original event callback received
+}
+```
+
+The full list of available callback props, see [documentation of wavesurfer.js](https://github.com/katspaugh/wavesurfer.js#wavesurfer-events) for further information:
+
+`onAudioprocess`
+`onError`
+`onFinish`
+`onLoading`
+`onMouseup`
+`onPause`
+`onPlay`
+`onReady`
+`onScroll`
+`onSeek`
+`onZoom`
 

@@ -11,7 +11,7 @@
     "dist.min": "./node_modules/.bin/webpack --progress --colors --optimize-minimize --optimize-occurence-order --optimize-dedupe --config webpack/dist.config.min.js",
     "build": "npm run bundle-wavesurfer && npm run dist && npm run dist.min",
     "prepublish": "npm run build",
-    "bundle-wavesurfer": "babel-node tools/timeline.js"
+    "bundle-plugins": "babel-node tools/plugins.js"
   },
   "author": "Martin Spencer <mail@martinspencer.de>",
   "license": "ISC",
@@ -31,8 +31,8 @@
     "wavesurfer.js": "^1.0.48"
   },
   "devDependencies": {
-    "babel-cli": "^6.3.17",
     "babel": "^6.0.x",
+    "babel-cli": "^6.3.17",
     "babel-core": "^6.0.x",
     "babel-eslint": "5.0.0-beta6",
     "babel-jest": "^6.0.x",
@@ -44,6 +44,7 @@
     "eslint-plugin-react": "^2.2.0",
     "jest-cli": "^0.8.2",
     "jsx-loader": "^0.13.2",
+    "object-assign": "^4.0.1",
     "react-addons-test-utils": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-hot-loader": "^1.2.2",

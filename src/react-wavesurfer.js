@@ -5,13 +5,6 @@ import merge from 'merge';
 // import wavesurfer.js commonjs build
 const WaveSurfer = require('wavesurfer.js/dist/wavesurfer.cjs.js');
 
-export const Timeline = (() => {
-  const Timeline = require('../vendor/wavesurfer.timeline.js');
-  return Timeline;
-})();
-
-
-
 
 const EVENTS = [
   'audioprocess',
@@ -27,6 +20,19 @@ const EVENTS = [
   'zoom'
 ];
 
+const REGION_EVENTS = [
+  'region-in ',
+  'region-out',
+  'region-mouseenter',
+  'region-mouseleave',
+  'region-click',
+  'region-dblclick',
+  'region-created ',
+  'region-updated ',
+  'region-update-end ',
+  'region-removed '
+];
+
 /**
  * @description Capitalise the first letter of a string
  */
@@ -35,7 +41,7 @@ function capitaliseFirstLetter(string) {
 }
 
 /**
- * @description Throws an error if the prop is nonexistant, not an integer or not positive
+ * @description Throws an error if the prop is defined and not an integer or not positive
  */
 function positiveIntegerProptype(props, propName, componentName) {
   let n = props[propName];
@@ -50,17 +56,23 @@ class Wavesurfer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    let WaveSurferLib = WaveSurfer;
     if (typeof WaveSurfer === undefined) {
-      throw new Error('WaveSurfer is undefined! Either include the Wavesurfer file(s) in a script tag before the react-wavesurfer component or require/import it (but be sure to append module.exports = WaveSurfer; to the Wavesurfer bundle file as it only exports to window.WaveSurfer by default)');
+      throw new Error('WaveSurfer is undefined!');
     }
-    this._wavesurfer = Object.create(WaveSurfer);
+    // if we need regions support, require the wavesurfer.regions.js bundle,
+    // which will add the region functionality to the main wavesurfer lib
+    if (props.regions) {
+      WaveSurferLib = require('../vendor/wavesurfer.regions.js');
+    }
+    this._wavesurfer = Object.create(WaveSurferLib);
     this._fileLoaded = false;
     this._loadAudio = this._loadAudio.bind(this);
     this._seekTo = this._seekTo.bind(this);
   }
 
   componentDidMount() {
-    let options = merge.recursive({}, {
+    const options = merge.recursive({}, {
       container: this.refs.wavesurfer
     }, this.props.options);
 
@@ -73,11 +85,15 @@ class Wavesurfer extends React.Component {
       if (this.props.pos) {
         this._seekTo(this.props.pos);
       }
+      if (this.props.regions) {
+        this.props.regions.forEach((region) => {
+          this._wavesurfer.addRegion(region);
+        });
+      }
     });
 
-    // hook up events to callback handlers passed in as props
-    EVENTS.forEach((e) => {
-      let propCallback = this.props['on' + capitaliseFirstLetter(e)];
+    const hookUpPropCallback = (e) => {
+      const propCallback = this.props['on' + capitaliseFirstLetter(e)];
       if (propCallback) {
         this._wavesurfer.on(e, () => {
           propCallback({
@@ -86,12 +102,35 @@ class Wavesurfer extends React.Component {
           });
         });
       }
-    });
+    };
+
+    // hook up events to callback handlers passed in as props
+    EVENTS.forEach(hookUpPropCallback);
+
+    // do stuff for regions
+    if (this.props.regions) {
+      REGION_EVENTS.forEach(hookUpPropCallback);
+    }
 
     // if audioFile prop, load file
     if (this.props.audioFile) {
       this._loadAudio(this.props.audioFile);
     }
+  }
+
+  componentWillUnmount() {
+    // remove listeners
+    EVENTS.forEach((e) => {
+      this._wavesurfer.un(e);
+    });
+
+    if (this.props.regions) {
+      REGION_EVENTS.forEach((e) => {
+        this._wavesurfer.un(e);
+      });
+    }
+    // destroy wavesurfer instance
+    this._wavesurfer.destroy();
   }
 
   // update wavesurfer rendering manually
@@ -102,6 +141,23 @@ class Wavesurfer extends React.Component {
     if (typeof nextProps.pos === 'number' && this._fileLoaded) {
       this._seekTo(nextProps.pos);
     }
+    if (nextProps.regions) {
+      const _regionsToDelete = this._wavesurfer.regions.list;
+      nextProps.regions.forEach((region) => {
+        // update region
+        if (region.id && this._wavesurfer.regions.list[region.id]) {
+          this._wavesurfer.regions.list[region.id].update(region);
+        } else {
+          // new region
+          this.wavesurfer.addRegion(region);
+        }
+      });
+      if (_regionsToDelete.length) {
+        _regionsToDelete.forEach((regionToDelete) => {
+          this._wavesurfer.regions.list[regionToDelete.id].remove();
+        });
+      }
+    }
     if (this.props.playing !== nextProps.playing) {
       if (nextProps.playing) {
         this._wavesurfer.play();
@@ -110,7 +166,6 @@ class Wavesurfer extends React.Component {
       }
     }
   }
-
 
   shouldComponentUpdate(nextProps, nextState) {
     return true;
@@ -138,14 +193,7 @@ class Wavesurfer extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    // remove listeners
-    EVENTS.forEach((e) => {
-      this._wavesurfer.un(e);
-    });
-    // destroy wavesurfer instance
-    this._wavesurfer.destroy();
-  }
+
 
   render() {
     return (
@@ -165,6 +213,7 @@ Wavesurfer.propTypes = {
           '` expected either string or file/blob');
     }
   },
+  regions: PropTypes.array,
   options: PropTypes.shape({
     audioRate: PropTypes.number,
     backend: PropTypes.oneOf(['WebAudio', 'MediaElement']),
@@ -198,26 +247,7 @@ Wavesurfer.propTypes = {
 Wavesurfer.defaultProps = {
   playing: false,
   pos: 0,
-  audioFile: undefined,
-  options: {
-    audioRate: 1,
-    backend: 'WebAudio',
-    barWidth: undefined,
-    cursorColor: '#333',
-    cursorWidth: 1,
-    fillParent: true,
-    height: 128,
-    hideScrollbar: false,
-    interact: true,
-    minPxPerSec: 50,
-    normalize: false,
-    pixelRatio: window.devicePixelRatio || 1,
-    progressColor: '#555',
-    scrollParent: false,
-    skipLength: 2,
-    waveColor: '#999',
-    autoCenter: true
-  }
+  audioFile: undefined
 };
 
 

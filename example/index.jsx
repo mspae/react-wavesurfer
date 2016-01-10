@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Wavesurfer, {Timeline} from '../src/react-wavesurfer';
+import Wavesurfer from '../src/react-wavesurfer';
+
 
 
 class ExampleParent extends React.Component {
@@ -17,10 +18,12 @@ class ExampleParent extends React.Component {
         <h1>react-wavesurfer examples</h1>
         <SimpleExample audioFile={this.state.audioFile} />
         <TimelineExample audioFile={this.state.audioFile} />
+        <RegionsExample audioFile={this.state.audioFile} />
       </div>
     );
   }
 }
+
 
 /**
  * Simple example of a React component with a Wavesurfer
@@ -38,16 +41,19 @@ class SimpleExample extends React.Component {
   }
 }
 
+
 /**
  * Example with the timeline plugin
  */
+const WaveSurferTimeline = require('wavesurfer.js/plugin/wavesurfer.timeline.js');
+
 class TimelineExample extends React.Component {
   constructor(props) {
     super(props);
   }
   addTimeline(e) {
     // Init Timeline plugin
-    var timeline = Object.create(Timeline);
+    var timeline = Object.create(WaveSurferTimeline);
     timeline.init({
         wavesurfer: e.wavesurfer,
         container: '#wave-timeline'
@@ -66,6 +72,42 @@ class TimelineExample extends React.Component {
               waveColor: '#eee',
               height: 50
             }}
+          />
+      </div>
+    );
+  }
+}
+
+
+/**
+ * Example with the timeline plugin
+ */
+class RegionsExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      regions: [{
+        id: 'One',
+        start: 0,
+        end: 3
+      }, {
+        id: 'Two',
+        start: 4,
+        end: 7
+      }, {
+        id: 'Three',
+        start: 9,
+        end: 13
+      }]
+    };
+  }
+  render() {
+    return (
+      <div className='example'>
+        <p>With regions plugin enabled</p>
+          <Wavesurfer
+            audioFile={this.props.audioFile}
+            regions={this.state.regions}
           />
       </div>
     );

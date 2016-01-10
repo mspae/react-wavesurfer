@@ -23,7 +23,10 @@ module.exports = {
 
   resolve: {
     modulesDirectories: ['node_modules', '../src'],
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    alias: {
+      wavesurfer: 'wavesurfer.js/dist/wavesurfer.cjs'
+    }
   },
 
   eslint: {

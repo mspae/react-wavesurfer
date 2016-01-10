@@ -1,9 +1,9 @@
-
-  define('wavesurfer', function() {
-    return require('wavesurfer.js/dist/wavesurfer.cjs.js');
-  });
-  (function (root, factory) {
+(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
+        define('wavesurfer', function() {
+          return require('wavesurfer.js/dist/wavesurfer.cjs.js');
+        });
+
         define(['wavesurfer'], factory);
     } else {
         root.WaveSurfer.Timeline = factory(root.WaveSurfer);

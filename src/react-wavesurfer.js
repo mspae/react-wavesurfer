@@ -51,7 +51,6 @@ function positiveIntegerProptype(props, propName, componentName) {
   }
 }
 
-
 class Wavesurfer extends React.Component {
   constructor(props) {
     super(props);

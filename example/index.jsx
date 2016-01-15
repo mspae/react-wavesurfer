@@ -8,12 +8,39 @@ import Wavesurfer from '../src/react-wavesurfer.js';
  * Simple example of a React component with a Wavesurfer
  */
 class SimpleExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      playing: false
+    };
+    this.handleTogglePlay = this.handleTogglePlay.bind(this);
+  }
+  handleTogglePlay() {
+    this.setState({
+      playing: !this.state.playing
+    });
+  }
   render() {
+    const waveOptions = {
+      scrollParent: true,
+      height: 140,
+      progressColor: '#6c718c',
+      waveColor: '#c4c8dc',
+      normalize: true
+    };
+    const process = (e) => {
+      console.log(e);
+    };
     return (
       <div className='example'>
         <p>Clean Example</p>
+        <button onClick={this.handleTogglePlay}>toggle play</button>
         <Wavesurfer
+          options={waveOptions}
+          onAudioprocess={process}
           audioFile={this.props.audioFile}
+          playing={this.state.playing}
         />
       </div>
     );

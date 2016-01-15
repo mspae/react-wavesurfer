@@ -88,10 +88,11 @@ class Wavesurfer extends Component {
 
     const hookUpPropCallback = (e) => {
       const propCallback = this.props['on' + capitaliseFirstLetter(e)];
+      const wavesurfer = this._wavesurfer;
       if (propCallback) {
-        this._wavesurfer.on(e, () => {
+        this._wavesurfer.on(e, function () {
           propCallback({
-            wavesurfer: this._wavesurfer,
+            wavesurfer: wavesurfer,
             originalArgs: [...arguments]
           });
         });

@@ -1,6 +1,6 @@
 # react-wavesurfer
 
-_This project is under active development, the functionality is still pretty rugged. Any contribution is greatly appreciated_
+__This project is under active development, the functionality is still pretty rugged.__
 
 Implemented so far:
 
@@ -8,10 +8,8 @@ Implemented so far:
 * WaveSurfer events trigger callbacks passed in as props (prefixed with on and capitalised, e.g. the event *ready* triggers the *onReady* prop callback)
 * WaveSurver position, playing status and audioFile can be dynamically set by props
 
-Todos:
+__Note:__ This component is subject to breaking changes in the near future. The wavesurfer.js library (including its plugins) will change its module format in the near future. This will allow this component to have better plugins support out of the box.
 
-* Integrate Timeline, Regions, Minimap
-* Tests!
 
 ## Usage
 
@@ -47,7 +45,7 @@ Prop name | type | description
 
 ### Callback props
 
-You can hook into wavesurfer events via functions you define as props. They receive an object of parameters:
+You can hook into wavesurfer events via functions you define as props. They can be used to wire up wavesurfer plugins until proper support for them is added. They receive an object of parameters:
 
 ```javascript
 {
@@ -69,4 +67,3 @@ The full list of available callback props, see [documentation of wavesurfer.js](
 `onScroll`
 `onSeek`
 `onZoom`
-

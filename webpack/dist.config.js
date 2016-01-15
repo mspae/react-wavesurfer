@@ -2,14 +2,12 @@ const path =  require('path');
 const webpack =  require('webpack');
 
 module.exports = {
-    entry: {
-      basic: './src/react-wavesurfer',
-      regions: './src/react-wavesurfer-regions'
-    },
+    entry: './src/react-wavesurfer',
+
     output: {
         path: path.join(__dirname, '../dist'),
         library: 'ReactWavesurfer',
-        filename: '[name].react-wavesurfer.js',
+        filename: 'react-wavesurfer.js',
         libraryTarget: 'umd'
     },
 
@@ -20,7 +18,10 @@ module.exports = {
     },
 
     resolve: {
-      extensions: ['', '.js', '.jsx']
+      extensions: ['', '.js', '.jsx'],
+      alias: {
+        wavesurfer: 'wavesurfer.js/dist/wavesurfer.cjs'
+      }
     },
 
     externals: [

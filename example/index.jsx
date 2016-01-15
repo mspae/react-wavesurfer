@@ -1,26 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Wavesurfer from '../src/react-wavesurfer-regions';
+import Wavesurfer from '../dist/react-wavesurfer.js';
 
-class ExampleParent extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      audioFile:'../resources/demo.wav'
-    };
-  }
-  render () {
-    return (
-      <div className='example-list'>
-        <h1>react-wavesurfer examples</h1>
-        <SimpleExample audioFile={this.state.audioFile} />
-        <TimelineExample audioFile={this.state.audioFile} />
-        <RegionsExample audioFile={this.state.audioFile} />
-      </div>
-    );
-  }
-}
 
 
 /**
@@ -43,7 +24,7 @@ class SimpleExample extends React.Component {
 /**
  * Example with the timeline plugin
  */
-const WaveSurferTimeline = require('wavesurfer.js/plugin/wavesurfer.timeline.js');
+/*const WaveSurferTimeline = require('wavesurfer.js/plugin/wavesurfer.timeline.js');
 
 class TimelineExample extends React.Component {
   constructor(props) {
@@ -74,13 +55,13 @@ class TimelineExample extends React.Component {
       </div>
     );
   }
-}
+}*/
 
 
 /**
  * Example with the timeline plugin
  */
-class RegionsExample extends React.Component {
+/*class RegionsExample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -107,6 +88,25 @@ class RegionsExample extends React.Component {
             audioFile={this.props.audioFile}
             regions={this.state.regions}
           />
+      </div>
+    );
+  }
+}*/
+
+
+class ExampleParent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      audioFile:'../resources/demo.wav'
+    };
+  }
+  render () {
+    return (
+      <div className='example-list'>
+        <h1>react-wavesurfer examples</h1>
+        <SimpleExample audioFile={this.state.audioFile} />
       </div>
     );
   }

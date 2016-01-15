@@ -5,7 +5,6 @@ import merge from 'merge';
 // import wavesurfer.js commonjs build
 const WaveSurfer = require('wavesurfer.js/dist/wavesurfer.cjs.js');
 
-
 const EVENTS = [
   'audioprocess',
   'error',

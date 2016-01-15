@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Wavesurfer from '../dist/react-wavesurfer.js';
+import Wavesurfer from '../src/react-wavesurfer.js';
 
 
 

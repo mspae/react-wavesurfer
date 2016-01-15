@@ -1,5 +1,5 @@
 /* global WaveSurfer */
-import React, {PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import merge from 'merge';
 
 // import wavesurfer.js commonjs build
@@ -19,7 +19,7 @@ const EVENTS = [
   'zoom'
 ];
 
-const REGION_EVENTS = [
+/*const REGION_EVENTS = [
   'region-in ',
   'region-out',
   'region-mouseenter',
@@ -30,7 +30,7 @@ const REGION_EVENTS = [
   'region-updated ',
   'region-update-end ',
   'region-removed '
-];
+];*/
 
 /**
  * @description Capitalise the first letter of a string
@@ -50,7 +50,7 @@ function positiveIntegerProptype(props, propName, componentName) {
   }
 }
 
-class Wavesurfer extends React.Component {
+class Wavesurfer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -66,9 +66,9 @@ class Wavesurfer extends React.Component {
   }
 
   componentDidMount() {
-    const options = merge.recursive({}, {
+    const options = merge.recursive({}, this.props.options, {
       container: this.refs.wavesurfer
-    }, this.props.options);
+    });
 
     this._wavesurfer.init(options);
 
@@ -102,9 +102,9 @@ class Wavesurfer extends React.Component {
     EVENTS.forEach(hookUpPropCallback);
 
     // do stuff for regions
-    if (this.props.regions) {
+    /*if (this.props.regions) {
       REGION_EVENTS.forEach(hookUpPropCallback);
-    }
+    }*/
 
     // if audioFile prop, load file
     if (this.props.audioFile) {
@@ -118,12 +118,12 @@ class Wavesurfer extends React.Component {
       this._wavesurfer.un(e);
     });
 
-    if (this.props.regions) {
+    /*if (this.props.regions) {
       REGION_EVENTS.forEach((e) => {
         this._wavesurfer.un(e);
       });
     }
-    // destroy wavesurfer instance
+*/    // destroy wavesurfer instance
     this._wavesurfer.destroy();
   }
 
@@ -135,7 +135,7 @@ class Wavesurfer extends React.Component {
     if (typeof nextProps.pos === 'number' && this._fileLoaded) {
       this._seekTo(nextProps.pos);
     }
-    if (nextProps.regions) {
+    /*if (nextProps.regions) {
       const _regionsToDelete = this._wavesurfer.regions.list;
       nextProps.regions.forEach((region) => {
         // update region
@@ -151,7 +151,7 @@ class Wavesurfer extends React.Component {
           this._wavesurfer.regions.list[regionToDelete.id].remove();
         });
       }
-    }
+    }*/
     if (this.props.playing !== nextProps.playing) {
       if (nextProps.playing) {
         this._wavesurfer.play();
@@ -200,8 +200,7 @@ Wavesurfer.propTypes = {
   playing: PropTypes.bool,
   pos: PropTypes.number,
   audioFile: function(props, propName, componentName) {
-    let prop = props[propName];
-
+    const prop = props[propName];
     if (prop && typeof prop !== 'string' && !prop instanceof Blob && !prop instanceof File) {
       return new Error('Invalid `' + propName + '` supplied to `' + componentName +
           '` expected either string or file/blob');
@@ -212,7 +211,7 @@ Wavesurfer.propTypes = {
     audioRate: PropTypes.number,
     backend: PropTypes.oneOf(['WebAudio', 'MediaElement']),
     barWidth: function(props, propName, componentName) {
-      let prop = props[propName];
+      const prop = props[propName];
       if (prop !== undefined && typeof prop !== 'number') {
         return new Error('Invalid `' + propName + '` supplied to `' + componentName +
           '` expected either undefined or number');
@@ -241,7 +240,8 @@ Wavesurfer.propTypes = {
 Wavesurfer.defaultProps = {
   playing: false,
   pos: 0,
-  audioFile: undefined
+  audioFile: undefined,
+  options: WaveSurfer.defaultParams
 };
 
 export default Wavesurfer;

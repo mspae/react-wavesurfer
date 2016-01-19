@@ -1,6 +1,7 @@
 /* global WaveSurfer */
 import React, {Component, PropTypes} from 'react';
 import merge from 'merge';
+import _ from 'lodash';
 
 // import wavesurfer.js commonjs build
 const WaveSurfer = require('wavesurfer.js/dist/wavesurfer.cjs.js');
@@ -50,10 +51,14 @@ function positiveIntegerProptype(props, propName, componentName) {
   }
 }
 
+
+
 class Wavesurfer extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      pos: 0
+    };
 
     if (typeof WaveSurfer === undefined) {
       throw new Error('WaveSurfer is undefined!');
@@ -61,6 +66,7 @@ class Wavesurfer extends Component {
 
     this._wavesurfer = Object.create(WaveSurfer);
     this._fileLoaded = false;
+    this._playing = false;
     this._loadAudio = this._loadAudio.bind(this);
     this._seekTo = this._seekTo.bind(this);
   }
@@ -84,6 +90,31 @@ class Wavesurfer extends Component {
           this._wavesurfer.addRegion(region);
         });
       }
+    });
+
+    this._wavesurfer.on('audioprocess', (pos) => {
+      this.setState({
+        pos
+      });
+      this.props.onPosChange({
+        wavesurfer: this._wavesurfer,
+        originalArgs: [pos]
+      });
+    });
+
+    // `audioprocess` is not fired when seeking, so we have to plug into the
+    // `seek` event and calculate the equivalent in seconds (seek event
+    // receives a position float 0-1) – See the README.md for explanation why we
+    // need this
+    this._wavesurfer.on('seek', (pos) => {
+      pos = this._posToSec(pos);
+      this.setState({
+        pos
+      });
+      this.props.onPosChange({
+        wavesurfer: this._wavesurfer,
+        originalArgs: [pos]
+      });
     });
 
     const hookUpPropCallback = (e) => {
@@ -133,7 +164,11 @@ class Wavesurfer extends Component {
     if (this.props.audioFile !== nextProps.audioFile) {
       this._loadAudio(nextProps.audioFile);
     }
-    if (typeof nextProps.pos === 'number' && this._fileLoaded) {
+
+    if (nextProps.pos &&
+        this._fileLoaded &&
+        nextProps.pos !== this.props.pos &&
+        nextProps.pos !== this.state.pos) {
       this._seekTo(nextProps.pos);
     }
     /*if (nextProps.regions) {
@@ -156,19 +191,31 @@ class Wavesurfer extends Component {
     if (this.props.playing !== nextProps.playing) {
       if (nextProps.playing) {
         this._wavesurfer.play();
+        this._playing = true;
       } else {
         this._wavesurfer.pause();
+        this._playing = false;
       }
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return true;
+    return false;
+  }
+
+  // receives seconds and transforms this to the position as a float 0-1
+  _secToPos(sec) {
+    return 1 / this._wavesurfer.getDuration() * sec;
+  }
+
+  // receives position as a float 0-1 and transforms this to seconds
+  _posToSec(pos) {
+    return pos * this._wavesurfer.getDuration();
   }
 
   // pos is in seconds, the 0-1 proportional position we calculate here …
   _seekTo(sec) {
-    let pos = 1 / this._wavesurfer.getDuration() * sec;
+    const pos = this._secToPos(sec);
     if (this.props.autoCenter) {
       this._wavesurfer.seekAndCenter(pos);
     } else {
@@ -187,8 +234,6 @@ class Wavesurfer extends Component {
       throw new Error('Wavesurfer._loadAudio expexts prop audioFile to be either string or file/blob');
     }
   }
-
-
 
   render() {
     return (
@@ -242,7 +287,8 @@ Wavesurfer.defaultProps = {
   playing: false,
   pos: 0,
   audioFile: undefined,
-  options: WaveSurfer.defaultParams
+  options: WaveSurfer.defaultParams,
+  onPosChange: function() {}
 };
 
 export default Wavesurfer;

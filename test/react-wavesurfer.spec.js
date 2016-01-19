@@ -1,4 +1,4 @@
-/* global describe, it, jest, expect, beforeEach */
+/* global describe, it, jest, expect, beforeEach, spyOn */
 
 jest.dontMock('../src/react-wavesurfer.js');
 
@@ -7,19 +7,43 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 
-const WavesurferComponent = require('../src/react-wavesurfer').default;
-global.WaveSurfer = require('../vendor/wavesurfer-bundle.js');
+const Wavesurfer = require('../src/react-wavesurfer').default;
 
-describe('React Wavesurfer component', () => {
+describe('component basics', () => {
+  let mountedComponent, component;
 
-  it('should run the tests', () => {
-    expect(true).toBe(true);
+  beforeEach(() => {
+    mountedComponent = TestUtils.renderIntoDocument(<Wavesurfer />);
+    component = TestUtils.findRenderedComponentWithType(mountedComponent, Wavesurfer);
   });
 
   it('should render component', () => {
-    let wavesurfer = TestUtils.renderIntoDocument(<WavesurferComponent />);
-    let component = TestUtils.findRenderedComponentWithType(wavesurfer, WavesurferComponent);
-    expect(TestUtils.isElementOfType(component), WavesurferComponent);
+    expect(TestUtils.isElementOfType(component), Wavesurfer);
   });
 
+  it('should have a wavesurfer.js instance', () => {
+    expect(component._wavesurfer).toBeDefined();
+  });
+});
+
+describe('wavesurfer.js callbacks', () => {
+  let callbacks, wavesurfer, component;
+  beforeEach(() => {
+  });
+
+  it('should trigger callbacks', () => {
+    callbacks = {
+      handleReady: (e) => {
+        console.log('done', e);
+      }
+    };
+    spyOn(callbacks, 'handleReady');
+    wavesurfer = TestUtils.renderIntoDocument(<Wavesurfer onReady={callbacks.handleReady} />);
+    component = TestUtils.findRenderedComponentWithType(wavesurfer, Wavesurfer);
+    component._wavesurfer.on('ready', callbacks.handleReady);
+    component._wavesurfer.fireEvent('ready');
+    //callbacks.handleReady();
+    console.log(component._wavesurfer);
+    expect(callbacks.handleReady).toHaveBeenCalled();
+  });
 });

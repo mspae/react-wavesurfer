@@ -1,12 +1,12 @@
 {
   "name": "react-wavesurfer",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "React component wrapper for wavesurfer.js",
   "main": "dist/react-wavesurfer.js",
   "scripts": {
     "lint": "eslint ./src",
     "start": "npm run lint && node example/index.js",
-    "test": "nodemon ./node_modules/.bin/jest",
+    "test": "./node_modules/.bin/jest",
     "dist": "./node_modules/.bin/webpack --progress --colors --config webpack/dist.config.js",
     "dist.min": "./node_modules/.bin/webpack --progress --colors --optimize-minimize --optimize-occurence-order --optimize-dedupe --config webpack/dist.config.min.js",
     "build": "npm run bundle-plugins && npm run dist && npm run dist.min",
@@ -26,6 +26,7 @@
     "react": ">=0.13"
   },
   "dependencies": {
+    "lodash": "^4.0.0",
     "merge": "^1.2.0",
     "react": ">=0.13",
     "wavesurfer.js": "^1.0.48"

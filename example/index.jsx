@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Wavesurfer from '../src/react-wavesurfer.js';
+import Wavesurfer from '../dist/react-wavesurfer.js';
 
 
 
@@ -12,13 +12,20 @@ class SimpleExample extends React.Component {
     super(props);
 
     this.state = {
-      playing: false
+      playing: false,
+      pos: 0
     };
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
+    this.handlePosChange = this.handlePosChange.bind(this);
   }
   handleTogglePlay() {
     this.setState({
       playing: !this.state.playing
+    });
+  }
+  handlePosChange(e) {
+    this.setState({
+      pos: e.originalArgs[0]
     });
   }
   render() {
@@ -29,16 +36,14 @@ class SimpleExample extends React.Component {
       waveColor: '#c4c8dc',
       normalize: true
     };
-    const process = (e) => {
-      console.log(e);
-    };
     return (
       <div className='example'>
         <p>Clean Example</p>
         <button onClick={this.handleTogglePlay}>toggle play</button>
         <Wavesurfer
+          pos={this.state.pos}
           options={waveOptions}
-          onAudioprocess={process}
+          onPosChange={this.handlePosChange}
           audioFile={this.props.audioFile}
           playing={this.state.playing}
         />

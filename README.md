@@ -44,8 +44,8 @@ class MyComponent extends React.Component {
     return (
       <div>
         <Wavesurfer
-          audioFile: 'path/to/audio/file.mp3'
-          pos: 20,
+          audioFile={'path/to/audio/file.mp3'}
+          pos={20}
           onPosChange={this.handlePosChange}
           playing={this.state.playing}
         />

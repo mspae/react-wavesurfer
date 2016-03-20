@@ -5,8 +5,7 @@ module.exports = {
   devtool: 'eval',
 
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
+    './src/react-wavesurfer',
     './example/index.jsx'
   ],
 
@@ -25,7 +24,7 @@ module.exports = {
     modulesDirectories: ['node_modules', '../src'],
     extensions: ['', '.js', '.jsx'],
     alias: {
-      wavesurfer: 'wavesurfer.js/dist/wavesurfer.cjs'
+      wavesurfer: 'wavesurfer.js'
     }
   },
 

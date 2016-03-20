@@ -5,13 +5,12 @@
   "main": "dist/react-wavesurfer.js",
   "scripts": {
     "lint": "eslint ./src",
-    "start": "npm run lint && node example/index.js",
+    "start": "webpack-dev-server --progress --colors --config ./build-config/webpack.config.js",
     "test": "./node_modules/.bin/jest",
-    "dist": "./node_modules/.bin/webpack --progress --colors --config webpack/dist.config.js",
-    "dist.min": "./node_modules/.bin/webpack --progress --colors --optimize-minimize --optimize-occurence-order --optimize-dedupe --config webpack/dist.config.min.js",
-    "build": "npm run bundle-plugins && npm run dist && npm run dist.min",
-    "prepublish": "npm run build",
-    "bundle-plugins": "babel-node tools/plugins.js"
+    "dist": "./node_modules/.bin/webpack --progress --colors --config build-config/dist.config.js",
+    "dist.min": "./node_modules/.bin/webpack --progress --colors --optimize-minimize --optimize-occurence-order --optimize-dedupe --config build-config/dist.config.min.js",
+    "build": "npm run dist && npm run dist.min",
+    "prepublish": "npm run build"
   },
   "author": "Martin Spencer <mail@martinspencer.de>",
   "license": "ISC",

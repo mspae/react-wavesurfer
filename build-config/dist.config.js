@@ -20,7 +20,7 @@ module.exports = {
     resolve: {
       extensions: ['', '.js', '.jsx'],
       alias: {
-        wavesurfer: 'wavesurfer.js/dist/wavesurfer.cjs'
+        wavesurfer: 'wavesurfer.js'
       }
     },
 

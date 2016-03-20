@@ -51,17 +51,28 @@ class SimpleExample extends React.Component {
     };
     return (
       <div className='example'>
-        <button onClick={this.handleTogglePlay}>toggle play</button>
-        <p>volume:
+
+        <p>
+          <strong>volume:</strong>
           <input type='range'
             min={0}
             max={1}
             step='0.01'
             value={this.state.volume}
             onChange={this.handleVolumeChange} />
+          <span class='prop-val'>
+            {this.state.volume + ''}
+          </span>
         </p>
-        <p>playing: {this.state.playing + ''}</p>
-        <p>position:
+        <p>
+          <strong>playing:</strong>
+          <button onClick={this.handleTogglePlay}>toggle play</button>
+          <span class='prop-val'>
+            {this.state.playing + ''}
+          </span>
+        </p>
+        <p>
+          <strong>position:</strong>
           <input type='number'
             step='0.01'
             value={this.state.pos}

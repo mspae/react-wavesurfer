@@ -60,6 +60,7 @@ class MyComponent extends React.Component {
 Prop name | type | description
 --- | --- | ---
 `playing` | bool | controls wether the player is playing
+`volume` | number | [0–1]
 `pos` | number | position of playback in seconds
 `audioFile` | string/blob | the audio to render, can be set after the component was mounted
 `options` | object | the instantiation options for wavesurfer. See [documentation of wavesurfer.js](https://github.com/katspaugh/wavesurfer.js#wavesurfer-options). The defaults values are the default values of wavesurfer.js

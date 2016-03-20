@@ -48,6 +48,7 @@
     "react-addons-test-utils": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-hot-loader": "^1.2.2",
+    "wavesurfer.js": "^1.0.58",
     "webpack": "^1.7.2",
     "webpack-dev-server": "^1.7.0"
   },

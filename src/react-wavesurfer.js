@@ -4,7 +4,7 @@ import merge from 'merge';
 import _ from 'lodash';
 
 // import wavesurfer.js commonjs build
-const WaveSurfer = require('wavesurfer.js/dist/wavesurfer.cjs.js');
+const WaveSurfer = require('wavesurfer.js');
 
 const EVENTS = [
   'audioprocess',

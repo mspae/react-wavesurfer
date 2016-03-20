@@ -5,7 +5,6 @@ module.exports = {
   devtool: 'eval',
 
   entry: [
-    './src/react-wavesurfer',
     './example/index.jsx'
   ],
 

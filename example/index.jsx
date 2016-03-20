@@ -23,7 +23,7 @@ class SimpleExample extends React.Component {
   }
   handlePosChange(e) {
     this.setState({
-      pos: e.originalArgs[0]
+      pos: e.originalArgs ? e.originalArgs[0] : +e.target.value
     });
   }
   render() {
@@ -38,6 +38,9 @@ class SimpleExample extends React.Component {
       <div className='example'>
         <p>Clean Example</p>
         <button onClick={this.handleTogglePlay}>toggle play</button>
+        <input type='number'
+          value={this.state.pos}
+          onChange={this.handlePosChange} />
         <Wavesurfer
           pos={this.state.pos}
           options={waveOptions}

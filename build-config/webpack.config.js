@@ -24,7 +24,7 @@ module.exports = {
     modulesDirectories: ['node_modules', '../src'],
     extensions: ['', '.js', '.jsx'],
     alias: {
-      wavesurfer: 'wavesurfer.js'
+      'wavesurfer': path.join(__dirname, '../node_modules/wavesurfer.js/dist/wavesurfer.min.js')
     }
   },
 

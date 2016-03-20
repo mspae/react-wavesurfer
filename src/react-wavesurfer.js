@@ -71,10 +71,8 @@ class Wavesurfer extends Component {
       if (this.props.pos) {
         this._seekTo(this.props.pos);
       }
-      if (this.props.regions) {
-        this.props.regions.forEach((region) => {
-          this._wavesurfer.addRegion(region);
-        });
+      if (this.props.volume) {
+        this._wavesurfer.setVolume(this.props.volume);
       }
     });
 
@@ -156,6 +154,11 @@ class Wavesurfer extends Component {
         this._playing = false;
       }
     }
+
+    if (this.props.volume !== nextProps.volume) {
+      console.log('set new');
+      this._wavesurfer.setVolume(nextProps.volume);
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -212,6 +215,7 @@ Wavesurfer.propTypes = {
     }
   },
   regions: PropTypes.array,
+  volume: PropTypes.number,
   options: PropTypes.shape({
     audioRate: PropTypes.number,
     backend: PropTypes.oneOf(['WebAudio', 'MediaElement']),

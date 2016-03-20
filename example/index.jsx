@@ -13,11 +13,13 @@ class SimpleExample extends React.Component {
 
     this.state = {
       playing: false,
-      pos: 0
+      pos: 0,
+      volume: 0.5
     };
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handlePosChange = this.handlePosChange.bind(this);
     this.handleReady = this.handleReady.bind(this);
+    this.handleVolumeChange = this.handleVolumeChange.bind(this);
   }
   handleTogglePlay() {
     this.setState({
@@ -34,6 +36,11 @@ class SimpleExample extends React.Component {
       pos: 5
     });
   }
+  handleVolumeChange(e) {
+    this.setState({
+      volume: +e.target.value
+    });
+  }
   render() {
     const waveOptions = {
       scrollParent: true,
@@ -44,8 +51,15 @@ class SimpleExample extends React.Component {
     };
     return (
       <div className='example'>
-        <p>Should set to 5 seconds on load.</p>
         <button onClick={this.handleTogglePlay}>toggle play</button>
+        <p>volume:
+          <input type='range'
+            min={0}
+            max={1}
+            step='0.01'
+            value={this.state.volume}
+            onChange={this.handleVolumeChange} />
+        </p>
         <p>playing: {this.state.playing + ''}</p>
         <p>position:
           <input type='number'
@@ -53,7 +67,9 @@ class SimpleExample extends React.Component {
             value={this.state.pos}
             onChange={this.handlePosChange} />
         </p>
+        <p>Should set to 5 seconds on load.</p>
         <Wavesurfer
+          volume={this.state.volume}
           pos={this.state.pos}
           options={waveOptions}
           onPosChange={this.handlePosChange}

@@ -20,19 +20,6 @@ const EVENTS = [
   'zoom'
 ];
 
-/*const REGION_EVENTS = [
-  'region-in ',
-  'region-out',
-  'region-mouseenter',
-  'region-mouseleave',
-  'region-click',
-  'region-dblclick',
-  'region-created ',
-  'region-updated ',
-  'region-update-end ',
-  'region-removed '
-];*/
-
 /**
  * @description Capitalise the first letter of a string
  */
@@ -72,7 +59,7 @@ class Wavesurfer extends Component {
   }
 
   componentDidMount() {
-    const options = merge.recursive({}, this.props.options, {
+    const options = assign({}, this.props.options, {
       container: this.refs.wavesurfer
     });
 
@@ -133,11 +120,6 @@ class Wavesurfer extends Component {
     // hook up events to callback handlers passed in as props
     EVENTS.forEach(hookUpPropCallback);
 
-    // do stuff for regions
-    /*if (this.props.regions) {
-      REGION_EVENTS.forEach(hookUpPropCallback);
-    }*/
-
     // if audioFile prop, load file
     if (this.props.audioFile) {
       this._loadAudio(this.props.audioFile);
@@ -150,12 +132,7 @@ class Wavesurfer extends Component {
       this._wavesurfer.un(e);
     });
 
-    /*if (this.props.regions) {
-      REGION_EVENTS.forEach((e) => {
-        this._wavesurfer.un(e);
-      });
-    }
-*/    // destroy wavesurfer instance
+    // destroy wavesurfer instance
     this._wavesurfer.destroy();
   }
 
@@ -171,23 +148,6 @@ class Wavesurfer extends Component {
         nextProps.pos !== this.state.pos) {
       this._seekTo(nextProps.pos);
     }
-    /*if (nextProps.regions) {
-      const _regionsToDelete = this._wavesurfer.regions.list;
-      nextProps.regions.forEach((region) => {
-        // update region
-        if (region.id && this._wavesurfer.regions.list[region.id]) {
-          this._wavesurfer.regions.list[region.id].update(region);
-        } else {
-          // new region
-          this.wavesurfer.addRegion(region);
-        }
-      });
-      if (_regionsToDelete.length) {
-        _regionsToDelete.forEach((regionToDelete) => {
-          this._wavesurfer.regions.list[regionToDelete.id].remove();
-        });
-      }
-    }*/
     if (this.props.playing !== nextProps.playing) {
       if (nextProps.playing) {
         this._wavesurfer.play();

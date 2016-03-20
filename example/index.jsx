@@ -1,8 +1,6 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Wavesurfer from 'react-wavesurfer.js';
-
 
 /**
  * Simple example of a React component with a Wavesurfer
@@ -60,14 +58,14 @@ class SimpleExample extends React.Component {
             step='0.01'
             value={this.state.volume}
             onChange={this.handleVolumeChange} />
-          <span class='prop-val'>
+          <span className='prop-val'>
             {this.state.volume + ''}
           </span>
         </p>
         <p>
           <strong>playing:</strong>
           <button onClick={this.handleTogglePlay}>toggle play</button>
-          <span class='prop-val'>
+          <span className='prop-val'>
             {this.state.playing + ''}
           </span>
         </p>

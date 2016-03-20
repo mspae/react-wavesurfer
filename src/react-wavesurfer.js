@@ -2,7 +2,6 @@
 import React, {Component, PropTypes} from 'react';
 import assign from 'object-assign';
 
-// import wavesurfer.js commonjs build
 const WaveSurfer = require('wavesurfer.js');
 
 const EVENTS = [
@@ -51,7 +50,7 @@ class Wavesurfer extends Component {
     }
 
     this._wavesurfer = Object.create(WaveSurfer);
-    this._fileLoaded = false;
+    this._isReady = false;
     this._playing = false;
     this._loadAudio = this._loadAudio.bind(this);
     this._seekTo = this._seekTo.bind(this);
@@ -66,7 +65,7 @@ class Wavesurfer extends Component {
 
     // file was loaded, wave was drawn, update the _fileLoaded flag
     this._wavesurfer.on('ready', () => {
-      this._fileLoaded = true;
+      this._isReady = true;
       // if there is a position set via prop, go there …
       if (this.props.pos) {
         this._seekTo(this.props.pos);
@@ -140,7 +139,7 @@ class Wavesurfer extends Component {
     }
 
     if (nextProps.pos &&
-        this._fileLoaded &&
+        this._isReady &&
         nextProps.pos !== this.props.pos &&
         nextProps.pos !== this.state.pos) {
       this._seekTo(nextProps.pos);
@@ -197,8 +196,19 @@ class Wavesurfer extends Component {
   }
 
   render() {
+    let childrenWithProps = (this.props.children)
+      ? React.Children.map(this.props.children, child => {
+          return React.cloneElement(child, assign({}, {
+          wavesurfer: this._wavesurfer,
+          isReady: this._isReady
+          }, this.props));
+        })
+      : false;
     return (
-      <div ref='wavesurfer' />
+      <div>
+        <div ref='wavesurfer' />
+        {childrenWithProps}
+      </div>
     );
   }
 }

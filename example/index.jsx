@@ -46,10 +46,13 @@ class SimpleExample extends React.Component {
       <div className='example'>
         <p>Should set to 5 seconds on load.</p>
         <button onClick={this.handleTogglePlay}>toggle play</button>
-        <input type='number'
-          step='0.01'
-          value={this.state.pos}
-          onChange={this.handlePosChange} />
+        <p>playing: {this.state.playing + ''}</p>
+        <p>position:
+          <input type='number'
+            step='0.01'
+            value={this.state.pos}
+            onChange={this.handlePosChange} />
+        </p>
         <Wavesurfer
           pos={this.state.pos}
           options={waveOptions}

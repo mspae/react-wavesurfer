@@ -1,7 +1,6 @@
 /* global WaveSurfer */
 import React, {Component, PropTypes} from 'react';
-import merge from 'merge';
-import _ from 'lodash';
+import assign from 'object-assign';
 
 // import wavesurfer.js commonjs build
 const WaveSurfer = require('wavesurfer.js');

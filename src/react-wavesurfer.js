@@ -156,7 +156,6 @@ class Wavesurfer extends Component {
     }
 
     if (this.props.volume !== nextProps.volume) {
-      console.log('set new');
       this._wavesurfer.setVolume(nextProps.volume);
     }
   }

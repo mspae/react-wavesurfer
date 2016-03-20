@@ -15,6 +15,7 @@ class SimpleExample extends React.Component {
     };
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handlePosChange = this.handlePosChange.bind(this);
+    this.handleReady = this.handleReady.bind(this);
   }
   handleTogglePlay() {
     this.setState({
@@ -24,6 +25,11 @@ class SimpleExample extends React.Component {
   handlePosChange(e) {
     this.setState({
       pos: e.originalArgs ? e.originalArgs[0] : +e.target.value
+    });
+  }
+  handleReady({ originalArgs, wavesurfer }) {
+    this.setState({
+      pos: 5
     });
   }
   render() {
@@ -36,9 +42,10 @@ class SimpleExample extends React.Component {
     };
     return (
       <div className='example'>
-        <p>Clean Example</p>
+        <p>Should set to 5 seconds on load.</p>
         <button onClick={this.handleTogglePlay}>toggle play</button>
         <input type='number'
+          step='0.01'
           value={this.state.pos}
           onChange={this.handlePosChange} />
         <Wavesurfer
@@ -47,6 +54,7 @@ class SimpleExample extends React.Component {
           onPosChange={this.handlePosChange}
           audioFile={this.props.audioFile}
           playing={this.state.playing}
+          onReady={this.handleReady}
         />
       </div>
     );

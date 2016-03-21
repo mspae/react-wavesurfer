@@ -25,19 +25,17 @@ class ZoomExample extends React.Component {
   }
   render() {
     return (
-      <div className='example'>
-      <p>
-        <strong>Zoom: </strong>
-        <input
-          type='range'
-          value={this.state.zoom}
-          onChange={this.handleZoom}
-          className='form-control'
-        />
-        <span className='prop-val'>
-          {'' + this.state.zoom}
-        </span>
-      </p>
+      <div className='example col-xs-12'>
+        <div className='form-group'>
+          <label>Zoom:</label>
+          <input
+            type='range'
+            value={this.state.zoom}
+            onChange={this.handleZoom}
+            className='form-control'
+          />
+          <input className='form-control prop-value' type='number' placeholder={this.state.zoom + ''} readOnly />
+        </div>
         <Wavesurfer
           audioFile={this.props.audioFile}
           playing={this.state.playing}
@@ -89,8 +87,11 @@ class RegionsExample extends React.Component {
   }
   render() {
     return (
-      <div className='example'>
-      <p>Clicked region with ID: {this.state.activeRegion}</p>
+      <div className='example col-xs-12'>
+        <div className='form-group'>
+          <label>Clicked region with ID:</label>
+          <input className='form-control prop-value' type='text' placeholder={this.state.activeRegion} readOnly />
+        </div>
         <Wavesurfer
           audioFile={this.props.audioFile}
           playing={this.state.playing}
@@ -152,37 +153,35 @@ class SimpleExample extends React.Component {
       normalize: true
     };
     return (
-      <div className='example col-xs-8 col-xs-offset-2'>
+      <div className='example col-xs-12'>
+        <div className='row'>
+          <div className='form-group col-xs-4'>
+            <label>Volume:</label>
+            <input type='range'
+              min={0}
+              max={1}
+              step='0.01'
+              value={this.state.volume}
+              onChange={this.handleVolumeChange}
+              className='form-control' />
+            <input className='form-control prop-value' type='text' placeholder={this.state.volume + ''} readOnly />
+          </div>
 
-        <p>
-          <strong>volume:</strong>
-          <input type='range'
-            min={0}
-            max={1}
-            step='0.01'
-            value={this.state.volume}
-            onChange={this.handleVolumeChange}
-            className='form-control' />
-          <span className='prop-val'>
-            {this.state.volume + ''}
-          </span>
-        </p>
-        <p>
-          <strong>playing:</strong>
-          <button onClick={this.handleTogglePlay} className='btn btn-primary'>toggle play</button>
-          <span className='prop-val'>
-            {this.state.playing + ''}
-          </span>
-        </p>
-        <p>
-          <strong>position:</strong>
-          <input type='number'
-            step='0.01'
-            value={this.state.pos}
-            onChange={this.handlePosChange}
-            className='form-control' />
-        </p>
-        <p>Should set to 5 seconds on load.</p>
+          <div className='form-group col-xs-4'>
+            <label>Playing:</label>
+            <button onClick={this.handleTogglePlay} className='btn btn-primary btn-block'>toggle play</button>
+            <input className='form-control prop-value' type='text' placeholder={this.state.playing + ''} readOnly />
+          </div>
+          <div className='form-group col-xs-4'>
+            <label>Position:</label>
+            <input type='number'
+              step='0.01'
+              value={this.state.pos}
+              onChange={this.handlePosChange}
+              className='form-control' />
+            <p>Should set to 5 seconds on load.</p>
+          </div>
+        </div>
         <Wavesurfer
           volume={this.state.volume}
           pos={this.state.pos}
@@ -209,11 +208,21 @@ class ExampleParent extends React.Component {
   }
   render () {
     return (
-      <div className='example-list'>
-        <h1>react-wavesurfer examples</h1>
-        <SimpleExample audioFile={this.state.audioFile} />
-        <RegionsExample audioFile={this.state.audioFile} />
-        <ZoomExample audioFile={this.state.audioFile} />
+      <div className='container main-container'>
+        <div className='row'>
+          <h1 className='col-xs-12 col-lg-2'>react-wavesurfer examples</h1>
+          <div className='col-xs-12 col-lg-8 col-lg-push-1'>
+            <div className='row'>
+              <SimpleExample audioFile={this.state.audioFile} />
+            </div>
+            <div className='row'>
+              <RegionsExample audioFile={this.state.audioFile} />
+            </div>
+            <div className='row'>
+              <ZoomExample audioFile={this.state.audioFile} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

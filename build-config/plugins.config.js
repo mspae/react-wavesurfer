@@ -3,8 +3,8 @@ const webpack =  require('webpack');
 
 module.exports = {
     entry: {
-      'react-wavesurfer': './src/react-wavesurfer',
-      'plugins/regions': './src/plugins/regions'
+      'plugins/regions': './src/plugins/regions',
+      'plugins/timeline': './src/plugins/timeline'
     },
 
     output: {
@@ -21,10 +21,7 @@ module.exports = {
     },
 
     resolve: {
-      extensions: ['', '.js', '.jsx'],
-      alias: {
-        'wavesurfer': path.join(__dirname, '../node_modules/wavesurfer.js/dist/wavesurfer.min.js')
-      }
+      extensions: ['', '.js', '.jsx']
     },
 
     externals: [
@@ -34,6 +31,18 @@ module.exports = {
           commonjs2: 'react',
           commonjs: 'react',
           amd: 'react'
+        },
+        'wavesurfer.js': {
+          root: 'WaveSurfer',
+          commonjs2: 'wavesurfer.js',
+          commonjs: 'wavesurfer.js',
+          amd: 'wavesurfer'
+        },
+        'wavesurfer': {
+          root: 'WaveSurfer',
+          commonjs2: 'wavesurfer.js',
+          commonjs: 'wavesurfer.js',
+          amd: 'wavesurfer'
         }
       }
     ],

@@ -152,7 +152,7 @@ class SimpleExample extends React.Component {
       normalize: true
     };
     return (
-      <div className='example'>
+      <div className='example col-xs-8 col-xs-offset-2'>
 
         <p>
           <strong>volume:</strong>
@@ -161,14 +161,15 @@ class SimpleExample extends React.Component {
             max={1}
             step='0.01'
             value={this.state.volume}
-            onChange={this.handleVolumeChange} />
+            onChange={this.handleVolumeChange}
+            className='form-control' />
           <span className='prop-val'>
             {this.state.volume + ''}
           </span>
         </p>
         <p>
           <strong>playing:</strong>
-          <button onClick={this.handleTogglePlay}>toggle play</button>
+          <button onClick={this.handleTogglePlay} className='btn btn-primary'>toggle play</button>
           <span className='prop-val'>
             {this.state.playing + ''}
           </span>
@@ -178,7 +179,8 @@ class SimpleExample extends React.Component {
           <input type='number'
             step='0.01'
             value={this.state.pos}
-            onChange={this.handlePosChange} />
+            onChange={this.handlePosChange}
+            className='form-control' />
         </p>
         <p>Should set to 5 seconds on load.</p>
         <Wavesurfer
@@ -210,7 +212,6 @@ class ExampleParent extends React.Component {
       <div className='example-list'>
         <h1>react-wavesurfer examples</h1>
         <SimpleExample audioFile={this.state.audioFile} />
-
         <RegionsExample audioFile={this.state.audioFile} />
         <ZoomExample audioFile={this.state.audioFile} />
       </div>

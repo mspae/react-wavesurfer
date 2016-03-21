@@ -38,11 +38,14 @@ class RegionsExample extends React.Component {
     });
   }
   handleRegionClick(e) {
-    console.log(e);
+    this.setState({
+      activeRegion: e.originalArgs[0].id
+    });
   }
   render() {
     return (
       <div className='example'>
+      <p>Clicked region with ID: {this.state.activeRegion}</p>
         <Wavesurfer
           audioFile={this.props.audioFile}
           playing={this.state.playing}

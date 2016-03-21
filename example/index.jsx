@@ -25,6 +25,7 @@ class RegionsExample extends React.Component {
     };
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handleReady = this.handleReady.bind(this);
+    this.handleRegionClick = this.handleRegionClick.bind(this);
   }
   handleTogglePlay() {
     this.setState({
@@ -36,6 +37,9 @@ class RegionsExample extends React.Component {
       pos: 5
     });
   }
+  handleRegionClick(e) {
+    console.log(e);
+  }
   render() {
     return (
       <div className='example'>
@@ -44,7 +48,10 @@ class RegionsExample extends React.Component {
           playing={this.state.playing}
           onReady={this.handleReady}
         >
-          <Regions regions={this.state.regions} />
+          <Regions
+            regions={this.state.regions}
+            onRegionClick={this.handleRegionClick}
+          />
         </Wavesurfer>
       </div>
     );

@@ -22,7 +22,9 @@ const EVENTS = [
  * @description Capitalise the first letter of a string
  */
 function capitaliseFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.split('-').map(string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }).join('');
 }
 
 /**
@@ -100,7 +102,9 @@ class Wavesurfer extends Component {
       });
     });
 
-    const hookUpPropCallback = (e) => {
+
+    // hook up events to callback handlers passed in as props
+    EVENTS.forEach((e) => {
       const propCallback = this.props['on' + capitaliseFirstLetter(e)];
       const wavesurfer = this._wavesurfer;
       if (propCallback) {
@@ -111,10 +115,7 @@ class Wavesurfer extends Component {
           });
         });
       }
-    };
-
-    // hook up events to callback handlers passed in as props
-    EVENTS.forEach(hookUpPropCallback);
+    });
 
     // if audioFile prop, load file
     if (this.props.audioFile) {

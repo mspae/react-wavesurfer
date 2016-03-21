@@ -75,6 +75,9 @@ class Wavesurfer extends Component {
       if (this.props.volume) {
         this._wavesurfer.setVolume(this.props.volume);
       }
+      if (this.props.zoom) {
+        this._wavesurfer.zoom(this.props.zoom);
+      }
     });
 
     this._wavesurfer.on('audioprocess', (pos) => {
@@ -158,6 +161,10 @@ class Wavesurfer extends Component {
     if (this.props.volume !== nextProps.volume) {
       this._wavesurfer.setVolume(nextProps.volume);
     }
+
+    if (this.props.zoom !== nextProps.zoom) {
+      this._wavesurfer.zoom(nextProps.zoom);
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -226,6 +233,7 @@ Wavesurfer.propTypes = {
   },
   regions: PropTypes.array,
   volume: PropTypes.number,
+  zoom: PropTypes.number,
   options: PropTypes.shape({
     audioRate: PropTypes.number,
     backend: PropTypes.oneOf(['WebAudio', 'MediaElement']),

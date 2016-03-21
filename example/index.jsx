@@ -212,6 +212,7 @@ class ExampleParent extends React.Component {
         <SimpleExample audioFile={this.state.audioFile} />
 
         <RegionsExample audioFile={this.state.audioFile} />
+        <ZoomExample audioFile={this.state.audioFile} />
       </div>
     );
   }

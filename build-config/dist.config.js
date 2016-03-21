@@ -8,7 +8,7 @@ module.exports = {
     },
 
     output: {
-        path: path.join(__dirname, '../dist'),
+        path: path.join(__dirname, '../lib'),
         library: ['ReactWavesurfer', '[name]'],
         filename: '[name].js',
         libraryTarget: 'umd'
@@ -23,7 +23,7 @@ module.exports = {
     resolve: {
       extensions: ['', '.js', '.jsx'],
       alias: {
-        wavesurfer: 'wavesurfer.js'
+        'wavesurfer': path.join(__dirname, '../node_modules/wavesurfer.js/dist/wavesurfer.min.js')
       }
     },
 

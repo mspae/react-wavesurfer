@@ -2,6 +2,57 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Wavesurfer from '../src/react-wavesurfer';
 import Regions from '../src/plugins/regions';
+class ZoomExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      playing: false,
+      zoom: 0
+    };
+    this.handleTogglePlay = this.handleTogglePlay.bind(this);
+    this.handleZoom = this.handleZoom.bind(this);
+  }
+  handleTogglePlay() {
+    this.setState({
+      playing: !this.state.playing
+    });
+  }
+  handleZoom(e) {
+    this.setState({
+      zoom: Number(e.target.value)
+    });
+  }
+  render() {
+    return (
+      <div className='example'>
+      <p>
+        <strong>Zoom: </strong>
+        <input
+          type='range'
+          value={this.state.zoom}
+          onChange={this.handleZoom}
+          className='form-control'
+        />
+        <span className='prop-val'>
+          {'' + this.state.zoom}
+        </span>
+      </p>
+        <Wavesurfer
+          audioFile={this.props.audioFile}
+          playing={this.state.playing}
+          onReady={this.handleReady}
+          zoom={this.state.zoom}
+        >
+          <Regions
+            regions={this.state.regions}
+            onRegionClick={this.handleRegionClick}
+          />
+        </Wavesurfer>
+      </div>
+    );
+  }
+}
 
 class RegionsExample extends React.Component {
   constructor(props) {

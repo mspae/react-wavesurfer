@@ -75,17 +75,11 @@ class RegionsExample extends React.Component {
       }]
     };
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
-    this.handleReady = this.handleReady.bind(this);
     this.handleRegionClick = this.handleRegionClick.bind(this);
   }
   handleTogglePlay() {
     this.setState({
       playing: !this.state.playing
-    });
-  }
-  handleReady({ originalArgs, wavesurfer }) {
-    this.setState({
-      pos: 5
     });
   }
   handleRegionClick(e) {

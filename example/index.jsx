@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import RegionsExample from './components/regions';
 import ZoomExample from './components/zoom';
 import SimpleExample from './components/simple';
+import TimelineExample from './components/timeline';
 
 class ExampleParent extends React.Component {
   constructor(props) {
@@ -27,6 +28,9 @@ class ExampleParent extends React.Component {
             </div>
             <div className='row'>
               <ZoomExample audioFile={this.state.audioFile} />
+            </div>
+            <div className='row'>
+              <TimelineExample audioFile={this.state.audioFile} />
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ module.exports = {
 
     output: {
         path: path.join(__dirname, '../lib'),
-        library: ['ReactWavesurfer', '[name]'],
+        library: ['Wavesurfer', '[name]'],
         filename: '[name].js',
         libraryTarget: 'umd'
     },

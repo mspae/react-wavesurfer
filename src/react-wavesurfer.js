@@ -2,7 +2,6 @@
 import React, {Component, PropTypes} from 'react';
 import assign from 'object-assign';
 
-// import wavesurfer.js commonjs build
 const WaveSurfer = require('wavesurfer.js');
 
 const EVENTS = [
@@ -23,7 +22,9 @@ const EVENTS = [
  * @description Capitalise the first letter of a string
  */
 function capitaliseFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.split('-').map(string => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }).join('');
 }
 
 /**
@@ -51,7 +52,7 @@ class Wavesurfer extends Component {
     }
 
     this._wavesurfer = Object.create(WaveSurfer);
-    this._fileLoaded = false;
+    this._isReady = false;
     this._playing = false;
     this._loadAudio = this._loadAudio.bind(this);
     this._seekTo = this._seekTo.bind(this);
@@ -66,7 +67,7 @@ class Wavesurfer extends Component {
 
     // file was loaded, wave was drawn, update the _fileLoaded flag
     this._wavesurfer.on('ready', () => {
-      this._fileLoaded = true;
+      this._isReady = true;
       // if there is a position set via prop, go there …
       if (this.props.pos) {
         this._seekTo(this.props.pos);
@@ -101,7 +102,9 @@ class Wavesurfer extends Component {
       });
     });
 
-    const hookUpPropCallback = (e) => {
+
+    // hook up events to callback handlers passed in as props
+    EVENTS.forEach((e) => {
       const propCallback = this.props['on' + capitaliseFirstLetter(e)];
       const wavesurfer = this._wavesurfer;
       if (propCallback) {
@@ -112,10 +115,7 @@ class Wavesurfer extends Component {
           });
         });
       }
-    };
-
-    // hook up events to callback handlers passed in as props
-    EVENTS.forEach(hookUpPropCallback);
+    });
 
     // if audioFile prop, load file
     if (this.props.audioFile) {
@@ -140,7 +140,7 @@ class Wavesurfer extends Component {
     }
 
     if (nextProps.pos &&
-        this._fileLoaded &&
+        this._isReady &&
         nextProps.pos !== this.props.pos &&
         nextProps.pos !== this.state.pos) {
       this._seekTo(nextProps.pos);
@@ -197,8 +197,19 @@ class Wavesurfer extends Component {
   }
 
   render() {
+    let childrenWithProps = (this.props.children)
+      ? React.Children.map(this.props.children, child => {
+          return React.cloneElement(child, assign({}, {
+          wavesurfer: this._wavesurfer,
+          isReady: this._isReady
+          }, this.props));
+        })
+      : false;
     return (
-      <div ref='wavesurfer' />
+      <div>
+        <div ref='wavesurfer' />
+        {childrenWithProps}
+      </div>
     );
   }
 }

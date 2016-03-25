@@ -1,5 +1,5 @@
 import React from 'react';
-import Wavesurfer from '../../src/react-wavesurfer';
+import Wavesurfer from '../../lib/react-wavesurfer';
 
 class ZoomExample extends React.Component {
   constructor(props) {

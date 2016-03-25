@@ -1,42 +1,53 @@
-const path =  require('path');
-const webpack =  require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-    entry: {
-      'react-wavesurfer': './src/react-wavesurfer'
+  entry: {
+    'react-wavesurfer': './src/react-wavesurfer'
+  },
+
+  output: {
+    path: path.join(__dirname, '../lib'),
+    library: ['Wavesurfer'],
+    filename: '[name].js',
+    libraryTarget: 'umd'
+  },
+
+  module: {
+    loaders: [{
+      test: /\.js$/,
+      loader: 'babel-loader'
+    }]
+  },
+
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+
+  externals: [{
+    'react': {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react'
     },
-
-    output: {
-        path: path.join(__dirname, '../lib'),
-        library: ['Wavesurfer'],
-        filename: '[name].js',
-        libraryTarget: 'umd'
+    'wavesurfer.js': {
+      root: 'WaveSurfer',
+      commonjs2: 'wavesurfer.js',
+      commonjs: 'wavesurfer.js',
+      amd: 'wavesurfer'
     },
+    'wavesurfer': {
+      root: 'WaveSurfer',
+      commonjs2: 'wavesurfer.js',
+      commonjs: 'wavesurfer.js',
+      amd: 'wavesurfer'
+    }
+  }],
 
-    module: {
-      loaders: [
-        {test: /\.js$/, loader: 'babel-loader'}
-      ]
-    },
-
-    resolve: {
-      extensions: ['', '.js', '.jsx']
-    },
-
-    externals: [
-      {
-        'react': {
-          root: 'React',
-          commonjs2: 'react',
-          commonjs: 'react',
-          amd: 'react'
-        }
-      }
-    ],
-
-    plugins: [
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-      })
-    ]
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    })
+  ]
 };

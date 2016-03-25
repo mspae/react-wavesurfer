@@ -1,6 +1,6 @@
 import React from 'react';
-import Wavesurfer from '../../src/react-wavesurfer';
-import Regions from '../../src/plugins/regions';
+import Wavesurfer from '../../lib/react-wavesurfer';
+import Regions from '../../lib/plugins/regions';
 
 class RegionsExample extends React.Component {
   constructor(props) {

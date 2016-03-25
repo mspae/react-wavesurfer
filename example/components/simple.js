@@ -1,5 +1,5 @@
 import React from 'react';
-import Wavesurfer from '../../src/react-wavesurfer';
+import Wavesurfer from '../../lib/react-wavesurfer';
 
 /**
  * Simple example of a React component with a Wavesurfer

@@ -30,7 +30,6 @@ class Regions extends Component {
 
   componentDidMount() {
     if (this.props._isReady) {
-      console.log('init');
       this.init();
     }
     this.props.wavesurfer.on('ready', this._init.bind(this));

@@ -231,7 +231,6 @@ Wavesurfer.propTypes = {
           '` expected either string or file/blob');
     }
   },
-  regions: PropTypes.array,
   volume: PropTypes.number,
   zoom: PropTypes.number,
   options: PropTypes.shape({

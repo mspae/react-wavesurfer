@@ -9,27 +9,53 @@ class RegionsExample extends React.Component {
 
     this.state = {
       playing: false,
-      regions: [{
-        id: 'One',
-        start: 0,
-        end: 3
-      }, {
-        id: 'Two',
-        start: 4,
-        end: 7
-      }, {
-        id: 'Three',
-        start: 9,
-        end: 13
-      }]
+      activeRegion: 'One',
+      regions: {
+        One: {
+          id: 'One',
+          start: 0,
+          end: 3
+        },
+        Two: {
+          id: 'Two',
+          start: 4,
+          end: 5.25
+        },
+        Three: {
+          id: 'Three',
+          start: 4.75,
+          end: 6.2
+        }
+      }
     };
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handleRegionClick = this.handleRegionClick.bind(this);
+    this.handleSingleRegionUpdate = this.handleSingleRegionUpdate.bind(this);
+    this.handleRegionChange = this.handleRegionChange.bind(this);
   }
   handleTogglePlay() {
     this.setState({
       playing: !this.state.playing
     });
+  }
+  handleSingleRegionUpdate(e) {
+    const newState = assign({}, this.state, {
+      regions: {
+        [e.region.id]: e.region
+      }
+    });
+    this.setState(newState);
+  }
+  handleRegionChange(e) {
+    const newState = assign({}, this.state, {
+      regions: {
+        [this.state.activeRegion]: {
+          [e.target.name]: Number(e.target.value)
+        }
+      }
+    });
+
+    this.setState(newState);
   }
   handleRegionClick(e) {
     this.setState({
@@ -37,12 +63,29 @@ class RegionsExample extends React.Component {
     });
   }
   render() {
+    const activeEnd = () => this.state.activeRegion  && this.state.regions[this.state.activeRegion]
+      ? this.state.regions[this.state.activeRegion].end
+      : 0;
+    const activeStart = () => this.state.activeRegion  && this.state.regions[this.state.activeRegion]
+      ? this.state.regions[this.state.activeRegion].start
+      : 0;
     return (
       <div className='example col-xs-12'>
         <h3>Regions</h3>
-        <div className='form-group'>
-          <label>Clicked region with ID:</label>
-          <input className='form-control prop-value' type='text' placeholder={this.state.activeRegion} readOnly />
+        <button onClick={this.handleTogglePlay} className='btn btn-primary btn-block'>toggle play</button>
+        <div className='row'>
+          <div className='form-group col-xs-4'>
+            <label>ID:</label>
+            <input className='form-control prop-value' type='text' placeholder={this.state.activeRegion} readOnly />
+          </div>
+          <div className='form-group col-xs-4'>
+            <label>Start:</label>
+            <input name='start' type='number' className='form-control prop-value' value={activeStart()} onChange={this.handleRegionChange} />
+          </div>
+          <div className='form-group col-xs-4'>
+            <label>End:</label>
+            <input name='end' type='number' className='form-control prop-value' value={activeEnd()} onChange={this.handleRegionChange} />
+          </div>
         </div>
         <Wavesurfer
           audioFile={this.props.audioFile}
@@ -50,8 +93,9 @@ class RegionsExample extends React.Component {
           onReady={this.handleReady}
         >
           <Regions
-            regions={this.state.regions}
+            onSingleRegionUpdate={this.handleSingleRegionUpdate}
             onRegionClick={this.handleRegionClick}
+            regions={this.state.regions}
           />
         </Wavesurfer>
       </div>

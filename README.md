@@ -1,17 +1,9 @@
 # react-wavesurfer
 
-__This project is under active development, the functionality is still pretty rugged.__
-
-Implemented so far:
-
-* WaveSurfer instantiation options can be set by component props
-* WaveSurfer events trigger callbacks passed in as props (prefixed with on and capitalised, e.g. the event *ready* triggers the *onReady* prop callback)
-* WaveSurver position, playing status and audioFile can be dynamically set by props
-
-__Note:__ This component is subject to breaking changes in the near future. The wavesurfer.js library (including its plugins) will change its module format in the near future. This will allow this component to have better plugins support out of the box.
+Includes support for the Timeline and Regions.
 
 
-## Usage
+## Basic Usage
 
 ```javascript
 import React from 'react';
@@ -40,7 +32,6 @@ class MyComponent extends React.Component {
     });
   }
   render() {
-    let props = this.state;
     return (
       <div>
         <Wavesurfer
@@ -55,48 +46,106 @@ class MyComponent extends React.Component {
 }
 ```
 
-## Props
+For more advanced examples check the example directory.
 
-Prop name | type | description
---- | --- | ---
-`playing` | bool | controls wether the player is playing
-`volume` | number | [0–1]
-`pos` | number | position of playback in seconds
-`audioFile` | string/blob | the audio to render, can be set after the component was mounted
-`options` | object | the instantiation options for wavesurfer. See [documentation of wavesurfer.js](https://github.com/katspaugh/wavesurfer.js#wavesurfer-options). The defaults values are the default values of wavesurfer.js
+## API
 
-### Callback props
+### Wavesurfer (Base component)
 
-#### Passing the playback position to a callback
+The base component includes core wavesurfer.js features without plugins. Any plugin components should be included as child components of the base component.
 
-If you want to use a callback specifically to receive the playback position you can use the `onPosChange` prop callback. It is basically called on `audioprocess` and `seek` events and receives the same type of argument object as the `onAudioprocess` callback: `{ wavesurfer: wavesurferInstance, originalArgs: [playBackPositionInSecs] }`
+#### Props
 
-This function is a hack. Otherwise to be able to work with the playback position would require you to pass both `onSeek` and `onAudioprocess` to the component. However the `onSeek` function would receive the position in a different format (as a float) than the `onAudioprocess` function (in seconds). So this is just way to keep things simple until this issue has been properly resolved. (https://github.com/katspaugh/wavesurfer.js/issues/618)
+##### playing [bool]
 
-See the `example/index.jsx` for a simple example how to use this.
+starts/stops playback
 
-#### Wavesurfer event callbacks
+##### volume [float]
 
-You can hook into wavesurfer events via functions you define as props. They can be used to wire up wavesurfer plugins until proper support for them is added. They receive an object of parameters:
+0-1
+
+##### pos [number]
+
+position of playback in seconds
+
+##### audioFile [string|blob]
+
+the audio to render
+
+##### options [object]
+
+The instantiation options for wavesurfer. See [documentation of wavesurfer.js](http://wavesurfer-js.org/docs/options.html). The defaults values are the default values of wavesurfer.js
+
+
+##### onPosChange [function]
+
+Is basically called on `audioprocess` and `seek` events and consolidates the received time formats into the same type of argument object as the `onAudioprocess` callback (time in seconds, not as a relative value):
 
 ```javascript
 {
-  wavesurfer, // the wavesurfer instance
-  originalArgs // an array of the arguments the original event callback received
+  wavesurfer: wavesurferInstance,
+    originalArgs: [playBackPositionInSecs]
 }
 ```
 
-The full list of available callback props, see [documentation of wavesurfer.js](https://github.com/katspaugh/wavesurfer.js#wavesurfer-events) for further information:
+This is necessary to fix any inconsistencies between WebAudio and MediaElement APIs.
 
-`onAudioprocess`
-`onError`
-`onFinish`
-`onLoading`
-`onMouseup`
-`onPause`
-`onPlay`
-`onReady`
-`onScroll`
-`onSeek`
-`onZoom`
+##### on*WaveSurferEvent* [function]
 
+Callbacks passed in as props, which are fired when the event on the underlying wavesurfer.js instance is fired.
+
+Possible callback prop names are: `onAudioprocess`, `onError`, `onFinish`, `onLoading`,  `onMouseup`, `onPause`, `onPlay`, `onReady`, `onScroll`, `onSeek`, `onZoom`
+
+The callbacks receive an object as parameter:
+
+```javascript
+{
+  wavesurfer: wavesurferInstance,
+    originalArgs: [originalArgs]
+}
+```
+
+
+### Regions (Plugin component)
+
+#### Props
+
+##### regions [object]
+
+An object of region config objects which have the form:
+
+```javascript
+// ...
+uniqueKey: {
+  id: uniqueKey
+    start: startInSeconds
+    end: endInSeconds
+},
+// ...
+```
+
+#### on*RegionsEvent* [function]
+
+Callbacks for the events the region plugin adds to the wavesurfer.js instance: `onRegionIn `, `onRegionOut`, `onRegionMouseenter`, `onRegionMouseleave`, `onRegionClick`, `onRegionDblclick`, `onRegionUpdated`, `onRegionUpdateEnd `, `onRegionRemoved `, `onRegionPlay`
+
+They receive an object as parameter which has the same form as the base component callbacks.
+
+#### on*RegionEvent* [function]
+
+Callbacks for the events fired on the single region instances. The Prop names are prefixed with `Single`, the available props are:
+
+`onSingleRegionIn`, `onSingleRegionOut`, `onSingleRegionRemove`, `onSingleRegionUpdate`, `onSingleRegionClick`, `onSingleRegionDbclick`, `onSingleRegionOver`, `onSingleRegionLeave`
+
+They receive an object as parameter which has the form: 
+
+```javascript
+{
+  wavesurfer: wavesurferInstance,
+  originalArgs: [originalArgs],
+  region: regionInstance
+}
+```
+
+### Timeline (Plugin component)
+
+… Todo

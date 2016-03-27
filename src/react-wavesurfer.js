@@ -1,6 +1,6 @@
 /* global WaveSurfer */
 import React, {Component, PropTypes} from 'react';
-import assign from 'object-assign';
+import assign from 'deep-assign';
 
 const WaveSurfer = require('wavesurfer.js');
 

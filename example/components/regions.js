@@ -1,6 +1,7 @@
 import React from 'react';
 import Wavesurfer from '../../lib/react-wavesurfer';
 import Regions from '../../lib/plugins/regions';
+import assign from 'deep-assign';
 
 class RegionsExample extends React.Component {
   constructor(props) {

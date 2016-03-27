@@ -44,7 +44,8 @@ class SimpleExample extends React.Component {
       height: 140,
       progressColor: '#6c718c',
       waveColor: '#c4c8dc',
-      normalize: true
+      normalize: true,
+      barWidth: 4
     };
     return (
       <div className='example col-xs-12'>

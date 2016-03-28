@@ -1,7 +1,6 @@
 node_modules
 test
-vendor
-tools
-webpack
-dev
+resources
+test
+build-config
 *.log

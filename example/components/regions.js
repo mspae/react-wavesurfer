@@ -1,6 +1,6 @@
 import React from 'react';
-import Wavesurfer from '../../lib/react-wavesurfer';
-import Regions from '../../lib/plugins/regions';
+import Wavesurfer from '../../src/react-wavesurfer';
+import Regions from '../../src/plugins/regions';
 import assign from 'deep-assign';
 
 class RegionsExample extends React.Component {
@@ -8,6 +8,7 @@ class RegionsExample extends React.Component {
     super(props);
 
     this.state = {
+      audioFile: '../resources/demo.wav',
       playing: false,
       activeRegion: 'One',
       regions: {
@@ -33,11 +34,13 @@ class RegionsExample extends React.Component {
     this.handleSingleRegionUpdate = this.handleSingleRegionUpdate.bind(this);
     this.handleRegionChange = this.handleRegionChange.bind(this);
   }
+
   handleTogglePlay() {
     this.setState({
       playing: !this.state.playing
     });
   }
+
   handleSingleRegionUpdate(e) {
     const newState = assign({}, this.state, {
       regions: {
@@ -46,6 +49,7 @@ class RegionsExample extends React.Component {
     });
     this.setState(newState);
   }
+
   handleRegionChange(e) {
     const newState = assign({}, this.state, {
       regions: {
@@ -57,38 +61,59 @@ class RegionsExample extends React.Component {
 
     this.setState(newState);
   }
+
   handleRegionClick(e) {
     this.setState({
       activeRegion: e.originalArgs[0].id
     });
   }
+
   render() {
-    const activeEnd = () => this.state.activeRegion  && this.state.regions[this.state.activeRegion]
+    const activeEnd = this.state.activeRegion && this.state.regions[this.state.activeRegion]
       ? this.state.regions[this.state.activeRegion].end
       : 0;
-    const activeStart = () => this.state.activeRegion  && this.state.regions[this.state.activeRegion]
+    const activeStart = this.state.activeRegion && this.state.regions[this.state.activeRegion]
       ? this.state.regions[this.state.activeRegion].start
       : 0;
     return (
-      <div className='example col-xs-12'>
+      <div className="example col-xs-12">
         <h3>Regions</h3>
-        <button onClick={this.handleTogglePlay} className='btn btn-primary btn-block'>toggle play</button>
-        <div className='row'>
-          <div className='form-group col-xs-4'>
+        <button onClick={this.handleTogglePlay} className="btn btn-primary btn-block">
+          toggle play
+        </button>
+        <div className="row">
+          <div className="form-group col-xs-4">
             <label>ID:</label>
-            <input className='form-control prop-value' type='text' placeholder={this.state.activeRegion} readOnly />
+            <input
+              className="form-control prop-value"
+              type="text"
+              placeholder={this.state.activeRegion}
+              readOnly
+            />
           </div>
-          <div className='form-group col-xs-4'>
+          <div className="form-group col-xs-4">
             <label>Start:</label>
-            <input name='start' type='number' className='form-control prop-value' value={activeStart()} onChange={this.handleRegionChange} />
+            <input
+              name="start"
+              type="number"
+              className="form-control prop-value"
+              value={activeStart}
+              onChange={this.handleRegionChange}
+            />
           </div>
-          <div className='form-group col-xs-4'>
+          <div className="form-group col-xs-4">
             <label>End:</label>
-            <input name='end' type='number' className='form-control prop-value' value={activeEnd()} onChange={this.handleRegionChange} />
+            <input
+              name="end"
+              type="number"
+              className="form-control prop-value"
+              value={activeEnd}
+              onChange={this.handleRegionChange}
+            />
           </div>
         </div>
         <Wavesurfer
-          audioFile={this.props.audioFile}
+          audioFile={this.state.audioFile}
           playing={this.state.playing}
           onReady={this.handleReady}
         >

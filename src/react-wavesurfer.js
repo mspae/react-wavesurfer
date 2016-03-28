@@ -1,5 +1,4 @@
-/* global WaveSurfer */
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import assign from 'deep-assign';
 
 const WaveSurfer = require('wavesurfer.js');
@@ -22,27 +21,26 @@ const EVENTS = [
  * @description Capitalise the first letter of a string
  */
 function capitaliseFirstLetter(string) {
-  return string.split('-').map(string => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }).join('');
+  return string.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
 }
 
 /**
  * @description Throws an error if the prop is defined and not an integer or not positive
  */
 function positiveIntegerProptype(props, propName, componentName) {
-  let n = props[propName];
+  const n = props[propName];
   if (n !== undefined && (typeof n !== 'number' || n !== parseInt(n, 10) || n < 0)) {
-    return new Error('Invalid `' + propName + '` supplied to `' + componentName + '`' +
-      ', expected a positive integer');
+    return new Error(`Invalid ${propName} supplied to ${componentName},
+      expected a positive integer`);
   }
+
+  return true;
 }
-
-
 
 class Wavesurfer extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       pos: 0
     };
@@ -68,13 +66,16 @@ class Wavesurfer extends Component {
     // file was loaded, wave was drawn, update the _fileLoaded flag
     this._wavesurfer.on('ready', () => {
       this._isReady = true;
+
       // if there is a position set via prop, go there …
       if (this.props.pos) {
         this._seekTo(this.props.pos);
       }
+
       if (this.props.volume) {
         this._wavesurfer.setVolume(this.props.volume);
       }
+
       if (this.props.zoom) {
         this._wavesurfer.zoom(this.props.zoom);
       }
@@ -95,26 +96,25 @@ class Wavesurfer extends Component {
     // receives a position float 0-1) – See the README.md for explanation why we
     // need this
     this._wavesurfer.on('seek', (pos) => {
-      pos = this._posToSec(pos);
+      const formattedPos = this._posToSec(pos);
       this.setState({
-        pos
+        formattedPos
       });
       this.props.onPosChange({
         wavesurfer: this._wavesurfer,
-        originalArgs: [pos]
+        originalArgs: [formattedPos]
       });
     });
 
-
     // hook up events to callback handlers passed in as props
     EVENTS.forEach((e) => {
-      const propCallback = this.props['on' + capitaliseFirstLetter(e)];
+      const propCallback = this.props[`on${capitaliseFirstLetter(e)}`];
       const wavesurfer = this._wavesurfer;
       if (propCallback) {
-        this._wavesurfer.on(e, function () {
+        this._wavesurfer.on(e, (...originalArgs) => {
           propCallback({
-            wavesurfer: wavesurfer,
-            originalArgs: [...arguments]
+            wavesurfer,
+            originalArgs
           });
         });
       }
@@ -124,16 +124,6 @@ class Wavesurfer extends Component {
     if (this.props.audioFile) {
       this._loadAudio(this.props.audioFile);
     }
-  }
-
-  componentWillUnmount() {
-    // remove listeners
-    EVENTS.forEach((e) => {
-      this._wavesurfer.un(e);
-    });
-
-    // destroy wavesurfer instance
-    this._wavesurfer.destroy();
   }
 
   // update wavesurfer rendering manually
@@ -148,7 +138,9 @@ class Wavesurfer extends Component {
         nextProps.pos !== this.state.pos) {
       this._seekTo(nextProps.pos);
     }
-    if (this.props.playing !== nextProps.playing || this._wavesurfer.isPlaying() !== nextProps.playing) {
+
+    if (this.props.playing !== nextProps.playing ||
+      this._wavesurfer.isPlaying() !== nextProps.playing) {
       if (nextProps.playing) {
         this._wavesurfer.play();
         this._playing = true;
@@ -167,8 +159,14 @@ class Wavesurfer extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return false;
+  componentWillUnmount() {
+    // remove listeners
+    EVENTS.forEach((e) => {
+      this._wavesurfer.un(e);
+    });
+
+    // destroy wavesurfer instance
+    this._wavesurfer.destroy();
   }
 
   // receives seconds and transforms this to the position as a float 0-1
@@ -184,7 +182,7 @@ class Wavesurfer extends Component {
   // pos is in seconds, the 0-1 proportional position we calculate here …
   _seekTo(sec) {
     const pos = this._secToPos(sec);
-    if (this.props.autoCenter) {
+    if (this.props.options.autoCenter) {
       this._wavesurfer.seekAndCenter(pos);
     } else {
       this._wavesurfer.seekTo(pos);
@@ -199,22 +197,26 @@ class Wavesurfer extends Component {
       // blob or file is loaded with loadBlob method
       this._wavesurfer.loadBlob(audioFile);
     } else {
-      throw new Error('Wavesurfer._loadAudio expexts prop audioFile to be either string or file/blob');
+      throw new Error(`Wavesurfer._loadAudio expexts prop audioFile
+        to be either string or file/blob`);
     }
   }
 
   render() {
     let childrenWithProps = (this.props.children)
-      ? React.Children.map(this.props.children, child => {
-          return React.cloneElement(child, assign({}, this.props, {
+      ? React.Children.map(
+        this.props.children,
+        child => React.cloneElement(
+          child,
+          assign({}, this.props, {
             wavesurfer: this._wavesurfer,
             isReady: this._isReady
-          }));
-        })
+          })
+        ))
       : false;
     return (
       <div>
-        <div ref='wavesurfer' />
+        <div ref="wavesurfer" />
         {childrenWithProps}
       </div>
     );
@@ -224,25 +226,33 @@ class Wavesurfer extends Component {
 Wavesurfer.propTypes = {
   playing: PropTypes.bool,
   pos: PropTypes.number,
-  audioFile: function(props, propName, componentName) {
+  audioFile: (props, propName, componentName) => {
     const prop = props[propName];
     if (prop && typeof prop !== 'string' && !prop instanceof Blob && !prop instanceof File) {
-      return new Error('Invalid `' + propName + '` supplied to `' + componentName +
-          '` expected either string or file/blob');
+      return new Error(`Invalid ${propName} supplied to ${componentName}
+        expected either string or file/blob`);
     }
+
+    return true;
   },
+
   volume: PropTypes.number,
   zoom: PropTypes.number,
+  onPosChange: PropTypes.function,
+  children: React.PropTypes.element,
   options: PropTypes.shape({
     audioRate: PropTypes.number,
     backend: PropTypes.oneOf(['WebAudio', 'MediaElement']),
-    barWidth: function(props, propName, componentName) {
+    barWidth: (props, propName, componentName) => {
       const prop = props[propName];
       if (prop !== undefined && typeof prop !== 'number') {
-        return new Error('Invalid `' + propName + '` supplied to `' + componentName +
-          '` expected either undefined or number');
+        return new Error(`Invalid ${propName} supplied to ${componentName}
+          expected either undefined or number`);
       }
+
+      return true;
     },
+
     cursorColor: PropTypes.string,
     cursorWidth: positiveIntegerProptype,
     dragSelection: PropTypes.bool,
@@ -268,8 +278,7 @@ Wavesurfer.defaultProps = {
   pos: 0,
   audioFile: undefined,
   options: WaveSurfer.defaultParams,
-  onPosChange: function() {}
+  onPosChange: () => {}
 };
 
 export default Wavesurfer;
-

@@ -1,5 +1,5 @@
 import React from 'react';
-import Wavesurfer from '../../lib/react-wavesurfer';
+import Wavesurfer from '../../src/react-wavesurfer';
 
 /**
  * Simple example of a React component with a Wavesurfer
@@ -9,6 +9,7 @@ class SimpleExample extends React.Component {
     super(props);
 
     this.state = {
+      audioFile: '../resources/demo.wav',
       playing: false,
       pos: 0,
       volume: 0.5
@@ -18,26 +19,31 @@ class SimpleExample extends React.Component {
     this.handleReady = this.handleReady.bind(this);
     this.handleVolumeChange = this.handleVolumeChange.bind(this);
   }
+
   handleTogglePlay() {
     this.setState({
       playing: !this.state.playing
     });
   }
+
   handlePosChange(e) {
     this.setState({
       pos: e.originalArgs ? e.originalArgs[0] : +e.target.value
     });
   }
-  handleReady({ originalArgs, wavesurfer }) {
+
+  handleReady() {
     this.setState({
       pos: 5
     });
   }
+
   handleVolumeChange(e) {
     this.setState({
       volume: +e.target.value
     });
   }
+
   render() {
     const waveOptions = {
       scrollParent: true,
@@ -48,33 +54,47 @@ class SimpleExample extends React.Component {
       barWidth: 4
     };
     return (
-      <div className='example col-xs-12'>
+      <div className="example col-xs-12">
         <h3>State & UI</h3>
-        <div className='row'>
-          <div className='form-group col-xs-4'>
+        <div className="row">
+          <div className="form-group col-xs-4">
             <label>Volume:</label>
-            <input type='range'
+            <input type="range"
               min={0}
               max={1}
-              step='0.01'
+              step="0.01"
               value={this.state.volume}
               onChange={this.handleVolumeChange}
-              className='form-control' />
-            <input className='form-control prop-value' type='text' placeholder={this.state.volume + ''} readOnly />
+              className="form-control"
+            />
+            <input
+              className="form-control prop-value"
+              type="text"
+              placeholder={String(this.state.volume)}
+              readOnly
+            />
           </div>
 
-          <div className='form-group col-xs-4'>
+          <div className="form-group col-xs-4">
             <label>Playing:</label>
-            <button onClick={this.handleTogglePlay} className='btn btn-primary btn-block'>toggle play</button>
-            <input className='form-control prop-value' type='text' placeholder={this.state.playing + ''} readOnly />
+            <button onClick={this.handleTogglePlay} className="btn btn-primary btn-block">
+              toggle play
+            </button>
+            <input
+              className="form-control prop-value"
+              type="text"
+              placeholder={String(this.state.playing)}
+              readOnly
+            />
           </div>
-          <div className='form-group col-xs-4'>
+          <div className="form-group col-xs-4">
             <label>Position:</label>
-            <input type='number'
-              step='0.01'
+            <input type="number"
+              step="0.01"
               value={this.state.pos}
               onChange={this.handlePosChange}
-              className='form-control' />
+              className="form-control"
+            />
             <p>Should set to 5 seconds on load.</p>
           </div>
         </div>
@@ -83,7 +103,7 @@ class SimpleExample extends React.Component {
           pos={this.state.pos}
           options={waveOptions}
           onPosChange={this.handlePosChange}
-          audioFile={this.props.audioFile}
+          audioFile={this.state.audioFile}
           playing={this.state.playing}
           onReady={this.handleReady}
         />

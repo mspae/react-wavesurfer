@@ -26,18 +26,23 @@ module.exports = {
       'wavesurfer': path.join(__dirname, '../node_modules/wavesurfer.js/dist/wavesurfer.min.js')
     }
   },
-
-  eslint: {
-    configFile: './.eslintrc',
-    quiet: false,
-    failOnWarning: true,
-    failOnError: true
-  },
-
+  
   module: {
+    preLoaders: [
+      {
+        test:    /\.jsx?/,
+        exclude: /node_modules|lib/,
+        loaders: ['eslint', 'jscs'],
+        include: path.join(__dirname, '../')
+      }
+    ],
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ['react-hot', 'babel-loader'], include: path.join(__dirname, '../') },
-      { test: /\.js$/, loader: 'eslint-loader', exclude: /[node_modules|vendor]/ }
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loaders: ['react-hot', 'babel-loader'],
+        include: path.join(__dirname, '../')
+      }
     ]
   }
 };

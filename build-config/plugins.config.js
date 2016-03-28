@@ -15,6 +15,14 @@ module.exports = {
     },
 
     module: {
+      preLoaders: [
+        {
+          test:    /\.jsx?/,
+          exclude: /node_modules|lib/,
+          loaders: ['eslint', 'jscs'],
+          include: path.join(__dirname, '../')
+        }
+      ],
       loaders: [
         {test: /\.js$/, loader: 'babel-loader'}
       ]

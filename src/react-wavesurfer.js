@@ -206,10 +206,10 @@ class Wavesurfer extends Component {
   render() {
     let childrenWithProps = (this.props.children)
       ? React.Children.map(this.props.children, child => {
-          return React.cloneElement(child, assign({}, {
-          wavesurfer: this._wavesurfer,
-          isReady: this._isReady
-          }, this.props));
+          return React.cloneElement(child, assign({}, this.props, {
+            wavesurfer: this._wavesurfer,
+            isReady: this._isReady
+          }));
         })
       : false;
     return (

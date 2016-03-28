@@ -1,7 +1,9 @@
 # react-wavesurfer
 
-Includes support for the Timeline and Regions.
+[![npm version](https://badge.fury.io/js/react-wavesurfer.svg)](https://badge.fury.io/js/react-wavesurfer)
+![code style](https://img.shields.io/badge/codestyle-airbnb-brightgreen.svg)
 
+Wrapper component for [wavesurfer.js](http://wavesurfer-js.org/). Includes support for the Timeline and Regions.
 
 ## Basic Usage
 
@@ -136,7 +138,7 @@ Callbacks for the events fired on the single region instances. The Prop names ar
 
 `onSingleRegionIn`, `onSingleRegionOut`, `onSingleRegionRemove`, `onSingleRegionUpdate`, `onSingleRegionClick`, `onSingleRegionDbclick`, `onSingleRegionOver`, `onSingleRegionLeave`
 
-They receive an object as parameter which has the form: 
+They receive an object as parameter which has the form:
 
 ```javascript
 {

@@ -86,13 +86,13 @@ Is basically called on `audioprocess` and `seek` events and consolidates the rec
 ```javascript
 {
   wavesurfer: wavesurferInstance,
-    originalArgs: [playBackPositionInSecs]
+  originalArgs: [playBackPositionInSecs]
 }
 ```
 
 This is necessary to fix any inconsistencies between WebAudio and MediaElement APIs.
 
-##### on*WaveSurferEvent* [function]
+##### on[WaveSurferEvent] [function]
 
 Callbacks passed in as props, which are fired when the event on the underlying wavesurfer.js instance is fired.
 
@@ -103,7 +103,7 @@ The callbacks receive an object as parameter:
 ```javascript
 {
   wavesurfer: wavesurferInstance,
-    originalArgs: [originalArgs]
+  originalArgs: [originalArgs]
 }
 ```
 
@@ -120,25 +120,25 @@ An object of region config objects which have the form:
 // ...
 uniqueKey: {
   id: uniqueKey
-    start: startInSeconds
-    end: endInSeconds
+  start: startInSeconds
+  end: endInSeconds
 },
 // ...
 ```
 
-#### on*RegionsEvent* [function]
+#### on[RegionsEvent] [function]
 
 Callbacks for the events the region plugin adds to the wavesurfer.js instance: `onRegionIn `, `onRegionOut`, `onRegionMouseenter`, `onRegionMouseleave`, `onRegionClick`, `onRegionDblclick`, `onRegionUpdated`, `onRegionUpdateEnd `, `onRegionRemoved `, `onRegionPlay`
 
 They receive an object as parameter which has the same form as the base component callbacks.
 
-#### on*RegionEvent* [function]
+#### on[RegionEvent] [function]
 
 Callbacks for the events fired on the single region instances. The Prop names are prefixed with `Single`, the available props are:
 
 `onSingleRegionIn`, `onSingleRegionOut`, `onSingleRegionRemove`, `onSingleRegionUpdate`, `onSingleRegionClick`, `onSingleRegionDbclick`, `onSingleRegionOver`, `onSingleRegionLeave`
 
-They receive an object as parameter which has the form:
+They receive an object as parameter which has the same form as the other callbacks, but also includes a reference to the region which fired the event:
 
 ```javascript
 {
@@ -150,4 +150,18 @@ They receive an object as parameter which has the form:
 
 ### Timeline (Plugin component)
 
-… Todo
+#### Props
+
+##### options [object]
+
+An object containing configuration for the timeline plugin. (See the [wavesurfer.js timeline example](http://wavesurfer-js.org/example/timeline/) for information about available options.
+
+**Note**: the options `container` and `wavesurfer` need not be set, this is done by the plugin component.
+
+## Developing
+
+* `npm run start` – Start development server (webpack-dev-server) at `localhost:8080/webpack-dev-server`
+* `npm run lint` – Lint code (is done while running start task too)
+* `npm run build` – Lint and build distributable files
+
+Please make sure your code passes the linting task before submitting a pull request.

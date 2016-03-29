@@ -20,6 +20,12 @@ class TimelineExample extends React.Component {
   }
 
   render() {
+    const timelineOptions = {
+      timeInterval: 0.5,
+      height: 30,
+      primaryFontColor: '#00f',
+      primaryColor: '#00f'
+    };
     return (
       <div className="example col-xs-12">
         <h3>Timeline</h3>
@@ -29,7 +35,7 @@ class TimelineExample extends React.Component {
           onReady={this.handleReady}
         >
           <Timeline
-            options={{ notchPercentHeight: 10 }}
+            options={timelineOptions}
           />
         </Wavesurfer>
       </div>

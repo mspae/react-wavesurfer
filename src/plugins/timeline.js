@@ -36,7 +36,7 @@ class Timeline extends Component {
 Timeline.propTypes = {
   isReady: PropTypes.bool.isRequired,
   options: PropTypes.object.isRequired,
-  wavesurfer: PropTypes.object.isRequired
+  wavesurfer: PropTypes.object
 };
 
 Timeline.defaultProps = {

@@ -141,7 +141,7 @@ class Regions extends Component {
 Regions.propTypes = {
   isReady: PropTypes.bool,
   regions: PropTypes.object,
-  wavesurfer: PropTypes.object.isRequired
+  wavesurfer: PropTypes.object
 };
 
 Regions.defaultProps = {

@@ -34,7 +34,7 @@ function positiveIntegerProptype(props, propName, componentName) {
       expected a positive integer`);
   }
 
-  return true;
+  return null;
 }
 
 class Wavesurfer extends Component {
@@ -230,13 +230,13 @@ Wavesurfer.propTypes = {
         expected either string or file/blob`);
     }
 
-    return true;
+    return null;
   },
 
   volume: PropTypes.number,
   zoom: PropTypes.number,
-  onPosChange: PropTypes.function,
-  children: React.PropTypes.element,
+  onPosChange: PropTypes.func,
+  children: PropTypes.element,
   options: PropTypes.shape({
     audioRate: PropTypes.number,
     backend: PropTypes.oneOf(['WebAudio', 'MediaElement']),
@@ -247,7 +247,7 @@ Wavesurfer.propTypes = {
           expected either undefined or number`);
       }
 
-      return true;
+      return null;
     },
 
     cursorColor: PropTypes.string,

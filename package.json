@@ -4,7 +4,7 @@
   "description": "React component wrapper for wavesurfer.js",
   "main": "lib/react-wavesurfer.min.js",
   "scripts": {
-    "lint": "eslint ./src",
+    "lint": "eslint ./src && jscs ./src",
     "start": "webpack-dev-server --progress --colors --config ./build-config/webpack.config.js",
     "test": "./node_modules/.bin/jest",
     "build:main": "./node_modules/.bin/webpack --progress --colors --config build-config/main.config.js",

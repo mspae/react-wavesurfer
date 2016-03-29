@@ -51,31 +51,37 @@ class Regions extends Component {
   componentWillReceiveProps(nextProps) {
     // cache reference to old regions
     const oldRegions = Object.create(this.props.wavesurfer.regions.list);
-    let newRegion;
-    let oldRegion;
+    let newRegionId;
+    let oldRegionId;
 
-    for (newRegion of nextProps.regions) {
-      // remove from oldRegions
-      delete oldRegions[newRegion.id];
+    for (newRegionId in nextProps.regions) {
+      if (nextProps.regions.hasOwnProperty(newRegionId)) {
+        const newRegion = nextProps.regions[newRegionId];
 
-      // new regions
-      if (!this.props.wavesurfer.regions.list[newRegion.id]) {
-        this._hookUpRegionEvents(nextProps.wavesurfer.addRegion(newRegion));
+        // remove from oldRegions
+        delete oldRegions[newRegionId];
 
-      // update regions
-      } else if (this.props.wavesurfer.regions.list[newRegion.id] && (
-        this.props.wavesurfer.regions.list[newRegion.id].start !== newRegion.start ||
-        this.props.wavesurfer.regions.list[newRegion.id].end !== newRegion.end)) {
-        nextProps.wavesurfer.regions.list[newRegion.id].update({
-          start: newRegion.start,
-          end: newRegion.end
-        });
+        // new regions
+        if (!this.props.wavesurfer.regions.list[newRegionId]) {
+          this._hookUpRegionEvents(nextProps.wavesurfer.addRegion(newRegion));
+
+          // update regions
+        } else if (oldRegions[newRegionId] && (
+          oldRegions[newRegionId].start !== newRegion.start ||
+          oldRegions[newRegionId].end !== newRegion.end)) {
+          nextProps.wavesurfer.regions.list[newRegionId].update({
+            start: newRegion.start,
+            end: newRegion.end
+          });
+        }
       }
     }
 
     // remove any old regions
-    for (oldRegion of oldRegions) {
-      nextProps.wavesurfer.regions.list[oldRegion.id].remove();
+    for (oldRegionId in oldRegions) {
+      if (oldRegions.hasOwnProperty(oldRegionId)) {
+        nextProps.wavesurfer.regions.list[oldRegionId].remove();
+      }
     }
   }
 
@@ -90,33 +96,35 @@ class Regions extends Component {
   }
 
   _init() {
-    let newRegion;
+    const { wavesurfer, regions } = this.props;
+    let newRegionId;
 
-    REGIONS_EVENTS.forEach((e) => {
+    REGIONS_EVENTS.forEach(e => {
       const propCallback = this.props[`on${capitaliseFirstLetter(e)}`];
-      const wavesurfer = this.props.wavesurfer;
-      if (propCallback) {
-        this._wavesurfer.on(e, (...originalArgs) => {
-          propCallback({
-            wavesurfer,
-            originalArgs
-          });
+      if (!propCallback) return;
+
+      wavesurfer.on(e, (...originalArgs) => {
+        propCallback({
+          wavesurfer,
+          originalArgs
         });
-      }
+      });
     });
 
     // add regions and hook up callbacks to region objects
-    for (newRegion of this.props.regions) {
-      this._hookUpRegionEvents(this.props.wavesurfer.addRegion(newRegion));
+    for (newRegionId in regions) {
+      if (regions.hasOwnProperty(newRegionId)) {
+        this._hookUpRegionEvents(wavesurfer.addRegion(regions[newRegionId]));
+      }
     }
   }
 
   _hookUpRegionEvents(region) {
-    REGION_EVENTS.forEach((e) => {
+    REGION_EVENTS.forEach(e => {
       const propCallback = this.props[`onSingleRegion${capitaliseFirstLetter(e)}`];
-      const wavesurfer = this.props.wavesurfer;
+      const { wavesurfer } = this.props;
       if (propCallback) {
-        this._wavesurfer.on(e, (...originalArgs) => {
+        region.on(e, (...originalArgs) => {
           propCallback({
             wavesurfer,
             originalArgs,

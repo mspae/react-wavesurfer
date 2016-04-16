@@ -42,7 +42,7 @@ class Regions extends Component {
 
   componentDidMount() {
     if (this.props.isReady) {
-      this.init();
+      this._init.call(this);
     }
 
     this.props.wavesurfer.on('ready', this._init.bind(this));

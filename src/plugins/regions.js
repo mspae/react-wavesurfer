@@ -53,6 +53,7 @@ class Regions extends Component {
     if (!this.props.isReady) {
       return;
     }
+
     // cache reference to old regions
     const oldRegions = Object.create(this.props.wavesurfer.regions.list);
     let newRegionId;

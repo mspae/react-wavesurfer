@@ -2,15 +2,15 @@ import React, { Component, PropTypes } from 'react';
 require('wavesurfer.js/dist/plugin/wavesurfer.regions.js');
 
 const REGIONS_EVENTS = [
-  'region-in ',
+  'region-in',
   'region-out',
   'region-mouseenter',
   'region-mouseleave',
   'region-click',
   'region-dblclick',
-  'region-updated ',
-  'region-update-end ',
-  'region-removed ',
+  'region-updated',
+  'region-update-end',
+  'region-removed',
   'region-play'
 ];
 

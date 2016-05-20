@@ -190,15 +190,12 @@ class Wavesurfer extends Component {
   }
 
   _loadAudio(audioFile) {
-    // bog-standard string is handled by load method and ajax call
-    if (typeof audioFile === 'string') {
-      this._wavesurfer.load(audioFile);
-    } else if (audioFile instanceof Blob || audioFile instanceof File) {
-      // blob or file is loaded with loadBlob method
+    // blob or file is loaded with loadBlob method
+    if (audioFile instanceof Blob || audioFile instanceof File) {
       this._wavesurfer.loadBlob(audioFile);
     } else {
-      throw new Error(`Wavesurfer._loadAudio expexts prop audioFile
-        to be either string or file/blob`);
+      // HTML Media Elt or path to media file (handled by load method + ajax call)
+      this._wavesurfer.load(audioFile);
     }
   }
 

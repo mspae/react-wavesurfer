@@ -62,7 +62,6 @@ class Wavesurfer extends Component {
       container: this.refs.wavesurfer
     });
 
-    window.console.log('options', options);
     this._wavesurfer.init(options);
 
     // file was loaded, wave was drawn, update the _fileLoaded flag

@@ -122,14 +122,14 @@ class Wavesurfer extends Component {
 
     // if audioFile prop, load file
     if (this.props.audioFile) {
-      this._loadAudio(this.props.audioFile);
+      this._loadAudio(this.props.audioFile, this.props.audioPeaks);
     }
   }
 
   // update wavesurfer rendering manually
   componentWillReceiveProps(nextProps) {
     if (this.props.audioFile !== nextProps.audioFile) {
-      this._loadAudio(nextProps.audioFile);
+      this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
     }
 
     if (nextProps.pos &&
@@ -189,13 +189,13 @@ class Wavesurfer extends Component {
     }
   }
 
-  _loadAudio(audioFile) {
+  _loadAudio(audioFile, audioPeaks) {
     // bog-standard string is handled by load method and ajax call
     if (typeof audioFile === 'string') {
-      this._wavesurfer.load(audioFile);
+      this._wavesurfer.load(audioFile, audioPeaks);
     } else if (audioFile instanceof Blob || audioFile instanceof File) {
       // blob or file is loaded with loadBlob method
-      this._wavesurfer.loadBlob(audioFile);
+      this._wavesurfer.loadBlob(audioFile, audioPeaks);
     } else {
       throw new Error(`Wavesurfer._loadAudio expexts prop audioFile
         to be either string or file/blob`);
@@ -274,6 +274,7 @@ Wavesurfer.defaultProps = {
   playing: false,
   pos: 0,
   audioFile: undefined,
+  audioPeaks: undefined,
   options: WaveSurfer.defaultParams,
   onPosChange: () => {}
 };

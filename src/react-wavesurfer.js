@@ -233,6 +233,7 @@ Wavesurfer.propTypes = {
     return null;
   },
 
+  audioPeaks: PropTypes.array,
   volume: PropTypes.number,
   zoom: PropTypes.number,
   onPosChange: PropTypes.func,

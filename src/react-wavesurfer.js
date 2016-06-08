@@ -52,6 +52,7 @@ class Wavesurfer extends Component {
     this._wavesurfer = Object.create(WaveSurfer);
     this._isReady = false;
     this._playing = false;
+
     this._loadAudio = this._loadAudio.bind(this);
     this._seekTo = this._seekTo.bind(this);
   }
@@ -132,6 +133,11 @@ class Wavesurfer extends Component {
       this._loadAudio(nextProps.audioFile);
     }
 
+    if (this.props.peaks !== nextProps.peaks) {
+      const mediaElt = document.getElementById(this.props.mediaEltId);
+      this._loadAudio(mediaElt, nextProps.peaks);
+    }
+
     if (nextProps.pos &&
         this._isReady &&
         nextProps.pos !== this.props.pos &&
@@ -189,16 +195,16 @@ class Wavesurfer extends Component {
     }
   }
 
-  _loadAudio(audioFile) {
-    // bog-standard string is handled by load method and ajax call
-    if (typeof audioFile === 'string') {
-      this._wavesurfer.load(audioFile);
-    } else if (audioFile instanceof Blob || audioFile instanceof File) {
+  _loadAudio(audioFileOrElt, peaks) {
+    if (audioFileOrElt instanceof HTMLElement) {
+      // media element that may include an array of peaks
+      this._wavesurfer.loadMediaElement(audioFileOrElt, peaks);
+    } else if (audioFileOrElt instanceof Blob || audioFileOrElt instanceof File) {
       // blob or file is loaded with loadBlob method
-      this._wavesurfer.loadBlob(audioFile);
+      this._wavesurfer.loadBlob(audioFileOrElt);
     } else {
-      throw new Error(`Wavesurfer._loadAudio expexts prop audioFile
-        to be either string or file/blob`);
+      // path to media file (handled by load method + ajax call)
+      this._wavesurfer.load(audioFileOrElt);
     }
   }
 
@@ -232,6 +238,9 @@ Wavesurfer.propTypes = {
 
     return null;
   },
+
+  peaks: PropTypes.array,
+  mediaEltId: PropTypes.string,
 
   volume: PropTypes.number,
   zoom: PropTypes.number,
@@ -273,6 +282,8 @@ Wavesurfer.propTypes = {
 Wavesurfer.defaultProps = {
   playing: false,
   pos: 0,
+  mediaEltId: undefined,
+  peaks: [],
   audioFile: undefined,
   options: WaveSurfer.defaultParams,
   onPosChange: () => {}

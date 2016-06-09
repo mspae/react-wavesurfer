@@ -197,7 +197,7 @@ class Wavesurfer extends Component {
       // blob or file is loaded with loadBlob method
       this._wavesurfer.loadBlob(audioFile, audioPeaks);
     } else {
-      throw new Error(`Wavesurfer._loadAudio expexts prop audioFile
+      throw new Error(`Wavesurfer._loadAudio expects prop audioFile
         to be either string or file/blob`);
     }
   }

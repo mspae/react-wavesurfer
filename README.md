@@ -70,6 +70,10 @@ starts/stops playback
 
 position of playback in seconds
 
+##### audioPeaks [array]
+
+an array of peaks for use by wavesurfer
+
 ##### audioFile [string|blob]
 
 the audio to render

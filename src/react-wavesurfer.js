@@ -123,19 +123,19 @@ class Wavesurfer extends Component {
 
     // if audioFile prop, load file
     if (this.props.audioFile) {
-      this._loadAudio(this.props.audioFile);
+      this._loadAudio(this.props.audioFile, this.props.audioPeaks);
     }
   }
 
   // update wavesurfer rendering manually
   componentWillReceiveProps(nextProps) {
     if (this.props.audioFile !== nextProps.audioFile) {
-      this._loadAudio(nextProps.audioFile);
+      this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
     }
 
-    if (this.props.peaks !== nextProps.peaks) {
+    if (this.props.audioPeaks !== nextProps.audioPeaks) {
       const mediaElt = document.getElementById(this.props.mediaEltId);
-      this._loadAudio(mediaElt, nextProps.peaks);
+      this._loadAudio(mediaElt, nextProps.audioPeaks);
     }
 
     if (nextProps.pos &&
@@ -195,16 +195,19 @@ class Wavesurfer extends Component {
     }
   }
 
-  _loadAudio(audioFileOrElt, peaks) {
+  _loadAudio(audioFileOrElt, audioPeaks) {
     if (audioFileOrElt instanceof HTMLElement) {
       // media element that may include an array of peaks
-      this._wavesurfer.loadMediaElement(audioFileOrElt, peaks);
+      this._wavesurfer.loadMediaElement(audioFileOrElt, audioPeaks);
+    } else if (typeof audioFileOrElt === 'string') {
+      // bog-standard string is handled by load method and ajax call
+      this._wavesurfer.load(audioFileOrElt, audioPeaks);
     } else if (audioFileOrElt instanceof Blob || audioFileOrElt instanceof File) {
       // blob or file is loaded with loadBlob method
-      this._wavesurfer.loadBlob(audioFileOrElt);
+      this._wavesurfer.loadBlob(audioFileOrElt, audioPeaks);
     } else {
-      // path to media file (handled by load method + ajax call)
-      this._wavesurfer.load(audioFileOrElt);
+      throw new Error(`Wavesurfer._loadAudio expects prop audioFile
+        to be either HTMLElement, string or file/blob`);
     }
   }
 
@@ -239,9 +242,8 @@ Wavesurfer.propTypes = {
     return null;
   },
 
-  peaks: PropTypes.array,
   mediaEltId: PropTypes.string,
-
+  audioPeaks: PropTypes.array,
   volume: PropTypes.number,
   zoom: PropTypes.number,
   onPosChange: PropTypes.func,
@@ -283,8 +285,8 @@ Wavesurfer.defaultProps = {
   playing: false,
   pos: 0,
   mediaEltId: undefined,
-  peaks: [],
   audioFile: undefined,
+  audioPeaks: undefined,
   options: WaveSurfer.defaultParams,
   onPosChange: () => {}
 };

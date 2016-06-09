@@ -64,19 +64,21 @@ class Wavesurfer extends Component {
 
     this._wavesurfer.init(options);
 
-    // file was loaded, wave was drawn, update the _fileLoaded flag
+    // file was loaded, wave was drawn
     this._wavesurfer.on('ready', () => {
       this._isReady = true;
 
-      // if there is a position set via prop, go there …
+      // set initial position
       if (this.props.pos) {
         this._seekTo(this.props.pos);
       }
 
+      // set initial volume
       if (this.props.volume) {
         this._wavesurfer.setVolume(this.props.volume);
       }
 
+      // set initial zoom
       if (this.props.zoom) {
         this._wavesurfer.zoom(this.props.zoom);
       }
@@ -206,7 +208,7 @@ class Wavesurfer extends Component {
 
   _loadAudio(audioFileOrElt, audioPeaks) {
     if (audioFileOrElt instanceof HTMLElement) {
-      // media element that may include an array of peaks
+      // media element
       this._wavesurfer.loadMediaElement(audioFileOrElt, audioPeaks);
     } else if (typeof audioFileOrElt === 'string') {
       // bog-standard string is handled by load method and ajax call

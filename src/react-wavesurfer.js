@@ -125,6 +125,15 @@ class Wavesurfer extends Component {
     if (this.props.audioFile) {
       this._loadAudio(this.props.audioFile, this.props.audioPeaks);
     }
+
+    if (this.props.mediaEltId) {
+      if (!document.getElementById(this.props.mediaEltId)) {
+        throw new Error('Media Element not found!');
+      }
+
+      const mediaElt = document.getElementById(this.props.mediaEltId);
+      this._loadAudio(mediaElt, this.props.audioPeaks);
+    }
   }
 
   // update wavesurfer rendering manually

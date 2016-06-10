@@ -128,12 +128,13 @@ class Wavesurfer extends Component {
       this._loadAudio(this.props.audioFile, this.props.audioPeaks);
     }
 
-    if (this.props.mediaEltId) {
-      if (!document.getElementById(this.props.mediaEltId)) {
+    // if mediaElt prop, load media Element
+    if (this.props.mediaElt) {
+      if (!document.querySelector(this.props.mediaElt)) {
         throw new Error('Media Element not found!');
       }
 
-      const mediaElt = document.getElementById(this.props.mediaEltId);
+      const mediaElt = document.querySelector(this.props.mediaElt);
       this._loadAudio(mediaElt, this.props.audioPeaks);
     }
   }
@@ -257,7 +258,7 @@ Wavesurfer.propTypes = {
     return null;
   },
 
-  mediaEltId: PropTypes.string,
+  mediaElt: PropTypes.string,
   audioPeaks: PropTypes.array,
   volume: PropTypes.number,
   zoom: PropTypes.number,

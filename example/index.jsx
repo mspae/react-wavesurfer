@@ -6,6 +6,7 @@ import ZoomExample from './components/zoom';
 import SimpleExample from './components/simple';
 import TimelineExample from './components/timeline';
 import PeaksExample from './components/peaks';
+import MediaElementExample from './components/mediaElement';
 
 function ExampleParent() {
   return (
@@ -30,6 +31,9 @@ function ExampleParent() {
             <PeaksExample />
           </div>
 
+          <div className="row">
+            <MediaElementExample />
+          </div>
         </div>
       </div>
     </div>

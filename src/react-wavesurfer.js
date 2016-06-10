@@ -150,8 +150,12 @@ class Wavesurfer extends Component {
     }
 
     if (this.props.audioPeaks !== nextProps.audioPeaks) {
-      const mediaElt = document.getElementById(this.props.mediaEltId);
-      this._loadAudio(mediaElt, nextProps.audioPeaks);
+      if (this.props.mediaElt) {
+        const mediaElt = document.querySelector(this.props.mediaElt);
+        this._loadAudio(mediaElt, nextProps.audioPeaks);
+      } else {
+        this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
+      }
     }
 
     if (nextProps.pos &&

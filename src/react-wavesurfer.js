@@ -62,6 +62,10 @@ class Wavesurfer extends Component {
       container: this.refs.wavesurfer
     });
 
+    if (this.props.mediaElt) {
+      options.backend = 'MediaElement';
+    }
+
     this._wavesurfer.init(options);
 
     // file was loaded, wave was drawn

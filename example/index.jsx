@@ -5,6 +5,7 @@ import RegionsExample from './components/regions';
 import ZoomExample from './components/zoom';
 import SimpleExample from './components/simple';
 import TimelineExample from './components/timeline';
+import PeaksExample from './components/peaks';
 
 function ExampleParent() {
   return (
@@ -24,6 +25,11 @@ function ExampleParent() {
           <div className="row">
             <TimelineExample />
           </div>
+
+          <div className="row">
+            <PeaksExample />
+          </div>
+
         </div>
       </div>
     </div>

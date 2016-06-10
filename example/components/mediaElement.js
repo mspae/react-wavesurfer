@@ -6,7 +6,7 @@ const MediaElementExample = () => (
         <h3>Media element audio source</h3>
         <audio src="../resources/demo.wav" id="audioSource" />
         <Wavesurfer
-          mediaEltId="#audioSource"
+          mediaElt="#audioSource"
         />
       </div>
 );

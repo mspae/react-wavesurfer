@@ -308,9 +308,6 @@ Wavesurfer.propTypes = {
 Wavesurfer.defaultProps = {
   playing: false,
   pos: 0,
-  mediaEltId: undefined,
-  audioFile: undefined,
-  audioPeaks: undefined,
   options: WaveSurfer.defaultParams,
   onPosChange: () => {}
 };

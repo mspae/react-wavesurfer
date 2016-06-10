@@ -27,7 +27,7 @@
     "react": ">=0.13"
   },
   "dependencies": {
-    "wavesurfer.js": "^1.1.2"
+    "wavesurfer.js": "^1.1.5"
   },
   "devDependencies": {
     "babel": "^6.0.x",

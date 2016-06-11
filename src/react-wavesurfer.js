@@ -51,7 +51,6 @@ class Wavesurfer extends Component {
 
     this._wavesurfer = Object.create(WaveSurfer);
     this._isReady = false;
-    this._playing = false;
 
     this._loadAudio = this._loadAudio.bind(this);
     this._seekTo = this._seekTo.bind(this);
@@ -169,10 +168,8 @@ class Wavesurfer extends Component {
       this._wavesurfer.isPlaying() !== nextProps.playing) {
       if (nextProps.playing) {
         this._wavesurfer.play();
-        this._playing = true;
       } else {
         this._wavesurfer.pause();
-        this._playing = false;
       }
     }
 

@@ -263,7 +263,10 @@ Wavesurfer.propTypes = {
     return null;
   },
 
-  mediaElt: PropTypes.string,
+  mediaElt: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(HTMLElement)
+  ]),
   audioPeaks: PropTypes.array,
   volume: PropTypes.number,
   zoom: PropTypes.number,

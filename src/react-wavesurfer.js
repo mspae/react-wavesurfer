@@ -62,7 +62,7 @@ class Wavesurfer extends Component {
       container: this.refs.wavesurfer
     });
 
-    // TODO: get this to work without this check, e.g. with WebAudio backend
+    // media element loading is only supported by MediaElement backend
     if (this.props.mediaElt) {
       options.backend = 'MediaElement';
     }

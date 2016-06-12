@@ -52,6 +52,7 @@ class Wavesurfer extends Component {
     this._wavesurfer = Object.create(WaveSurfer);
     this._isReady = false;
 
+    this._loadMediaElt = this._loadMediaElt.bind(this);
     this._loadAudio = this._loadAudio.bind(this);
     this._seekTo = this._seekTo.bind(this);
   }
@@ -133,12 +134,7 @@ class Wavesurfer extends Component {
 
     // if mediaElt prop, load media Element
     if (this.props.mediaElt) {
-      if (!document.querySelector(this.props.mediaElt)) {
-        throw new Error('Media Element not found!');
-      }
-
-      const mediaElt = document.querySelector(this.props.mediaElt);
-      this._loadAudio(mediaElt, this.props.audioPeaks);
+      this._loadMediaElt(this.props.mediaElt, this.props.audioPeaks);
     }
   }
 
@@ -149,9 +145,8 @@ class Wavesurfer extends Component {
     }
 
     if (this.props.audioPeaks !== nextProps.audioPeaks) {
-      if (this.props.mediaElt) {
-        const mediaElt = document.querySelector(this.props.mediaElt);
-        this._loadAudio(mediaElt, nextProps.audioPeaks);
+      if (nextProps.mediaElt) {
+        this._loadMediaElt(nextProps.mediaElt, nextProps.audioPeaks);
       } else {
         this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
       }
@@ -213,6 +208,21 @@ class Wavesurfer extends Component {
       this._wavesurfer.seekAndCenter(pos);
     } else {
       this._wavesurfer.seekTo(pos);
+    }
+  }
+
+  // load a media element selector or HTML element
+  // if selector, get the HTML element for it
+  // and pass to _loadAudio
+  _loadMediaElt(selectorOrElt, audioPeaks) {
+    if (selectorOrElt instanceof HTMLElement) {
+      this._loadAudio(selectorOrElt, audioPeaks);
+    } else {
+      if (!document.querySelector(selectorOrElt)) {
+        throw new Error('Media Element not found!');
+      }
+
+      this._loadAudio(document.querySelector(selectorOrElt), audioPeaks);
     }
   }
 

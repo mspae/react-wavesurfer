@@ -1,5 +1,17 @@
 ## Change Log
 
+### v0.5.2 (2016/06/12 12:18 +00:00)
+- [c5cdd22](https://github.com/mspae/react-wavesurfer/commit/c5cdd22931619c5565329905d5436ccf409b3915) 0.5.2 (@mspae)
+- [2b01d1a](https://github.com/mspae/react-wavesurfer/commit/2b01d1ab319e575603d572cc4154d9ba218114a5) updated README (@mspae)
+- [0eeba95](https://github.com/mspae/react-wavesurfer/commit/0eeba95cd5c876d650dd14c9bdee9298de775b09) corrected comment (@mspae)
+- [29ea327](https://github.com/mspae/react-wavesurfer/commit/29ea327478bb972762f248debf1cea20bc95e9ca) added more comments (@mspae)
+- [2145a6d](https://github.com/mspae/react-wavesurfer/commit/2145a6df8908f0ebdf56216485e649a7ea8f4960) add check for updated mediaElt prop (@mspae)
+- [740c165](https://github.com/mspae/react-wavesurfer/commit/740c165205fa6d8f7436fed550cf3bb71f6da067) updated mediaElt example (@mspae)
+- [29b0719](https://github.com/mspae/react-wavesurfer/commit/29b07192720861309cbe2ea8456481c22ee4be90) refactored mediaElt loading into _loadMediaElt, added support for html element (@mspae)
+- [325233e](https://github.com/mspae/react-wavesurfer/commit/325233ee3dcc62225950b7eeb7565c0314165261) update prop type validation to allow an html element for mediaElt (@mspae)
+- [d91a6d8](https://github.com/mspae/react-wavesurfer/commit/d91a6d8afcfafe1b096daf15c9ba83b3c486e0bf) removed obsolete _isPlaying flag (@mspae)
+- [2f91847](https://github.com/mspae/react-wavesurfer/commit/2f9184762f1edd1914e118a672d7e18af2e568ef) added changelog and changelog gen script (@mspae)
+
 ### v0.5.1 (2016/06/10 17:40 +00:00)
 - [bd899cd](https://github.com/mspae/react-wavesurfer/commit/bd899cdb69150c46ea8f6b178f258f947af1f2d6) bumped version (@mspae)
 - [dc176a2](https://github.com/mspae/react-wavesurfer/commit/dc176a27bbdfa17c31c3e926c505d5a1812108c6) removed unnecessary default props (@mspae)

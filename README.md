@@ -66,6 +66,8 @@ starts/stops playback
 
 0-1
 
+#### zoom [float]
+
 ##### pos [number]
 
 position of playback in seconds
@@ -76,7 +78,11 @@ an array of peaks for use by wavesurfer
 
 ##### audioFile [string|blob]
 
-the audio to render
+the audio as file or url
+
+##### mediaElt [string|HTMLElement]
+
+the audio as a selector for a media element or the element itself
 
 ##### options [object]
 

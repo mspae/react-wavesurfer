@@ -62,6 +62,7 @@ class Wavesurfer extends Component {
       container: this.refs.wavesurfer
     });
 
+    // TODO: get this to work without this check, e.g. with WebAudio backend
     if (this.props.mediaElt) {
       options.backend = 'MediaElement';
     }
@@ -140,6 +141,7 @@ class Wavesurfer extends Component {
 
   // update wavesurfer rendering manually
   componentWillReceiveProps(nextProps) {
+    // update audioFile
     if (this.props.audioFile !== nextProps.audioFile) {
       this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
     }
@@ -149,6 +151,7 @@ class Wavesurfer extends Component {
       this._loadMediaElt(nextProps.mediaElt, nextProps.audioPeaks);
     }
 
+    // update peaks
     if (this.props.audioPeaks !== nextProps.audioPeaks) {
       if (nextProps.mediaElt) {
         this._loadMediaElt(nextProps.mediaElt, nextProps.audioPeaks);
@@ -157,6 +160,7 @@ class Wavesurfer extends Component {
       }
     }
 
+    // update position
     if (nextProps.pos &&
         this._isReady &&
         nextProps.pos !== this.props.pos &&
@@ -164,6 +168,7 @@ class Wavesurfer extends Component {
       this._seekTo(nextProps.pos);
     }
 
+    // update playing state
     if (this.props.playing !== nextProps.playing ||
       this._wavesurfer.isPlaying() !== nextProps.playing) {
       if (nextProps.playing) {
@@ -173,10 +178,12 @@ class Wavesurfer extends Component {
       }
     }
 
+    // update volume
     if (this.props.volume !== nextProps.volume) {
       this._wavesurfer.setVolume(nextProps.volume);
     }
 
+    // update volume
     if (this.props.zoom !== nextProps.zoom) {
       this._wavesurfer.zoom(nextProps.zoom);
     }
@@ -231,6 +238,7 @@ class Wavesurfer extends Component {
     }
   }
 
+  // pass audio data to wavesurfer
   _loadAudio(audioFileOrElt, audioPeaks) {
     if (audioFileOrElt instanceof HTMLElement) {
       // media element

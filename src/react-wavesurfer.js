@@ -144,6 +144,11 @@ class Wavesurfer extends Component {
       this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
     }
 
+    // update mediaElt
+    if (this.props.mediaElt !== nextProps.mediaElt) {
+      this._loadMediaElt(nextProps.mediaElt, nextProps.audioPeaks);
+    }
+
     if (this.props.audioPeaks !== nextProps.audioPeaks) {
       if (nextProps.mediaElt) {
         this._loadMediaElt(nextProps.mediaElt, nextProps.audioPeaks);

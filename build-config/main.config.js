@@ -25,6 +25,10 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       loader: 'babel-loader'
+    },
+    {
+      test: require.resolve("wavesurfer.js"),
+      loader: "expose?WaveSurfer"
     }]
   },
 

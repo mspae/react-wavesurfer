@@ -2,5 +2,8 @@
   "extends": "airbnb",
   "rules": {
     "comma-dangle": [2, "never"]
+  },
+  "globals": {
+    "WaveSurfer": true
   }
 }

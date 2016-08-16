@@ -21,12 +21,9 @@ module.exports = {
 
   resolve: {
     modulesDirectories: ['node_modules', '../src'],
-    extensions: ['', '.js', '.jsx'],
-    alias: {
-      'wavesurfer': path.join(__dirname, '../node_modules/wavesurfer.js/dist/wavesurfer.min.js')
-    }
+    extensions: ['', '.js', '.jsx']
   },
-  
+
   module: {
     preLoaders: [
       {
@@ -42,6 +39,10 @@ module.exports = {
         exclude: /node_modules/,
         loaders: ['react-hot', 'babel-loader'],
         include: path.join(__dirname, '../')
+      },
+      {
+        test: require.resolve("wavesurfer.js"),
+        loader: "expose?WaveSurfer"
       }
     ]
   }

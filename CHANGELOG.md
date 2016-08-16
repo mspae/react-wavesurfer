@@ -1,5 +1,13 @@
 ## Change Log
 
+### v0.6.0 (2016/08/16 13:33 +00:00)
+- [a14459d](https://github.com/mspae/react-wavesurfer/commit/a14459d5f09e0c694f752898762a26139a3fbd7e) bumped version to 0.6.0 (@mspae)
+- [0b39ad9](https://github.com/mspae/react-wavesurfer/commit/0b39ad97587814ba3848f9dabdcf9ddb43217b92) changed github username in CHANGELOG.md (@mspae)
+- [78d7269](https://github.com/mspae/react-wavesurfer/commit/78d72696b43fd51c6de1de0cff68cdea823c0ea7) expose wavesurfer.js to global in main build (@mspae)
+- [ca9b8ae](https://github.com/mspae/react-wavesurfer/commit/ca9b8aef9e63147756daea3abc7f12afc7ad85ef) exposed WaveSurfer to window object to attach plugins to it (@mspae)
+- [aaca4a6](https://github.com/mspae/react-wavesurfer/commit/aaca4a625117c43815ddf50ec93f432ab68d66b7) renamed webpack.config.js to more descriptive dev.config.js (@mspae)
+- [8a83e28](https://github.com/mspae/react-wavesurfer/commit/8a83e2811aa48212c78be0478ae5460585ba619e) updated changelog (@mspae)
+
 ### v0.5.2 (2016/06/12 12:18 +00:00)
 - [c5cdd22](https://github.com/mspae/react-wavesurfer/commit/c5cdd22931619c5565329905d5436ccf409b3915) 0.5.2 (@mspae)
 - [2b01d1a](https://github.com/mspae/react-wavesurfer/commit/2b01d1ab319e575603d572cc4154d9ba218114a5) updated README (@mspae)

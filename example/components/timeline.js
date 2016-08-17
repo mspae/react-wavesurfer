@@ -32,7 +32,6 @@ class TimelineExample extends React.Component {
         <Wavesurfer
           audioFile={this.state.audioFile}
           playing={this.state.playing}
-          onReady={this.handleReady}
         >
           <Timeline
             options={timelineOptions}

@@ -7,6 +7,7 @@ import SimpleExample from './components/simple';
 import TimelineExample from './components/timeline';
 import PeaksExample from './components/peaks';
 import MediaElementExample from './components/mediaElement';
+import MinimapExample from './components/minimap';
 
 function ExampleParent() {
   return (
@@ -33,6 +34,10 @@ function ExampleParent() {
 
           <div className="row">
             <MediaElementExample />
+          </div>
+
+          <div className="row">
+            <MinimapExample />
           </div>
         </div>
       </div>

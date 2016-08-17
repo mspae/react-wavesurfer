@@ -1,5 +1,12 @@
 ## Change Log
 
+### v0.7.0 (2016/08/17 18:14 +00:00)
+- [777b836](https://github.com/mspae/react-wavesurfer/commit/777b83661e3f093c76d24261a7a79175fbfa3092) bumped version to 0.7.0 (@mspae)
+- [a5063ba](https://github.com/mspae/react-wavesurfer/commit/a5063ba1abdc23e7f0cb55618c2c80491518e832) added minimap build target to config (@mspae)
+- [2a45537](https://github.com/mspae/react-wavesurfer/commit/2a45537f170dcdc9ae55bad45ea4808d2db19809) added minimap plugin component (@mspae)
+- [a64e7ee](https://github.com/mspae/react-wavesurfer/commit/a64e7eed810803682d5ed8a0a00910fe9587bc30) removed unused reference to onReady callback in timeline example (@mspae)
+- [b700117](https://github.com/mspae/react-wavesurfer/commit/b700117e9ed20a4cb5d28375248472aad8e84cd2) updated CHANGELOG.md for 0.6.0 (@mspae)
+
 ### v0.6.0 (2016/08/16 13:33 +00:00)
 - [a14459d](https://github.com/mspae/react-wavesurfer/commit/a14459d5f09e0c694f752898762a26139a3fbd7e) bumped version to 0.6.0 (@mspae)
 - [0b39ad9](https://github.com/mspae/react-wavesurfer/commit/0b39ad97587814ba3848f9dabdcf9ddb43217b92) changed github username in CHANGELOG.md (@mspae)

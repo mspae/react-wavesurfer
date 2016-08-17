@@ -4,7 +4,8 @@ const webpack =  require('webpack');
 module.exports = {
     entry: {
       'plugins/regions': './src/plugins/regions',
-      'plugins/timeline': './src/plugins/timeline'
+      'plugins/timeline': './src/plugins/timeline',
+      'plugins/minimap': './src/plugins/minimap'
     },
 
     output: {

@@ -1,5 +1,8 @@
 ## Change Log
 
+### upcoming (2016/08/17 18:18 +00:00)
+- [53b9a36](https://github.com/mspae/react-wavesurfer/commit/53b9a367ae31e3f785505353c6fecbd4fa2f8740) updated CHANGELOG.md for v0.7.0 (@mspae)
+
 ### v0.7.0 (2016/08/17 18:14 +00:00)
 - [777b836](https://github.com/mspae/react-wavesurfer/commit/777b83661e3f093c76d24261a7a79175fbfa3092) bumped version to 0.7.0 (@mspae)
 - [a5063ba](https://github.com/mspae/react-wavesurfer/commit/a5063ba1abdc23e7f0cb55618c2c80491518e832) added minimap build target to config (@mspae)

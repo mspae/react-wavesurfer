@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/react-wavesurfer.svg)](https://badge.fury.io/js/react-wavesurfer)
 ![code style](https://img.shields.io/badge/codestyle-airbnb-brightgreen.svg)
 
-Wrapper component for [wavesurfer.js](http://wavesurfer-js.org/). Includes support for the Timeline and Regions.
+Wrapper component for [wavesurfer.js](http://wavesurfer-js.org/). Includes support for the timeline, minimap and regions plugins.
 
 ## Basic Usage
 
@@ -118,7 +118,7 @@ The callbacks receive an object as parameter:
 ```
 
 
-### Regions (Plugin component)
+### Regions (plugin child component)
 
 #### Props
 
@@ -158,7 +158,7 @@ They receive an object as parameter which has the same form as the other callbac
 }
 ```
 
-### Timeline (Plugin component)
+### Timeline (plugin child component)
 
 #### Props
 
@@ -167,6 +167,23 @@ They receive an object as parameter which has the same form as the other callbac
 An object containing configuration for the timeline plugin. (See the [wavesurfer.js timeline example](http://wavesurfer-js.org/example/timeline/) for information about available options.
 
 **Note**: the options `container` and `wavesurfer` need not be set, this is done by the plugin component.
+
+### Minimap (plugin child component)
+
+#### Props
+
+##### options [object]
+
+An object containing configuration for the minimap plugin. Example:
+
+```javascript
+{
+  height: 30,
+  waveColor: '#ddd',
+  progressColor: '#999',
+  cursorColor: '#999'
+}
+```
 
 ## Developing
 

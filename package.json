@@ -26,7 +26,7 @@
   },
   "peerDependencies": {
     "react": ">=0.13",
-    "wavesurfer.js": "^1.1.5",
+    "wavesurfer.js": "^1.1.5"
   },
   "devDependencies": {
     "babel": "^6.0.x",

@@ -37,6 +37,16 @@ function positiveIntegerProptype(props, propName, componentName) {
   return null;
 }
 
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+    .toString(16)
+    .substring(1);
+  }
+
+  return `${s4()}${s4()}-${s4()}-${s4()}}-${s4()}-${s4()}${s4()}${s4()}`;
+}
+
 class Wavesurfer extends Component {
   constructor(props) {
     super(props);
@@ -261,7 +271,8 @@ class Wavesurfer extends Component {
         this.props.children,
         child => React.cloneElement(child, {
           wavesurfer: this._wavesurfer,
-          isReady: this._isReady
+          isReady: this._isReady,
+          key: guid()
         }))
       : false;
     return (

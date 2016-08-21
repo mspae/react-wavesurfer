@@ -294,7 +294,10 @@ Wavesurfer.propTypes = {
   volume: PropTypes.number,
   zoom: PropTypes.number,
   onPosChange: PropTypes.func,
-  children: PropTypes.element,
+  children:PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.array
+  ]),
   options: PropTypes.shape({
     audioRate: PropTypes.number,
     backend: PropTypes.oneOf(['WebAudio', 'MediaElement']),

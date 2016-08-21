@@ -1,5 +1,10 @@
 ## Change Log
 
+### v0.7.2 (2016/08/21 15:53 +00:00)
+- [f0a0816](https://github.com/mspae/react-wavesurfer/commit/f0a08166597953cdbb14de2ec8d19d850f5b20d0) guid key for plugin components (@mspae)
+- [6fbe4f1](https://github.com/mspae/react-wavesurfer/commit/6fbe4f17f6b3732c938cb8358cac94d51b75991a) minimap init function uses global.WaveSurfer not the wavesurfer prop so lazy loading of plugin code is supported (@mspae)
+- [4514c64](https://github.com/mspae/react-wavesurfer/commit/4514c64a586637534928f733a638da6d3d2f0814) updated CHANGELOG.md for 0.7.1 (@mspae)
+
 ### v0.7.1 (2016/08/21 14:45 +00:00)
 - [d900ba4](https://github.com/mspae/react-wavesurfer/commit/d900ba4baed83b45eba648d64da831d1ca8fb73e) formatting (@mspae)
 - [0d870a8](https://github.com/mspae/react-wavesurfer/commit/0d870a88a1e5b7471fcd582665da336f708ada2d) wavesurfer.js is a peerDependency (@mspae)

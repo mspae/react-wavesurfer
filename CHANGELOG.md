@@ -1,6 +1,13 @@
 ## Change Log
 
-### upcoming (2016/08/17 18:18 +00:00)
+### v0.7.1 (2016/08/21 14:45 +00:00)
+- [d900ba4](https://github.com/mspae/react-wavesurfer/commit/d900ba4baed83b45eba648d64da831d1ca8fb73e) formatting (@mspae)
+- [0d870a8](https://github.com/mspae/react-wavesurfer/commit/0d870a88a1e5b7471fcd582665da336f708ada2d) wavesurfer.js is a peerDependency (@mspae)
+- [ba4edd4](https://github.com/mspae/react-wavesurfer/commit/ba4edd40da2efc072c414030155031689d188e29) formatting (@mspae)
+- [be5360b](https://github.com/mspae/react-wavesurfer/commit/be5360b0e327f849dda239fd198c4399db484360) bumped version to 0.7.1 (@mspae)
+- [1bf6077](https://github.com/mspae/react-wavesurfer/commit/1bf6077c5b483b8d5d3f505a1deed9e99b3a72f4) wavesurfer.js is a devDependency (@mspae)
+- [b073f0b](https://github.com/mspae/react-wavesurfer/commit/b073f0b833d2414a46619ddd8b480578be147ce9) prop type for children allows several child components (@mspae)
+- [c9e07f1](https://github.com/mspae/react-wavesurfer/commit/c9e07f163387857b8fe694ad4cb59f6543d119c9) updated CHANGELOG.md and README.md (@mspae)
 - [53b9a36](https://github.com/mspae/react-wavesurfer/commit/53b9a367ae31e3f785505353c6fecbd4fa2f8740) updated CHANGELOG.md for v0.7.0 (@mspae)
 
 ### v0.7.0 (2016/08/17 18:14 +00:00)

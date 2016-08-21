@@ -12,7 +12,8 @@ class Minimap extends Component {
   }
 
   _init() {
-    this._map = this.props.wavesurfer.initMinimap(this.props.options);
+    this._map = Object.create(WaveSurfer.Minimap);
+    this._map.init(this.props.wavesurfer, this.props.options);
     this._map.render();
   }
 

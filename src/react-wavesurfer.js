@@ -294,7 +294,7 @@ Wavesurfer.propTypes = {
   volume: PropTypes.number,
   zoom: PropTypes.number,
   onPosChange: PropTypes.func,
-  children:PropTypes.oneOfType([
+  children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.array
   ]),

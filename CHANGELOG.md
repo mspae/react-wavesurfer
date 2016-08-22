@@ -1,6 +1,7 @@
 ## Change Log
 
-### v0.7.3 (2016/08/22 18:57 +00:00)
+### v0.7.3 (2016/08/22 19:01 +00:00)
+- [777a728](https://github.com/mspae/react-wavesurfer/commit/777a72845c76ff2c9776ca5a6b973416685373c5) updated CHANGELOG.md with v0.7.3 (@mspae)
 - [efe4156](https://github.com/mspae/react-wavesurfer/commit/efe4156519ac24b4a0e3f0b6b7d21d5d7cace6e7) webpack dev server is using eval-source-map now (@mspae)
 - [fdf11d3](https://github.com/mspae/react-wavesurfer/commit/fdf11d31bbbecc9c9e9090ebdd88c79c03693650) made linting pass without error, updating legacy patterns and tweaking linting settings (@mspae)
 - [ddfb699](https://github.com/mspae/react-wavesurfer/commit/ddfb699e257e132c1a78ecb849fe66df9be83f87) updated dependencies (@mspae)

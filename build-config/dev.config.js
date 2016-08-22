@@ -2,7 +2,7 @@ const path =  require('path');
 const webpack =  require('webpack');
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'eval-source-map',
 
   entry: [
     './example/index.jsx'
@@ -15,7 +15,6 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
 

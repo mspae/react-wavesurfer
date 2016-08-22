@@ -2,5 +2,6 @@
     "preset": "airbnb",
     "plugins": [ "jscs-jsx-rules" ],
     "disallowTrailingComma": true,
-    "requireTrailingComma": false
+    "requireTrailingComma": false,
+    "requirePaddingNewLinesAfterBlocks": false
 }

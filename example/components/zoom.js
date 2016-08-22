@@ -31,8 +31,9 @@ class ZoomExample extends React.Component {
       <div className="example col-xs-12">
         <h3>Zoom</h3>
         <div className="form-group">
-          <label>Zoom:</label>
+          <label htmlFor="zoom-value">Zoom:</label>
           <input
+            name="zoom-value"
             type="range"
             value={this.state.zoom}
             onChange={this.handleZoom}

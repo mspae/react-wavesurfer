@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import { Component, PropTypes } from 'react';
 require('imports?define=>false,exports=>false!wavesurfer.js/dist/plugin/wavesurfer.minimap.js');
 
 class Minimap extends Component {
@@ -18,9 +18,7 @@ class Minimap extends Component {
   }
 
   render() {
-    return (
-      <div></div>
-    );
+    return false;
   }
 }
 

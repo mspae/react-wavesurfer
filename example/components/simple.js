@@ -58,8 +58,10 @@ class SimpleExample extends React.Component {
         <h3>State & UI</h3>
         <div className="row">
           <div className="form-group col-xs-4">
-            <label>Volume:</label>
-            <input type="range"
+            <label htmlFor="simple-volume">Volume:</label>
+            <input
+              name="simple-volume"
+              type="range"
               min={0}
               max={1}
               step="0.01"
@@ -76,11 +78,12 @@ class SimpleExample extends React.Component {
           </div>
 
           <div className="form-group col-xs-4">
-            <label>Playing:</label>
+            <label htmlFor="simple-playing">Playing:</label>
             <button onClick={this.handleTogglePlay} className="btn btn-primary btn-block">
               toggle play
             </button>
             <input
+              name="simple-playing"
               className="form-control prop-value"
               type="text"
               placeholder={String(this.state.playing)}
@@ -88,8 +91,10 @@ class SimpleExample extends React.Component {
             />
           </div>
           <div className="form-group col-xs-4">
-            <label>Position:</label>
-            <input type="number"
+            <label htmlFor="simple-pos">Position:</label>
+            <input
+              name="simple-pos"
+              type="number"
               step="0.01"
               value={this.state.pos}
               onChange={this.handlePosChange}

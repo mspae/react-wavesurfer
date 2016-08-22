@@ -69,7 +69,7 @@ class Wavesurfer extends Component {
 
   componentDidMount() {
     const options = assign({}, this.props.options, {
-      container: this.refs.wavesurfer
+      container: this.wavesurferEl
     });
 
     // media element loading is only supported by MediaElement backend
@@ -215,7 +215,7 @@ class Wavesurfer extends Component {
 
   // receives seconds and transforms this to the position as a float 0-1
   _secToPos(sec) {
-    return 1 / this._wavesurfer.getDuration() * sec;
+    return (1 / this._wavesurfer.getDuration()) * sec;
   }
 
   // receives position as a float 0-1 and transforms this to seconds
@@ -237,26 +237,26 @@ class Wavesurfer extends Component {
   // if selector, get the HTML element for it
   // and pass to _loadAudio
   _loadMediaElt(selectorOrElt, audioPeaks) {
-    if (selectorOrElt instanceof HTMLElement) {
+    if (selectorOrElt instanceof window.HTMLElement) {
       this._loadAudio(selectorOrElt, audioPeaks);
     } else {
-      if (!document.querySelector(selectorOrElt)) {
+      if (!window.document.querySelector(selectorOrElt)) {
         throw new Error('Media Element not found!');
       }
 
-      this._loadAudio(document.querySelector(selectorOrElt), audioPeaks);
+      this._loadAudio(window.document.querySelector(selectorOrElt), audioPeaks);
     }
   }
 
   // pass audio data to wavesurfer
   _loadAudio(audioFileOrElt, audioPeaks) {
-    if (audioFileOrElt instanceof HTMLElement) {
+    if (audioFileOrElt instanceof window.HTMLElement) {
       // media element
       this._wavesurfer.loadMediaElement(audioFileOrElt, audioPeaks);
     } else if (typeof audioFileOrElt === 'string') {
       // bog-standard string is handled by load method and ajax call
       this._wavesurfer.load(audioFileOrElt, audioPeaks);
-    } else if (audioFileOrElt instanceof Blob || audioFileOrElt instanceof File) {
+    } else if (audioFileOrElt instanceof window.Blob || audioFileOrElt instanceof window.File) {
       // blob or file is loaded with loadBlob method
       this._wavesurfer.loadBlob(audioFileOrElt, audioPeaks);
     } else {
@@ -277,7 +277,7 @@ class Wavesurfer extends Component {
       : false;
     return (
       <div>
-        <div ref="wavesurfer" />
+        <div ref={(c) => { this.wavesurferEl = c; }} />
         {childrenWithProps}
       </div>
     );
@@ -289,7 +289,10 @@ Wavesurfer.propTypes = {
   pos: PropTypes.number,
   audioFile: (props, propName, componentName) => {
     const prop = props[propName];
-    if (prop && typeof prop !== 'string' && !prop instanceof Blob && !prop instanceof File) {
+    if (prop &&
+        typeof prop !== 'string' &&
+        !(prop instanceof window.Blob) &&
+        !(prop instanceof window.File)) {
       return new Error(`Invalid ${propName} supplied to ${componentName}
         expected either string or file/blob`);
     }
@@ -299,7 +302,7 @@ Wavesurfer.propTypes = {
 
   mediaElt: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.instanceOf(HTMLElement)
+    PropTypes.instanceOf(window.HTMLElement)
   ]),
   audioPeaks: PropTypes.array,
   volume: PropTypes.number,

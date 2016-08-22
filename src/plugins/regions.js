@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import { Component, PropTypes } from 'react';
 require('imports?define=>false,exports=>false!wavesurfer.js/dist/plugin/wavesurfer.regions.js');
 
 const REGIONS_EVENTS = [
@@ -60,7 +60,7 @@ class Regions extends Component {
     let oldRegionId;
 
     for (newRegionId in nextProps.regions) {
-      if (nextProps.regions.hasOwnProperty(newRegionId)) {
+      if ({}.hasOwnProperty.call(nextProps.regions, newRegionId)) {
         const newRegion = nextProps.regions[newRegionId];
 
         // remove from oldRegions
@@ -84,7 +84,7 @@ class Regions extends Component {
 
     // remove any old regions
     for (oldRegionId in oldRegions) {
-      if (oldRegions.hasOwnProperty(oldRegionId)) {
+      if ({}.hasOwnProperty.call(oldRegions, oldRegionId)) {
         nextProps.wavesurfer.regions.list[oldRegionId].remove();
       }
     }
@@ -118,7 +118,7 @@ class Regions extends Component {
 
     // add regions and hook up callbacks to region objects
     for (newRegionId in regions) {
-      if (regions.hasOwnProperty(newRegionId)) {
+      if ({}.hasOwnProperty.call(regions, newRegionId)) {
         this._hookUpRegionEvents(wavesurfer.addRegion(regions[newRegionId]));
       }
     }
@@ -147,7 +147,7 @@ class Regions extends Component {
   }
 
   render() {
-    return (<div></div>);
+    return false;
   }
 }
 

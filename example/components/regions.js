@@ -1,7 +1,7 @@
 import React from 'react';
+import assign from 'deep-assign';
 import Wavesurfer from '../../src/react-wavesurfer';
 import Regions from '../../src/plugins/regions';
-import assign from 'deep-assign';
 
 class RegionsExample extends React.Component {
   constructor(props) {
@@ -83,8 +83,9 @@ class RegionsExample extends React.Component {
         </button>
         <div className="row">
           <div className="form-group col-xs-4">
-            <label>ID:</label>
+            <label htmlFor="region-id">ID:</label>
             <input
+              name="region-id"
               className="form-control prop-value"
               type="text"
               placeholder={this.state.activeRegion}
@@ -92,9 +93,9 @@ class RegionsExample extends React.Component {
             />
           </div>
           <div className="form-group col-xs-4">
-            <label>Start:</label>
+            <label htmlFor="region-start">Start:</label>
             <input
-              name="start"
+              name="region-start"
               type="number"
               className="form-control prop-value"
               value={activeStart}
@@ -102,9 +103,9 @@ class RegionsExample extends React.Component {
             />
           </div>
           <div className="form-group col-xs-4">
-            <label>End:</label>
+            <label htmlFor="region-end">End:</label>
             <input
-              name="end"
+              name="region-end"
               type="number"
               className="form-control prop-value"
               value={activeEnd}

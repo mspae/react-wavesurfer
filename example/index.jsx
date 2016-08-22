@@ -45,4 +45,4 @@ function ExampleParent() {
   );
 }
 
-ReactDOM.render(<ExampleParent />, document.getElementById('app'));
+ReactDOM.render(<ExampleParent />, window.document.getElementById('app'));

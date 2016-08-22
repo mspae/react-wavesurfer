@@ -18,17 +18,13 @@ class Timeline extends Component {
     this.timeline = Object.create(WaveSurfer.Timeline);
 
     this.timeline.init(assign({}, this.props.options, {
-      container: this.refs.timeline,
+      container: this.timelineEl,
       wavesurfer: this.props.wavesurfer
     }));
   }
 
   render() {
-    return (
-      <div>
-        <div ref="timeline"></div>
-      </div>
-    );
+    return <div ref={(c) => { this.timelineEl = c; }} />;
   }
 }
 

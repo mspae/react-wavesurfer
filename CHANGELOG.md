@@ -1,6 +1,13 @@
 ## Change Log
 
+### v0.7.3 (2016/08/22 18:57 +00:00)
+- [efe4156](https://github.com/mspae/react-wavesurfer/commit/efe4156519ac24b4a0e3f0b6b7d21d5d7cace6e7) webpack dev server is using eval-source-map now (@mspae)
+- [fdf11d3](https://github.com/mspae/react-wavesurfer/commit/fdf11d31bbbecc9c9e9090ebdd88c79c03693650) made linting pass without error, updating legacy patterns and tweaking linting settings (@mspae)
+- [ddfb699](https://github.com/mspae/react-wavesurfer/commit/ddfb699e257e132c1a78ecb849fe66df9be83f87) updated dependencies (@mspae)
+- [9316c2f](https://github.com/mspae/react-wavesurfer/commit/9316c2fedf3f9a87e6fd4b299a3972cc70b16120) updated CHANGELOG.md for v0.7.2 (@mspae)
+
 ### v0.7.2 (2016/08/21 15:53 +00:00)
+- [21f021a](https://github.com/mspae/react-wavesurfer/commit/21f021a3cd26deaa10732d22768c781a275fbb75) bumped version to 0.7.2 (@mspae)
 - [f0a0816](https://github.com/mspae/react-wavesurfer/commit/f0a08166597953cdbb14de2ec8d19d850f5b20d0) guid key for plugin components (@mspae)
 - [6fbe4f1](https://github.com/mspae/react-wavesurfer/commit/6fbe4f17f6b3732c938cb8358cac94d51b75991a) minimap init function uses global.WaveSurfer not the wavesurfer prop so lazy loading of plugin code is supported (@mspae)
 - [4514c64](https://github.com/mspae/react-wavesurfer/commit/4514c64a586637534928f733a638da6d3d2f0814) updated CHANGELOG.md for 0.7.1 (@mspae)

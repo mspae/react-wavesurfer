@@ -14,6 +14,7 @@ class SimpleExample extends React.Component {
       pos: 0,
       volume: 0.5
     };
+    this.handlePosCheck = this.handlePosCheck.bind(this);
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handlePosChange = this.handlePosChange.bind(this);
     this.handleReady = this.handleReady.bind(this);
@@ -29,6 +30,12 @@ class SimpleExample extends React.Component {
   handlePosChange(e) {
     this.setState({
       pos: e.originalArgs ? e.originalArgs[0] : +e.target.value
+    });
+  }
+
+  handlePosCheck() {
+    this.setState({
+      pos: 5
     });
   }
 
@@ -101,6 +108,12 @@ class SimpleExample extends React.Component {
               className="form-control"
             />
             <p>Should set to 5 seconds on load.</p>
+            <button
+              className="btn btn-primary btn-block"
+              onClick={this.handlePosCheck}
+            >
+              Jump to second 5
+            </button>
           </div>
         </div>
         <Wavesurfer

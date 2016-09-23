@@ -12,12 +12,20 @@ class SimpleExample extends React.Component {
       audioFile: '../resources/demo.wav',
       playing: false,
       pos: 0,
-      volume: 0.5
+      volume: 0.5,
+      audioRate: 1
     };
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handlePosChange = this.handlePosChange.bind(this);
     this.handleReady = this.handleReady.bind(this);
     this.handleVolumeChange = this.handleVolumeChange.bind(this);
+    this.handleAudioRateChange = this.handleAudioRateChange.bind(this);
+  }
+
+  handleAudioRateChange(e) {
+    this.setState({
+      audioRate: +e.target.value
+    })
   }
 
   handleTogglePlay() {
@@ -51,7 +59,8 @@ class SimpleExample extends React.Component {
       progressColor: '#6c718c',
       waveColor: '#c4c8dc',
       normalize: true,
-      barWidth: 4
+      barWidth: 4,
+      audioRate: this.state.audioRate
     };
     return (
       <div className="example col-xs-12">
@@ -98,6 +107,20 @@ class SimpleExample extends React.Component {
               step="0.01"
               value={this.state.pos}
               onChange={this.handlePosChange}
+              className="form-control"
+            />
+            <p>Should set to 5 seconds on load.</p>
+          </div>
+          <div className="form-group col-xs-4">
+            <label htmlFor="simple-audiorate">Audio rate:</label>
+            <input
+              name="simple-audiorate"
+              type="range"
+              min="0"
+              max="10"
+              step="0.001"
+              value={this.state.audioRate}
+              onChange={this.handleAudioRateChange}
               className="form-control"
             />
             <p>Should set to 5 seconds on load.</p>

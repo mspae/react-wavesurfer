@@ -197,6 +197,11 @@ class Wavesurfer extends Component {
     if (this.props.zoom !== nextProps.zoom) {
       this._wavesurfer.zoom(nextProps.zoom);
     }
+
+    // update audioRate
+    if (this.props.options.audioRate !== nextProps.options.audioRate) {
+      this._wavesurfer.setPlaybackRate(nextProps.options.audioRate);
+    }
   }
 
   shouldComponentUpdate() {

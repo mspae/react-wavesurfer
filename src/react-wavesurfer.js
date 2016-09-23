@@ -42,7 +42,8 @@ class Wavesurfer extends Component {
     super(props);
 
     this.state = {
-      pos: 0
+      pos: 0,
+      isReady: false
     };
 
     if (typeof WaveSurfer === undefined) {
@@ -50,8 +51,6 @@ class Wavesurfer extends Component {
     }
 
     this._wavesurfer = Object.create(WaveSurfer);
-    this._isReady = false;
-
     this._loadMediaElt = this._loadMediaElt.bind(this);
     this._loadAudio = this._loadAudio.bind(this);
     this._seekTo = this._seekTo.bind(this);
@@ -71,7 +70,9 @@ class Wavesurfer extends Component {
 
     // file was loaded, wave was drawn
     this._wavesurfer.on('ready', () => {
-      this._isReady = true;
+      this.setState({
+        isReady: true
+      });
 
       // set initial position
       if (this.props.pos) {
@@ -162,7 +163,7 @@ class Wavesurfer extends Component {
 
     // update position
     if (nextProps.pos &&
-        this._isReady &&
+        this.state.isReady &&
         nextProps.pos !== this.props.pos &&
         nextProps.pos !== this.state.pos) {
       this._seekTo(nextProps.pos);
@@ -266,7 +267,7 @@ class Wavesurfer extends Component {
         this.props.children,
         child => React.cloneElement(child, {
           wavesurfer: this._wavesurfer,
-          isReady: this._isReady
+          isReady: this.state.isReady
         }))
       : false;
     return (

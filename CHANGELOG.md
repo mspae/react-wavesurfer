@@ -1,6 +1,15 @@
 ## Change Log
 
+### v0.7.4 (2016/09/23 20:55 +00:00)
+- [c0ad38f](https://github.com/mspae/react-wavesurfer/commit/c0ad38f6b7117597036d96ff9be406cbc816f40f) bumped version to 0.7.4 (@mspae)
+- [06a7a9d](https://github.com/mspae/react-wavesurfer/commit/06a7a9d4c9fd142e733dbf6d2dc04dccb975da90) fixed minimap bug which caused it to not render sometimes (@mspae)
+- [8db939e](https://github.com/mspae/react-wavesurfer/commit/8db939e4fe87f9b6eac0156b2f3cbf365b880743) root component's isReady flag is now normal state (@mspae)
+- [dbf117d](https://github.com/mspae/react-wavesurfer/commit/dbf117d627d5e865b21cd512299034a8427d9a7a) removed gui keys (@mspae)
+- [90d25d2](https://github.com/mspae/react-wavesurfer/commit/90d25d2cc904ada8f6dbff15f96a9aa5b354268b) added audio rate dynamic setting in componentWillReceiveProps (@mspae)
+- [8fd7a11](https://github.com/mspae/react-wavesurfer/commit/8fd7a119e8e6371b88059b0b339de959fa73f27d) updated CHANGELOG.md for v0.7.3 (@mspae)
+
 ### v0.7.3 (2016/08/22 19:01 +00:00)
+- [6d4cbe8](https://github.com/mspae/react-wavesurfer/commit/6d4cbe8a2e451aaa92479203e26e6e76d149aeff) bumped version (@mspae)
 - [777a728](https://github.com/mspae/react-wavesurfer/commit/777a72845c76ff2c9776ca5a6b973416685373c5) updated CHANGELOG.md with v0.7.3 (@mspae)
 - [efe4156](https://github.com/mspae/react-wavesurfer/commit/efe4156519ac24b4a0e3f0b6b7d21d5d7cace6e7) webpack dev server is using eval-source-map now (@mspae)
 - [fdf11d3](https://github.com/mspae/react-wavesurfer/commit/fdf11d31bbbecc9c9e9090ebdd88c79c03693650) made linting pass without error, updating legacy patterns and tweaking linting settings (@mspae)

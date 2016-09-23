@@ -14,7 +14,16 @@ class Minimap extends Component {
   _init() {
     this._map = Object.create(WaveSurfer.Minimap);
     this._map.init(this.props.wavesurfer, this.props.options);
-    this._map.render();
+    // TODO: find a more elegant way
+    window.setTimeout(() => {
+      this._map.render();
+    },0);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.isReady !== nextProps.isReady) {
+      this._init(nextProps);
+    }
   }
 
   render() {

@@ -220,6 +220,7 @@ class Wavesurfer extends Component {
     if (nextProps.responsive && this.props.responsive !== nextProps.responsive) {
       window.addEventListener('resize', this._handleResize, false);
     }
+
     // turn responsive off
     if (!nextProps.responsive && this.props.responsive !== nextProps.responsive) {
       window.removeEventListener('resize', this._handleResize);

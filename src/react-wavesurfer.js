@@ -37,6 +37,18 @@ function positiveIntegerProptype(props, propName, componentName) {
   return null;
 }
 
+const resizeThrottler = (fn) => () => {
+  console.log(fn);
+  let resizeTimeout;
+
+  if ( !resizeTimeout ) {
+    resizeTimeout = setTimeout(function() {
+      resizeTimeout = null;
+      fn();
+    }, 66);
+  }
+};
+
 class Wavesurfer extends Component {
   constructor(props) {
     super(props);
@@ -54,6 +66,13 @@ class Wavesurfer extends Component {
     this._loadMediaElt = this._loadMediaElt.bind(this);
     this._loadAudio = this._loadAudio.bind(this);
     this._seekTo = this._seekTo.bind(this);
+
+    if (this.props.responsive) {
+      this._handleResize = resizeThrottler(() => {
+        this._wavesurfer.empty();
+        this._wavesurfer.drawBuffer();
+      });
+    }
   }
 
   componentDidMount() {
@@ -87,6 +106,10 @@ class Wavesurfer extends Component {
       // set initial zoom
       if (this.props.zoom) {
         this._wavesurfer.zoom(this.props.zoom);
+      }
+
+      if (this.props.responsive) {
+        window.addEventListener('resize', this._handleResize, false);
       }
     });
 
@@ -193,6 +216,15 @@ class Wavesurfer extends Component {
     if (this.props.options.audioRate !== nextProps.options.audioRate) {
       this._wavesurfer.setPlaybackRate(nextProps.options.audioRate);
     }
+
+    // turn responsive on
+    if (nextProps.responsive && this.props.responsive !== nextProps.responsive) {
+      window.addEventListener('resize', this._handleResize, false);
+    }
+    // turn responsive off
+    if (!nextProps.responsive && this.props.responsive !== nextProps.responsive) {
+      window.removeEventListener('resize', this._handleResize);
+    }
   }
 
   shouldComponentUpdate() {
@@ -207,6 +239,10 @@ class Wavesurfer extends Component {
 
     // destroy wavesurfer instance
     this._wavesurfer.destroy();
+
+    if (this.props.responsive) {
+      window.removeEventListener('resize', this._handleResize);
+    }
   }
 
   // receives seconds and transforms this to the position as a float 0-1
@@ -302,6 +338,7 @@ Wavesurfer.propTypes = {
   audioPeaks: PropTypes.array,
   volume: PropTypes.number,
   zoom: PropTypes.number,
+  responsive: PropTypes.bool,
   onPosChange: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.element,
@@ -344,6 +381,7 @@ Wavesurfer.defaultProps = {
   playing: false,
   pos: 0,
   options: WaveSurfer.defaultParams,
+  responsive: true,
   onPosChange: () => {}
 };
 

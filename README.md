@@ -68,6 +68,10 @@ starts/stops playback
 
 #### zoom [float]
 
+#### responsive [bool]
+
+(default: true) resize the waveform on browser resize events
+
 ##### pos [number]
 
 position of playback in seconds

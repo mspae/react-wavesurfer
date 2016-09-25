@@ -1,5 +1,8 @@
 ## Change Log
 
+### upcoming (2016/09/24 10:08 +00:00)
+- [bbb922a](https://github.com/mspae/react-wavesurfer/commit/bbb922a628f88cb8e149a11db6cd4fbdfefa95c5) updated CHANGELOG.md for 0.7.4 (@mspae)
+
 ### v0.7.4 (2016/09/23 20:55 +00:00)
 - [c0ad38f](https://github.com/mspae/react-wavesurfer/commit/c0ad38f6b7117597036d96ff9be406cbc816f40f) bumped version to 0.7.4 (@mspae)
 - [06a7a9d](https://github.com/mspae/react-wavesurfer/commit/06a7a9d4c9fd142e733dbf6d2dc04dccb975da90) fixed minimap bug which caused it to not render sometimes (@mspae)

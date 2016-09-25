@@ -4,26 +4,17 @@ require('imports?define=>false,exports=>false!wavesurfer.js/dist/plugin/wavesurf
 class Minimap extends Component {
 
   componentDidMount() {
-    this._init = this._init.bind(this);
     this._map = undefined;
-
-    if (this.props.isReady) this._init();
-    this.props.wavesurfer.on('ready', this._init);
+    this.props.wavesurfer.on('ready', this._init.bind(this));
   }
 
   _init() {
     this._map = Object.create(WaveSurfer.Minimap);
     this._map.init(this.props.wavesurfer, this.props.options);
-    // TODO: find a more elegant way
-    window.setTimeout(() => {
-      this._map.render();
-    },0);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.isReady !== nextProps.isReady) {
-      this._init(nextProps);
-    }
+    this._map.render();
+    console.log(this._map);
+    //this._map.backend.drawer.empty();
+    this._map.drawWave();
   }
 
   render() {

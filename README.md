@@ -5,6 +5,8 @@
 
 Wrapper component for [wavesurfer.js](http://wavesurfer-js.org/). Includes support for the timeline, minimap and regions plugins.
 
+Note: This component expects `wavesurfer.js` to be installed.
+
 ## Basic Usage
 
 ```javascript

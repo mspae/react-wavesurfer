@@ -5,9 +5,13 @@
 
 Wrapper component for [wavesurfer.js](http://wavesurfer-js.org/). Includes support for the timeline, minimap and regions plugins.
 
-Note: This component expects `wavesurfer.js` to be installed.
+**Note:** This component expects `wavesurfer.js` to be installed. Read more about prerequisites and common pitfalls this at the bottom of this document.
 
 ## Basic Usage
+
+For more advanced examples check the example directory.
+
+You can also easily extend the core functionality by hooking into the wavesurfer.js callbacks (by defining callback props).
 
 ```javascript
 import React from 'react';
@@ -49,8 +53,6 @@ class MyComponent extends React.Component {
   }
 }
 ```
-
-For more advanced examples check the example directory.
 
 ## API
 
@@ -198,3 +200,20 @@ An object containing configuration for the minimap plugin. Example:
 * `npm run build` – Lint and build distributable files
 
 Please make sure your code passes the linting task before submitting a pull request.
+
+## Prerequisites and common pitfalls
+
+This library does not include `wavesurfer.js` itself. You need to include it in your project yourself.
+
+The (optional) plugin components do include the specific plugin code of wavesurfer.js. They augment the wavesurfer.js object, this is the reason why the root wavesurfer.js component does not include the wavesurfer.js code.
+
+* **Webpack:** Expose the `wavesurfer.js` library with the expose-loader:
+```
+  {
+    test: require.resolve("wavesurfer.js"),
+    loader: "expose?WaveSurfer"
+  }
+```
+* **Global objects:** Simply include the `wavesurfer.js` library and any plugins you want to include before you call the component code. (The component will be exposed as `window.Wavesurfer.default`)
+
+I have not tested AMD or System.js, if you have any experience, please feel free to update this document, or file an issue.

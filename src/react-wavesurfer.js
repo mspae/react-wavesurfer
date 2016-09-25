@@ -38,11 +38,10 @@ function positiveIntegerProptype(props, propName, componentName) {
 }
 
 const resizeThrottler = (fn) => () => {
-  console.log(fn);
   let resizeTimeout;
 
-  if ( !resizeTimeout ) {
-    resizeTimeout = setTimeout(function() {
+  if (!resizeTimeout) {
+    resizeTimeout = setTimeout(() => {
       resizeTimeout = null;
       fn();
     }, 66);

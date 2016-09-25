@@ -1,6 +1,13 @@
 ## Change Log
 
-### upcoming (2016/09/24 10:08 +00:00)
+### v0.8.0 (2016/09/25 15:57 +00:00)
+- [86b588b](https://github.com/mspae/react-wavesurfer/commit/86b588ba7458a77575df3f356939dce48ce7498d) bumped version to 0.8.0 (@mspae)
+- [1fc6106](https://github.com/mspae/react-wavesurfer/commit/1fc610648e5e92fdda34bfcacb14e3ff47f48f74) updated documentation with common pitfalls (@mspae)
+- [d7ee588](https://github.com/mspae/react-wavesurfer/commit/d7ee5886bc5d873c79749257c3c45fca4b6315d4) removed excess space (@mspae)
+- [c53e434](https://github.com/mspae/react-wavesurfer/commit/c53e4344f136c4077d257e992687b503218a4ff2) fixed formatting issues, remove log statement (@mspae)
+- [879025c](https://github.com/mspae/react-wavesurfer/commit/879025c613ff8122ac26bc1a37fe3e5fe94def0d) better event listener for ready event in minimap plugin (@mspae)
+- [588e771](https://github.com/mspae/react-wavesurfer/commit/588e771fd484e328bd28e2f6703660775c5e81a5) working on minimap init bug (@mspae)
+- [d7f610b](https://github.com/mspae/react-wavesurfer/commit/d7f610bb65d0a65d27e0a41d1a05ee3fa343fe21) responsive prop (@mspae)
 - [bbb922a](https://github.com/mspae/react-wavesurfer/commit/bbb922a628f88cb8e149a11db6cd4fbdfefa95c5) updated CHANGELOG.md for 0.7.4 (@mspae)
 
 ### v0.7.4 (2016/09/23 20:55 +00:00)

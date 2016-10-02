@@ -1,5 +1,8 @@
 ## Change Log
 
+### upcoming (2016/10/02 18:06 +00:00)
+- [4aedb61](https://github.com/mspae/react-wavesurfer/commit/4aedb61774a60212a9c78f1e406c089146a9c9d0) updated CHANGELOG.md for 0.8.0 (@mspae)
+
 ### v0.8.0 (2016/09/25 15:57 +00:00)
 - [86b588b](https://github.com/mspae/react-wavesurfer/commit/86b588ba7458a77575df3f356939dce48ce7498d) bumped version to 0.8.0 (@mspae)
 - [1fc6106](https://github.com/mspae/react-wavesurfer/commit/1fc610648e5e92fdda34bfcacb14e3ff47f48f74) updated documentation with common pitfalls (@mspae)

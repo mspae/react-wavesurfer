@@ -53,7 +53,6 @@ class Wavesurfer extends Component {
     super(props);
 
     this.state = {
-      pos: 0,
       isReady: false
     };
 
@@ -68,8 +67,19 @@ class Wavesurfer extends Component {
 
     if (this.props.responsive) {
       this._handleResize = resizeThrottler(() => {
+        // pause playback for resize operation
+        if (this.props.playing) {
+          this._wavesurfer.pause();
+        }
+        // resize the waveform
         this._wavesurfer.empty();
         this._wavesurfer.drawBuffer();
+        // restore previous position
+        this._seekTo(this.props.pos);
+        // restore playback
+        if (this.props.playing) {
+          this._wavesurfer.play();
+        }
       });
     }
   }
@@ -89,7 +99,8 @@ class Wavesurfer extends Component {
     // file was loaded, wave was drawn
     this._wavesurfer.on('ready', () => {
       this.setState({
-        isReady: true
+        isReady: true,
+        pos: this.props.pos
       });
 
       // set initial position

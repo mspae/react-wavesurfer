@@ -1,6 +1,9 @@
 ## Change Log
 
-### upcoming (2016/10/28 14:15 +00:00)
+### upcoming (2016/10/28 14:16 +00:00)
+- [4c77e86](https://github.com/mspae/react-wavesurfer/commit/4c77e868cb18cc447e0d17bbe0e7a8010c383dcc) updated CHANGELOG.md for 0.8.2 (@mspae)
+
+### v0.8.2 (2016/10/28 14:15 +00:00)
 - [ecdc3d5](https://github.com/mspae/react-wavesurfer/commit/ecdc3d53e36e2f6efb22ffee6a26f8c9d6662084) bump version to 0.8.2 (@mspae)
 - [ff54576](https://github.com/mspae/react-wavesurfer/commit/ff54576984638e678837537d5518bdcd4f5ed674) resize operation stops playback and restores playback position after resize is complete (@mspae)
 - [adae27d](https://github.com/mspae/react-wavesurfer/commit/adae27db19ce7fdbf756d49800074dfdea236e53) bumped version because of wrong build (@mspae)

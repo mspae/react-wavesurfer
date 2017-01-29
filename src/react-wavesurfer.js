@@ -71,11 +71,17 @@ class Wavesurfer extends Component {
         if (this.props.playing) {
           this._wavesurfer.pause();
         }
+
         // resize the waveform
-        this._wavesurfer.empty();
         this._wavesurfer.drawBuffer();
-        // restore previous position
-        this._seekTo(this.props.pos);
+
+        // We allow resize before file isloaded, since we can get wave data from outside,
+        // so there might not be a file loaded when resizing
+        if (this.state.isReady) {
+          // restore previous position
+          this._seekTo(this.props.pos);
+        }
+
         // restore playback
         if (this.props.playing) {
           this._wavesurfer.play();
@@ -116,10 +122,6 @@ class Wavesurfer extends Component {
       // set initial zoom
       if (this.props.zoom) {
         this._wavesurfer.zoom(this.props.zoom);
-      }
-
-      if (this.props.responsive) {
-        window.addEventListener('resize', this._handleResize, false);
       }
     });
 
@@ -170,6 +172,10 @@ class Wavesurfer extends Component {
     // if mediaElt prop, load media Element
     if (this.props.mediaElt) {
       this._loadMediaElt(this.props.mediaElt, this.props.audioPeaks);
+    }
+
+    if (this.props.responsive) {
+      window.addEventListener('resize', this._handleResize, false);
     }
   }
 
@@ -309,7 +315,7 @@ class Wavesurfer extends Component {
   }
 
   render() {
-    let childrenWithProps = (this.props.children)
+    const childrenWithProps = (this.props.children)
       ? React.Children.map(
         this.props.children,
         child => React.cloneElement(child, {

@@ -1,6 +1,7 @@
 ## Change Log
 
-### upcoming (2017/02/05 19:36 +00:00)
+### v0.8.3 (2017/02/05 19:36 +00:00)
+- [afce60f](https://github.com/mspae/react-wavesurfer/commit/afce60f70598f1733480dd7b52af048e9da1e96f) updated changelog and bumped version for 0.8.3 (@mspae)
 - [#30](https://github.com/mspae/react-wavesurfer/pull/30) Merge pull request #30 from omerts/master (@omerts)
 - [4fcd41c](https://github.com/mspae/react-wavesurfer/commit/4fcd41c72481b0eca938c41b8f6b4b46bf655a72) add support for responsiveness when peaks are pre-rendered
 - [a731025](https://github.com/mspae/react-wavesurfer/commit/a731025ddca62d3d50aa8e933b1ba1eb8e885104) updated CHANGELOG.md for 0.8.2 (@mspae)

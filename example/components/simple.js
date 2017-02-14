@@ -25,7 +25,7 @@ class SimpleExample extends React.Component {
   handleAudioRateChange(e) {
     this.setState({
       audioRate: +e.target.value
-    })
+    });
   }
 
   handleTogglePlay() {

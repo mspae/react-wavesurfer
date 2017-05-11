@@ -219,10 +219,16 @@ class Wavesurfer extends Component {
 
     // update position
     if (nextProps.pos &&
-        this.state.isReady &&
         nextProps.pos !== this.props.pos &&
         nextProps.pos !== this.state.pos) {
-      this._seekTo(nextProps.pos);
+      if(newSource) {
+        var seekToInNewFile = this._wavesurfer.on('ready', () => {
+          this._seekTo(nextProps.pos)
+          seekToInNewFile.un()
+        })
+      } else {
+        this._seekTo(nextProps.pos);
+      }
     }
 
     // update playing state

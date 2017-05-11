@@ -186,14 +186,18 @@ class Wavesurfer extends Component {
 
   // update wavesurfer rendering manually
   componentWillReceiveProps(nextProps) {
+    let newSource = false
+    
     // update audioFile
     if (this.props.audioFile !== nextProps.audioFile) {
       this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
+      newSource = true
     }
 
     // update mediaElt
     if (this.props.mediaElt !== nextProps.mediaElt) {
       this._loadMediaElt(nextProps.mediaElt, nextProps.audioPeaks);
+      newSource = true
     }
 
     // update peaks
@@ -214,8 +218,9 @@ class Wavesurfer extends Component {
     }
 
     // update playing state
-    if (this.props.playing !== nextProps.playing ||
-      this._wavesurfer.isPlaying() !== nextProps.playing) {
+    if (!newSource && 
+        (this.props.playing !== nextProps.playing ||
+         this._wavesurfer.isPlaying() !== nextProps.playing)) {
       if (nextProps.playing) {
         this._wavesurfer.play();
       } else {

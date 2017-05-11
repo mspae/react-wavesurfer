@@ -145,14 +145,16 @@ class Wavesurfer extends Component {
     // receives a position float 0-1) – See the README.md for explanation why we
     // need this
     this._wavesurfer.on('seek', (pos) => {
-      const formattedPos = this._posToSec(pos);
-      this.setState({
-        formattedPos
-      });
-      this.props.onPosChange({
-        wavesurfer: this._wavesurfer,
-        originalArgs: [formattedPos]
-      });
+      if(this.state.isReady) {
+        const formattedPos = this._posToSec(pos);
+        this.setState({
+          formattedPos
+        });
+        this.props.onPosChange({
+          wavesurfer: this._wavesurfer,
+          originalArgs: [formattedPos]
+        });
+      }
     });
 
     // hook up events to callback handlers passed in as props
@@ -190,12 +192,18 @@ class Wavesurfer extends Component {
     
     // update audioFile
     if (this.props.audioFile !== nextProps.audioFile) {
+      this.setState({
+        isReady: false
+      })
       this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
       newSource = true
     }
 
     // update mediaElt
     if (this.props.mediaElt !== nextProps.mediaElt) {
+      this.setState({
+        isReady: false
+      })
       this._loadMediaElt(nextProps.mediaElt, nextProps.audioPeaks);
       newSource = true
     }

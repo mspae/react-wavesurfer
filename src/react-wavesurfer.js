@@ -118,10 +118,10 @@ class Wavesurfer extends Component {
       if (this.props.volume != null) {
         this._wavesurfer.setVolume(this.props.volume);
       }
-      
+
       // set initial playing state
       if (this.props.playing) {
-        this.wavesurfer.play()
+        this.wavesurfer.play();
       }
 
       // set initial zoom

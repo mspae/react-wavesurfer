@@ -67,25 +67,8 @@ class Wavesurfer extends Component {
 
     if (this.props.responsive) {
       this._handleResize = resizeThrottler(() => {
-        // pause playback for resize operation
-        if (this.props.playing) {
-          this._wavesurfer.pause();
-        }
-
-        // resize the waveform
+        // resize/redraw the waveform
         this._wavesurfer.drawBuffer();
-
-        // We allow resize before file isloaded, since we can get wave data from outside,
-        // so there might not be a file loaded when resizing
-        if (this.state.isReady) {
-          // restore previous position
-          this._seekTo(this.props.pos);
-        }
-
-        // restore playback
-        if (this.props.playing) {
-          this._wavesurfer.play();
-        }
       });
     }
   }

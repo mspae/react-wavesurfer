@@ -118,7 +118,7 @@ class Wavesurfer extends Component {
       if (this.props.volume != null) {
         this._wavesurfer.setVolume(this.props.volume);
       }
-      
+
       // set initial playing state
       if (this.props.playing) {
         this.wavesurfer.play();
@@ -206,7 +206,7 @@ class Wavesurfer extends Component {
     }
 
     // update position
-    if (nextProps.pos &&
+    if (nextProps.pos !== undefined &&
         this.state.isReady &&
         nextProps.pos !== this.props.pos &&
         nextProps.pos !== this.state.pos) {

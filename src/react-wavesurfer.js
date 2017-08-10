@@ -121,7 +121,7 @@ class Wavesurfer extends Component {
 
       // set initial playing state
       if (this.props.playing) {
-        this.wavesurfer.play();
+        this._wavesurfer.play();
       }
 
       // set initial zoom
@@ -145,14 +145,16 @@ class Wavesurfer extends Component {
     // receives a position float 0-1) – See the README.md for explanation why we
     // need this
     this._wavesurfer.on('seek', (pos) => {
-      const formattedPos = this._posToSec(pos);
-      this.setState({
-        formattedPos
-      });
-      this.props.onPosChange({
-        wavesurfer: this._wavesurfer,
-        originalArgs: [formattedPos]
-      });
+      if(this.state.isReady) {
+        const formattedPos = this._posToSec(pos);
+        this.setState({
+          formattedPos
+        });
+        this.props.onPosChange({
+          wavesurfer: this._wavesurfer,
+          originalArgs: [formattedPos]
+        });
+      }
     });
 
     // hook up events to callback handlers passed in as props
@@ -186,14 +188,24 @@ class Wavesurfer extends Component {
 
   // update wavesurfer rendering manually
   componentWillReceiveProps(nextProps) {
+    let newSource = false
+    
     // update audioFile
     if (this.props.audioFile !== nextProps.audioFile) {
+      this.setState({
+        isReady: false
+      })
       this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
+      newSource = true
     }
 
     // update mediaElt
     if (this.props.mediaElt !== nextProps.mediaElt) {
+      this.setState({
+        isReady: false
+      })
       this._loadMediaElt(nextProps.mediaElt, nextProps.audioPeaks);
+      newSource = true
     }
 
     // update peaks
@@ -210,12 +222,20 @@ class Wavesurfer extends Component {
         this.state.isReady &&
         nextProps.pos !== this.props.pos &&
         nextProps.pos !== this.state.pos) {
-      this._seekTo(nextProps.pos);
+      if(newSource) {
+        var seekToInNewFile = this._wavesurfer.on('ready', () => {
+          this._seekTo(nextProps.pos)
+          seekToInNewFile.un()
+        })
+      } else {
+        this._seekTo(nextProps.pos);
+      }
     }
 
     // update playing state
-    if (this.props.playing !== nextProps.playing ||
-      this._wavesurfer.isPlaying() !== nextProps.playing) {
+    if (!newSource && 
+        (this.props.playing !== nextProps.playing ||
+         this._wavesurfer.isPlaying() !== nextProps.playing)) {
       if (nextProps.playing) {
         this._wavesurfer.play();
       } else {

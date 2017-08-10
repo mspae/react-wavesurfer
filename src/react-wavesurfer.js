@@ -145,7 +145,7 @@ class Wavesurfer extends Component {
     // receives a position float 0-1) – See the README.md for explanation why we
     // need this
     this._wavesurfer.on('seek', (pos) => {
-      if(this.state.isReady) {
+      if (this.state.isReady) {
         const formattedPos = this._posToSec(pos);
         this.setState({
           formattedPos
@@ -188,24 +188,25 @@ class Wavesurfer extends Component {
 
   // update wavesurfer rendering manually
   componentWillReceiveProps(nextProps) {
-    let newSource = false
-    
+    let newSource = false;
+    let seekToInNewFile;
+
     // update audioFile
     if (this.props.audioFile !== nextProps.audioFile) {
       this.setState({
         isReady: false
-      })
+      });
       this._loadAudio(nextProps.audioFile, nextProps.audioPeaks);
-      newSource = true
+      newSource = true;
     }
 
     // update mediaElt
     if (this.props.mediaElt !== nextProps.mediaElt) {
       this.setState({
         isReady: false
-      })
+      });
       this._loadMediaElt(nextProps.mediaElt, nextProps.audioPeaks);
-      newSource = true
+      newSource = true;
     }
 
     // update peaks
@@ -222,18 +223,18 @@ class Wavesurfer extends Component {
         this.state.isReady &&
         nextProps.pos !== this.props.pos &&
         nextProps.pos !== this.state.pos) {
-      if(newSource) {
-        var seekToInNewFile = this._wavesurfer.on('ready', () => {
-          this._seekTo(nextProps.pos)
-          seekToInNewFile.un()
-        })
+      if (newSource) {
+        seekToInNewFile = this._wavesurfer.on('ready', () => {
+          this._seekTo(nextProps.pos);
+          seekToInNewFile.un();
+        });
       } else {
         this._seekTo(nextProps.pos);
       }
     }
 
     // update playing state
-    if (!newSource && 
+    if (!newSource &&
         (this.props.playing !== nextProps.playing ||
          this._wavesurfer.isPlaying() !== nextProps.playing)) {
       if (nextProps.playing) {

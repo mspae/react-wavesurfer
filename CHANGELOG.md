@@ -1,5 +1,17 @@
 ## Change Log
 
+### v0.8.4 (2017/08/10 18:16 +00:00)
+- [adf93bc](https://github.com/mspae/react-wavesurfer/commit/adf93bcbf61bb878eee7aff4c89ff6c973b19191) changed references to the wavesurfer.js plugin files to the minified versions to fix the build (@mspae)
+- [c129566](https://github.com/mspae/react-wavesurfer/commit/c129566e2f3d0fa5087600d1b95f83d1c9ce6f8c) linting issues (@mspae)
+- [#44](https://github.com/mspae/react-wavesurfer/pull/44) Fix minor linting errors (#44) (@tf)
+- [#37](https://github.com/mspae/react-wavesurfer/pull/37) Fixing edge cases (#37) (@TrevorHinesley)
+- [#55](https://github.com/mspae/react-wavesurfer/pull/55) handle nextProps.pos with value of 0 (falsey) (#55) (@eviltwin)
+- [#59](https://github.com/mspae/react-wavesurfer/pull/59) added missing semicolon to example code (#59) (@acollier88)
+- [#34](https://github.com/mspae/react-wavesurfer/pull/34) Update react-wavesurfer.js (#34) (@TrevorHinesley)
+- [#32](https://github.com/mspae/react-wavesurfer/pull/32) Merge pull request #32 from JungJinuk/patch-1 (@JungJinuk)
+- [a81b31e](https://github.com/mspae/react-wavesurfer/commit/a81b31e257cca863c5d69d2340e3d5511420ff30) Update simple.js (@JungJinuk)
+- [cc3ec46](https://github.com/mspae/react-wavesurfer/commit/cc3ec46b3c0c902f1cea15e123648986ee00f79a) changelog and bump for v0.8.3 (@mspae)
+
 ### v0.8.3 (2017/02/05 19:36 +00:00)
 - [afce60f](https://github.com/mspae/react-wavesurfer/commit/afce60f70598f1733480dd7b52af048e9da1e96f) updated changelog and bumped version for 0.8.3 (@mspae)
 - [#30](https://github.com/mspae/react-wavesurfer/pull/30) Merge pull request #30 from omerts/master (@omerts)

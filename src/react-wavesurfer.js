@@ -206,8 +206,7 @@ class Wavesurfer extends Component {
     }
 
     // update position
-    if (nextProps.pos &&
-        this.state.isReady &&
+    if (this.state.isReady &&
         nextProps.pos !== this.props.pos &&
         nextProps.pos !== this.state.pos) {
       this._seekTo(nextProps.pos);

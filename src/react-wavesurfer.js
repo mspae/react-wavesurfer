@@ -121,7 +121,7 @@ class Wavesurfer extends Component {
       
       // set initial playing state
       if (this.props.playing) {
-        this.wavesurfer.play()
+        this.wavesurfer.play();
       }
 
       // set initial zoom

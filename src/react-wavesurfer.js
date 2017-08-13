@@ -271,10 +271,6 @@ class Wavesurfer extends Component {
     }
   }
 
-  shouldComponentUpdate() {
-    return false;
-  }
-
   componentWillUnmount() {
     // remove listeners
     EVENTS.forEach((e) => {

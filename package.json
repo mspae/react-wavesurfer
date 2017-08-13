@@ -26,6 +26,7 @@
   },
   "peerDependencies": {
     "react": "^15.3.1",
+    "prop-types": "^15.5.10",
     "wavesurfer.js": "^1.1.11"
   },
   "devDependencies": {

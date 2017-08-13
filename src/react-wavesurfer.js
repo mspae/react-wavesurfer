@@ -416,7 +416,7 @@ Wavesurfer.propTypes = {
     progressColor: PropTypes.string,
     scrollParent: PropTypes.bool,
     skipLength: PropTypes.number,
-    waveColor: PropTypes.string,
+    waveColor: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(window.CanvasGradient)]),
     autoCenter: PropTypes.bool
   })
 };

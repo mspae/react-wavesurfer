@@ -1,6 +1,13 @@
 ## Change Log
 
+### upcoming (2017/08/13 22:44 +00:00)
+- [225de44](https://github.com/mspae/react-wavesurfer/commit/225de447e4b6d554e1112aea2afb318e17a3133d) removed shouldComponentUpdate hook on root component since it stopped children from updating and doesn't provide perf benefits (@mspae)
+- [ba20e09](https://github.com/mspae/react-wavesurfer/commit/ba20e099aeff2ce1d6dd4e63764d7eb17c2a7731) Added support for gradients for the waveColor prop (@mspae)
+- [#61](https://github.com/mspae/react-wavesurfer/pull/61) fixed React.PropTypes deprecation warning (#61) (@rijk)
+- [d368e28](https://github.com/mspae/react-wavesurfer/commit/d368e282e0fee12615fe9b434b024683bc5d45ab) updated changelog for v0.8.4 (@mspae)
+
 ### v0.8.4 (2017/08/10 18:16 +00:00)
+- [92a7f7f](https://github.com/mspae/react-wavesurfer/commit/92a7f7f269f5e88b1e19e5a6e4cb7410ab4da76f) bumped version to 0.8.4 (@mspae)
 - [adf93bc](https://github.com/mspae/react-wavesurfer/commit/adf93bcbf61bb878eee7aff4c89ff6c973b19191) changed references to the wavesurfer.js plugin files to the minified versions to fix the build (@mspae)
 - [c129566](https://github.com/mspae/react-wavesurfer/commit/c129566e2f3d0fa5087600d1b95f83d1c9ce6f8c) linting issues (@mspae)
 - [#44](https://github.com/mspae/react-wavesurfer/pull/44) Fix minor linting errors (#44) (@tf)

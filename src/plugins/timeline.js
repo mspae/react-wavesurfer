@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import assign from 'deep-assign';
 
-require('imports?define=>false,exports=>false!wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js');
+require('wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js');
 
 class Timeline extends Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 {
   "name": "react-wavesurfer",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "React component wrapper for wavesurfer.js",
   "main": "lib/react-wavesurfer.min.js",
   "scripts": {

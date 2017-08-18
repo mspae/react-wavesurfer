@@ -193,16 +193,20 @@ An object containing configuration for the minimap plugin. Example:
 }
 ```
 
-## Developing
+## Developing & contributing
+
+**Thank you for contributing to this project! Your help is very welcome. Please read the information below to find out how to start.**
 
 This project uses yarn as package manager. Please install it globally with `npm install yarn --global` if you haven't already done so.
+
+Please apply the precommit hook before commiting, it will lint and format your code before it is saved in version control. To set it up run `chmod +x pre-commit.sh && ln -s ../../pre-commit.sh .git/hooks/pre-commit` once in the root directory of this project before commiting.
 
 * `yarn` – Install dependencies
 * `npm run start` – Start development server (webpack-dev-server) at `localhost:8080/webpack-dev-server`
 * `npm run lint` – Lint code (is done while running start task too)
 * `npm run build` – Lint and build distributable files
 
-Please apply the precommit hook before commiting, it will lint and format your code before it is saved in version control. To set it up run `ln -s ../../pre-commit.sh .git/hooks/pre-commit` once in the root directory of this project before commiting.
+
 
 ## Prerequisites and common pitfalls
 

@@ -1,6 +1,6 @@
 const Merge = require('webpack-merge');
 const CommonConfig = require('./webpack.common.js');
-var path = require('path');
+const path = require('path');
 
 module.exports = Merge(CommonConfig, {
   devtool: 'eval-source-map',

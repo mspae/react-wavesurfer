@@ -22,7 +22,10 @@ const EVENTS = [
  * @description Capitalise the first letter of a string
  */
 function capitaliseFirstLetter(string) {
-  return string.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
+  return string
+    .split('-')
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('');
 }
 
 /**
@@ -30,7 +33,10 @@ function capitaliseFirstLetter(string) {
  */
 function positiveIntegerProptype(props, propName, componentName) {
   const n = props[propName];
-  if (n !== undefined && (typeof n !== 'number' || n !== parseInt(n, 10) || n < 0)) {
+  if (
+    n !== undefined &&
+    (typeof n !== 'number' || n !== parseInt(n, 10) || n < 0)
+  ) {
     return new Error(`Invalid ${propName} supplied to ${componentName},
       expected a positive integer`);
   }
@@ -38,7 +44,7 @@ function positiveIntegerProptype(props, propName, componentName) {
   return null;
 }
 
-const resizeThrottler = (fn) => () => {
+const resizeThrottler = fn => () => {
   let resizeTimeout;
 
   if (!resizeTimeout) {
@@ -116,7 +122,7 @@ class Wavesurfer extends Component {
       }
 
       // set initial volume
-      if (this.props.volume != null) {
+      if (this.props.volume !== null) {
         this._wavesurfer.setVolume(this.props.volume);
       }
 
@@ -131,7 +137,7 @@ class Wavesurfer extends Component {
       }
     });
 
-    this._wavesurfer.on('audioprocess', (pos) => {
+    this._wavesurfer.on('audioprocess', pos => {
       this.setState({
         pos
       });
@@ -145,7 +151,7 @@ class Wavesurfer extends Component {
     // `seek` event and calculate the equivalent in seconds (seek event
     // receives a position float 0-1) – See the README.md for explanation why we
     // need this
-    this._wavesurfer.on('seek', (pos) => {
+    this._wavesurfer.on('seek', pos => {
       if (this.state.isReady) {
         const formattedPos = this._posToSec(pos);
         this.setState({
@@ -159,7 +165,7 @@ class Wavesurfer extends Component {
     });
 
     // hook up events to callback handlers passed in as props
-    EVENTS.forEach((e) => {
+    EVENTS.forEach(e => {
       const propCallback = this.props[`on${capitaliseFirstLetter(e)}`];
       const wavesurfer = this._wavesurfer;
       if (propCallback) {
@@ -220,10 +226,12 @@ class Wavesurfer extends Component {
     }
 
     // update position
-    if (nextProps.pos !== undefined &&
-        this.state.isReady &&
-        nextProps.pos !== this.props.pos &&
-        nextProps.pos !== this.state.pos) {
+    if (
+      nextProps.pos !== undefined &&
+      this.state.isReady &&
+      nextProps.pos !== this.props.pos &&
+      nextProps.pos !== this.state.pos
+    ) {
       if (newSource) {
         seekToInNewFile = this._wavesurfer.on('ready', () => {
           this._seekTo(nextProps.pos);
@@ -235,9 +243,11 @@ class Wavesurfer extends Component {
     }
 
     // update playing state
-    if (!newSource &&
-        (this.props.playing !== nextProps.playing ||
-         this._wavesurfer.isPlaying() !== nextProps.playing)) {
+    if (
+      !newSource &&
+      (this.props.playing !== nextProps.playing ||
+        this._wavesurfer.isPlaying() !== nextProps.playing)
+    ) {
       if (nextProps.playing) {
         this._wavesurfer.play();
       } else {
@@ -261,19 +271,25 @@ class Wavesurfer extends Component {
     }
 
     // turn responsive on
-    if (nextProps.responsive && this.props.responsive !== nextProps.responsive) {
+    if (
+      nextProps.responsive &&
+      this.props.responsive !== nextProps.responsive
+    ) {
       window.addEventListener('resize', this._handleResize, false);
     }
 
     // turn responsive off
-    if (!nextProps.responsive && this.props.responsive !== nextProps.responsive) {
+    if (
+      !nextProps.responsive &&
+      this.props.responsive !== nextProps.responsive
+    ) {
       window.removeEventListener('resize', this._handleResize);
     }
   }
 
   componentWillUnmount() {
     // remove listeners
-    EVENTS.forEach((e) => {
+    EVENTS.forEach(e => {
       this._wavesurfer.un(e);
     });
 
@@ -287,7 +303,7 @@ class Wavesurfer extends Component {
 
   // receives seconds and transforms this to the position as a float 0-1
   _secToPos(sec) {
-    return (1 / this._wavesurfer.getDuration()) * sec;
+    return 1 / this._wavesurfer.getDuration() * sec;
   }
 
   // receives position as a float 0-1 and transforms this to seconds
@@ -328,7 +344,10 @@ class Wavesurfer extends Component {
     } else if (typeof audioFileOrElt === 'string') {
       // bog-standard string is handled by load method and ajax call
       this._wavesurfer.load(audioFileOrElt, audioPeaks);
-    } else if (audioFileOrElt instanceof window.Blob || audioFileOrElt instanceof window.File) {
+    } else if (
+      audioFileOrElt instanceof window.Blob ||
+      audioFileOrElt instanceof window.File
+    ) {
       // blob or file is loaded with loadBlob method
       this._wavesurfer.loadBlob(audioFileOrElt, audioPeaks);
     } else {
@@ -338,17 +357,21 @@ class Wavesurfer extends Component {
   }
 
   render() {
-    const childrenWithProps = (this.props.children)
-      ? React.Children.map(
-        this.props.children,
-        child => React.cloneElement(child, {
-          wavesurfer: this._wavesurfer,
-          isReady: this.state.isReady
-        }))
+    const childrenWithProps = this.props.children
+      ? React.Children.map(this.props.children, child =>
+          React.cloneElement(child, {
+            wavesurfer: this._wavesurfer,
+            isReady: this.state.isReady
+          })
+        )
       : false;
     return (
       <div>
-        <div ref={(c) => { this.wavesurferEl = c; }} />
+        <div
+          ref={c => {
+            this.wavesurferEl = c;
+          }}
+        />
         {childrenWithProps}
       </div>
     );
@@ -360,10 +383,12 @@ Wavesurfer.propTypes = {
   pos: PropTypes.number,
   audioFile: (props, propName, componentName) => {
     const prop = props[propName];
-    if (prop &&
-        typeof prop !== 'string' &&
-        !(prop instanceof window.Blob) &&
-        !(prop instanceof window.File)) {
+    if (
+      prop &&
+      typeof prop !== 'string' &&
+      !(prop instanceof window.Blob) &&
+      !(prop instanceof window.File)
+    ) {
       return new Error(`Invalid ${propName} supplied to ${componentName}
         expected either string or file/blob`);
     }
@@ -380,10 +405,7 @@ Wavesurfer.propTypes = {
   zoom: PropTypes.number,
   responsive: PropTypes.bool,
   onPosChange: PropTypes.func,
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.array
-  ]),
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
   options: PropTypes.shape({
     audioRate: PropTypes.number,
     backend: PropTypes.oneOf(['WebAudio', 'MediaElement']),
@@ -412,7 +434,10 @@ Wavesurfer.propTypes = {
     progressColor: PropTypes.string,
     scrollParent: PropTypes.bool,
     skipLength: PropTypes.number,
-    waveColor: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(window.CanvasGradient)]),
+    waveColor: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(window.CanvasGradient)
+    ]),
     autoCenter: PropTypes.bool
   })
 };

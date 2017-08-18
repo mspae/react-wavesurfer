@@ -2,6 +2,9 @@ module.exports = {
   extends: ['eslint:recommended', 'prettier/react', 'plugin:react/recommended'], // extending recommended config and config derived from eslint-config-prettier
   plugins: ['prettier'], // activating esling-plugin-prettier (--fix stuff)
   parser: "babel-eslint",
+  globals: {
+    WaveSurfer: true
+  },
   env: {
     browser: true,
     commonjs: true

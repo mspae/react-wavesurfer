@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import assign from 'deep-assign';
 
-require('imports?define=>false,exports=>false!wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js');
+require('wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js');
 
 class Timeline extends Component {
   constructor(props) {
@@ -18,14 +18,22 @@ class Timeline extends Component {
   _init() {
     this.timeline = Object.create(WaveSurfer.Timeline);
 
-    this.timeline.init(assign({}, this.props.options, {
-      container: this.timelineEl,
-      wavesurfer: this.props.wavesurfer
-    }));
+    this.timeline.init(
+      assign({}, this.props.options, {
+        container: this.timelineEl,
+        wavesurfer: this.props.wavesurfer
+      })
+    );
   }
 
   render() {
-    return <div ref={(c) => { this.timelineEl = c; }} />;
+    return (
+      <div
+        ref={c => {
+          this.timelineEl = c;
+        }}
+      />
+    );
   }
 }
 

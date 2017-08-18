@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-require('imports?define=>false,exports=>false!wavesurfer.js/dist/plugin/wavesurfer.regions.min.js');
+require('wavesurfer.js/dist/plugin/wavesurfer.regions.min.js');
 
 const REGIONS_EVENTS = [
   'region-in',
@@ -30,7 +30,10 @@ const REGION_EVENTS = [
  * @description Capitalise the first letter of a string
  */
 function capitaliseFirstLetter(string) {
-  return string.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
+  return string
+    .split('-')
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('');
 }
 
 class Regions extends Component {
@@ -72,9 +75,11 @@ class Regions extends Component {
           this._hookUpRegionEvents(nextProps.wavesurfer.addRegion(newRegion));
 
           // update regions
-        } else if (oldRegions[newRegionId] && (
-          oldRegions[newRegionId].start !== newRegion.start ||
-          oldRegions[newRegionId].end !== newRegion.end)) {
+        } else if (
+          oldRegions[newRegionId] &&
+          (oldRegions[newRegionId].start !== newRegion.start ||
+            oldRegions[newRegionId].end !== newRegion.end)
+        ) {
           nextProps.wavesurfer.regions.list[newRegionId].update({
             start: newRegion.start,
             end: newRegion.end
@@ -96,7 +101,7 @@ class Regions extends Component {
   }
 
   componentWillUnmount() {
-    REGION_EVENTS.forEach((e) => {
+    REGION_EVENTS.forEach(e => {
       this.props.wavesurfer.un(e);
     });
   }
@@ -127,7 +132,9 @@ class Regions extends Component {
 
   _hookUpRegionEvents(region) {
     REGION_EVENTS.forEach(e => {
-      const propCallback = this.props[`onSingleRegion${capitaliseFirstLetter(e)}`];
+      const propCallback = this.props[
+        `onSingleRegion${capitaliseFirstLetter(e)}`
+      ];
       const { wavesurfer } = this.props;
       if (propCallback) {
         region.on(e, (...originalArgs) => {

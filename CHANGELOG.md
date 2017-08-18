@@ -1,6 +1,20 @@
 ## Change Log
 
+### v0.8.5 (2017/08/18 11:46 +00:00)
+- [bd79e36](https://github.com/mspae/react-wavesurfer/commit/bd79e368bc1eb20d0359c634067fbaebaa5c4e07) bumped version to v0.8.5 (@mspae)
+- [6f8752b](https://github.com/mspae/react-wavesurfer/commit/6f8752b2a71d1f4b761e993fc47c19922a1a5899) minified code has source maps, removed unused deps from build config (@mspae)
+- [add54eb](https://github.com/mspae/react-wavesurfer/commit/add54ebcbaa09d7d8cd128927125d0aa492f9768) updated readme (@mspae)
+- [185b4e1](https://github.com/mspae/react-wavesurfer/commit/185b4e1fec939d60eed81959ad0c27c41a6660b5) updated pre commit hook and README with dev infos (@mspae)
+- [5dcceb9](https://github.com/mspae/react-wavesurfer/commit/5dcceb996c0d713948a4ccbb6092937a4ebdc7f4) added LICENSE for BSD-3 clause (@mspae)
+- [85e0f01](https://github.com/mspae/react-wavesurfer/commit/85e0f01a98b78bd833928c2c3a119c65e926333c) formatting of source code, also removed manual imports loader config, which is in the webpack config now, also added WaveSurfer as global in the eslint config (@mspae)
+- [106d37f](https://github.com/mspae/react-wavesurfer/commit/106d37f72acbe70bdff4913beb34aaa3d56dc327) updated deps, changed to yarn, removed jscs, switched to purely eslint linting with pretty plugin and formatting with pre commit hook (@mspae)
+- [225de44](https://github.com/mspae/react-wavesurfer/commit/225de447e4b6d554e1112aea2afb318e17a3133d) removed shouldComponentUpdate hook on root component since it stopped children from updating and doesn't provide perf benefits (@mspae)
+- [ba20e09](https://github.com/mspae/react-wavesurfer/commit/ba20e099aeff2ce1d6dd4e63764d7eb17c2a7731) Added support for gradients for the waveColor prop (@mspae)
+- [#61](https://github.com/mspae/react-wavesurfer/pull/61) fixed React.PropTypes deprecation warning (#61) (@rijk)
+- [d368e28](https://github.com/mspae/react-wavesurfer/commit/d368e282e0fee12615fe9b434b024683bc5d45ab) updated changelog for v0.8.4 (@mspae)
+
 ### v0.8.4 (2017/08/10 18:16 +00:00)
+- [92a7f7f](https://github.com/mspae/react-wavesurfer/commit/92a7f7f269f5e88b1e19e5a6e4cb7410ab4da76f) bumped version to 0.8.4 (@mspae)
 - [adf93bc](https://github.com/mspae/react-wavesurfer/commit/adf93bcbf61bb878eee7aff4c89ff6c973b19191) changed references to the wavesurfer.js plugin files to the minified versions to fix the build (@mspae)
 - [c129566](https://github.com/mspae/react-wavesurfer/commit/c129566e2f3d0fa5087600d1b95f83d1c9ce6f8c) linting issues (@mspae)
 - [#44](https://github.com/mspae/react-wavesurfer/pull/44) Fix minor linting errors (#44) (@tf)

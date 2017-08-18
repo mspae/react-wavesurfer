@@ -1,11 +1,15 @@
 # react-wavesurfer
 
-[![npm version](https://badge.fury.io/js/react-wavesurfer.svg)](https://badge.fury.io/js/react-wavesurfer)
-![code style](https://img.shields.io/badge/codestyle-airbnb-brightgreen.svg)
+[![npm version](https://img.shields.io/npm/v/react-wavesurfer.svg)](https://www.npmjs.com/package/react-wavesurfer)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-Wrapper component for [wavesurfer.js](http://wavesurfer-js.org/). Includes support for the timeline, minimap and regions plugins.
+### Wrapper component for [wavesurfer.js](http://wavesurfer-js.org/). Includes support for the timeline, minimap and regions plugins.
 
-**Note:** This component expects `wavesurfer.js` to be installed. Read more about prerequisites and common pitfalls this at the bottom of this document.
+**Note:** This component expects `wavesurfer.js` to be available as a global variable (`WaveSurfer`). Read more about *Prerequisites and common pitfalls* at the bottom of this document.
+
+**Note:** This version does not work for the version 2 (beta) of wavesurfer.js – A version of react-wavesurfer that will work with the new version is in the making.
+
+**Note to contributors:** The development workflow has changed, please refer to the *Developing & contributing* section below for more info.
 
 ## Basic Usage
 
@@ -202,8 +206,9 @@ This project uses yarn as package manager. Please install it globally with `npm 
 Please apply the precommit hook before commiting, it will lint and format your code before it is saved in version control. To set it up run `chmod +x pre-commit.sh && ln -s ../../pre-commit.sh .git/hooks/pre-commit` once in the root directory of this project before commiting.
 
 * `yarn` – Install dependencies
-* `npm run start` – Start development server (webpack-dev-server) at `localhost:8080/webpack-dev-server`
-* `npm run lint` – Lint code (is done while running start task too)
+* `npm start` – Start development server (webpack-dev-server) at `localhost:8080`
+* `npm run format` – Format the code
+* `npm run lint` – Lint code
 * `npm run build` – Lint and build distributable files
 
 

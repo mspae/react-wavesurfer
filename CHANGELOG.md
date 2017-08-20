@@ -1,6 +1,6 @@
 ## Change Log
 
-### upcoming (2017/08/18 11:47 +00:00)
+### upcoming (2017/08/20 10:48 +00:00)
 - [46df85e](https://github.com/mspae/react-wavesurfer/commit/46df85e60a37134ca0f52fc5ebbbebf065cbd405) updated changelog for v0.8.5 (@mspae)
 
 ### v0.8.5 (2017/08/18 11:46 +00:00)

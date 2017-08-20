@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import assign from 'deep-assign';
 
-require('wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js');
-
 class Timeline extends Component {
   constructor(props) {
     super(props);

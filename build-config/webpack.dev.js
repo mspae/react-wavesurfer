@@ -5,6 +5,11 @@ const path = require('path');
 module.exports = Merge(CommonConfig, {
   devtool: 'eval-source-map',
   entry: ['./example/index.jsx'],
+  resolve: {
+    alias: {
+      wavesurfer: require.resolve('wavesurfer.js')
+    }
+  },
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js',
@@ -13,13 +18,5 @@ module.exports = Merge(CommonConfig, {
   devServer: {
     historyApiFallback: true,
     contentBase: path.join(__dirname, '..')
-  },
-  module: {
-    rules: [
-      {
-        test: require.resolve('wavesurfer.js'),
-        loader: 'expose-loader?WaveSurfer'
-      }
-    ]
   }
 });

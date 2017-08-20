@@ -8,6 +8,11 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      WaveSurfer: 'wavesurfer.js'
+    })
+  ],
   module: {
     rules: [
       {
@@ -20,18 +25,6 @@ module.exports = {
             presets: ['stage-0', 'es2015', 'react']
           }
         }
-      },
-      {
-        test: [
-          require.resolve(
-            'wavesurfer.js/dist/plugin/wavesurfer.minimap.min.js'
-          ),
-          require.resolve(
-            'wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js'
-          ),
-          require.resolve('wavesurfer.js/dist/plugin/wavesurfer.regions.min.js')
-        ],
-        use: ['imports-loader?define=>false']
       }
     ]
   }

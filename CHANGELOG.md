@@ -1,5 +1,8 @@
 ## Change Log
 
+### upcoming (2017/08/18 11:47 +00:00)
+- [46df85e](https://github.com/mspae/react-wavesurfer/commit/46df85e60a37134ca0f52fc5ebbbebf065cbd405) updated changelog for v0.8.5 (@mspae)
+
 ### v0.8.5 (2017/08/18 11:46 +00:00)
 - [bd79e36](https://github.com/mspae/react-wavesurfer/commit/bd79e368bc1eb20d0359c634067fbaebaa5c4e07) bumped version to v0.8.5 (@mspae)
 - [6f8752b](https://github.com/mspae/react-wavesurfer/commit/6f8752b2a71d1f4b761e993fc47c19922a1a5899) minified code has source maps, removed unused deps from build config (@mspae)

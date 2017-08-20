@@ -5,7 +5,9 @@
 
 ### Wrapper component for [wavesurfer.js](http://wavesurfer-js.org/). Includes support for the timeline, minimap and regions plugins.
 
-**Note:** This component expects `wavesurfer.js` to be available as a global variable (`WaveSurfer`). Read more about *Prerequisites and common pitfalls* at the bottom of this document.
+**Note:** Since v0.8.6 react-wavesurfer no longer comes bundled with the wavesurfer files. You need to explicitely import the correct files before using the react component!
+
+**Note:** This component expects `wavesurfer.js` to be available as a global variable (`WaveSurfer`). Wavesurfer plugins need to be attached to this global variable for the react component to work. Read more about *Prerequisites and common pitfalls* at the bottom of this document.
 
 **Note:** This version does not work for the version 2 (beta) of wavesurfer.js – A version of react-wavesurfer that will work with the new version is in the making.
 
@@ -18,6 +20,9 @@ For more advanced examples check the example directory.
 You can also easily extend the core functionality by hooking into the wavesurfer.js callbacks (by defining callback props).
 
 ```javascript
+// In my bundle config this is setup to export to window.WaveSurfer
+require('wavesurfer.js');
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Wavesurfer from 'react-wavesurfer';
@@ -217,15 +222,38 @@ Please apply the precommit hook before commiting, it will lint and format your c
 
 This library does not include `wavesurfer.js` itself. You need to include it in your project yourself.
 
-The (optional) plugin components do include the specific plugin code of wavesurfer.js. They augment the wavesurfer.js object, this is the reason why the root wavesurfer.js component does not include the wavesurfer.js code.
+~~The (optional) plugin components do include the specific plugin code of wavesurfer.js. They augment the wavesurfer.js object, this is the reason why the root wavesurfer.js component does not include the wavesurfer.js code.~~
 
-* **Webpack:** Expose the `wavesurfer.js` library with the expose-loader:
+The plugin components require `window.WaveSurfer` to have all the respective plugin properties set. (e.g. the `Regions` component needs `window.WaveSurfer.Regions` etc.)
+
+### Webpack
+
+
+```javascript
+  // provide WaveSurfer as a globally accessible variable
+  plugins: [
+    new webpack.ProvidePlugin({
+      WaveSurfer: 'wavesurfer.js'
+    })
+  ],
+  // Alias `wavesurfer` to the correct wavesurfer package.
+  // (wavesurfer.js has some non-standard naming convention)
+  resolve: {
+    alias: {
+      wavesurfer: require.resolve('wavesurfer.js')
+    }
+  },
 ```
-  {
-    test: require.resolve("wavesurfer.js"),
-    loader: "expose?WaveSurfer"
-  }
+
+Then import all the wavesurfer files you need:
+```javascript
+require('wavesurfer.js');
+require('wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js');
+require('wavesurfer.js/dist/plugin/wavesurfer.regions.min.js');
+require('wavesurfer.js/dist/plugin/wavesurfer.minimap.min.js');
 ```
-* **Global objects:** Simply include the `wavesurfer.js` library and any plugins you want to include before you call the component code. (The component will be exposed as `window.Wavesurfer.default`)
+### Global objects
+
+Simply include the `wavesurfer.js` library and any plugins you want to include before you call the component code. (The component will be exposed as `window.Wavesurfer.default`)
 
 I have not tested AMD or System.js, if you have any experience, please feel free to update this document, or file an issue.

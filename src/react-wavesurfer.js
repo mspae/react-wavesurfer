@@ -122,7 +122,7 @@ class Wavesurfer extends Component {
       }
 
       // set initial volume
-      if (this.props.volume !== null) {
+      if (this.props.volume) {
         this._wavesurfer.setVolume(this.props.volume);
       }
 

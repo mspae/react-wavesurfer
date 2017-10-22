@@ -33,7 +33,6 @@ function ExampleParent() {
           <div className="row">
             <TimelineExample />
           </div>
-
           <div className="row">
             <PeaksExample />
           </div>

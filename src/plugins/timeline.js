@@ -1,34 +1,58 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import assign from 'deep-assign';
+import WaveSurferTimeline from 'wavesurfer.js/dist/plugin/wavesurfer.timeline.js';
 
 class Timeline extends Component {
   constructor(props) {
     super(props);
-    this.timeline = null;
+    this._timelineEl = null;
+    this.state = {
+      isInitialised: false
+    };
   }
 
   componentDidMount() {
-    if (this.props.isReady) this.init();
-    this.props.wavesurfer.on('ready', this._init.bind(this));
+    this._init(this.props);
   }
 
-  _init() {
-    this.timeline = Object.create(WaveSurfer.Timeline);
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.isInitialised) {
+      this._init(nextProps);
+    }
+  }
 
-    this.timeline.init(
-      assign({}, this.props.options, {
-        container: this.timelineEl,
-        wavesurfer: this.props.wavesurfer
-      })
-    );
+  _init(props) {
+    const { options, wavesurfer } = props;
+    if (!wavesurfer) {
+      return;
+    }
+
+    wavesurfer
+      .addPlugin(
+        WaveSurferTimeline.create(
+          assign({}, options, {
+            container: this._timelineEl
+          })
+        )
+      )
+      .initPlugin('timeline');
+
+    this.setState({
+      isInitialised: true
+    });
+  }
+
+  componentWillUnmount() {
+    this.props.wavesurfer.destroyPlugin('timeline');
   }
 
   render() {
     return (
       <div
+        className="timeline"
         ref={c => {
-          this.timelineEl = c;
+          this._timelineEl = c;
         }}
       />
     );
@@ -36,13 +60,11 @@ class Timeline extends Component {
 }
 
 Timeline.propTypes = {
-  isReady: PropTypes.bool.isRequired,
   options: PropTypes.object.isRequired,
   wavesurfer: PropTypes.object
 };
 
 Timeline.defaultProps = {
-  isReady: false,
   options: {}
 };
 

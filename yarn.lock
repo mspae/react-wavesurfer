@@ -4217,6 +4217,10 @@ range-parser@^1.0.3, range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
+raw-loader@~0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/raw-loader/-/raw-loader-0.5.1.tgz#0c3d0beaed8a01c966d9787bf778281252a979aa"
+
 rc@^1.1.7:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.1.tgz#2e03e8e42ee450b8cb3dce65be1bf8974e1dfd95"
@@ -4532,6 +4536,12 @@ sane@~1.6.0:
 sax@^1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
+
+script-loader@^0.7.0:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/script-loader/-/script-loader-0.7.2.tgz#2016db6f86f25f5cf56da38915d83378bb166ba7"
+  dependencies:
+    raw-loader "~0.5.1"
 
 select-hose@^2.0.0:
   version "2.0.0"
@@ -5177,9 +5187,9 @@ watchpack@^1.4.0:
     chokidar "^1.7.0"
     graceful-fs "^4.1.2"
 
-wavesurfer.js@^1.1.11:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-1.4.0.tgz#4dba66098e736615d963fa85c7476fbd7e09c565"
+wavesurfer.js@^2.0.0:
+  version "2.0.0-beta02"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-2.0.0-beta02.tgz#e9e540a3a93c6fb54508dfba835ca2534970d071"
 
 wbuf@^1.1.0, wbuf@^1.7.2:
   version "1.7.2"

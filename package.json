@@ -58,7 +58,7 @@
     "react-dom": "^15.3.1",
     "script-loader": "^0.7.0",
     "uglifyjs-webpack-plugin": "^0.4.6",
-    "wavesurfer.js": "^1.1.11",
+    "wavesurfer.js": "2.0.0-beta02",
     "webpack": "^3.5.4",
     "webpack-dev-server": "^2.7.1",
     "webpack-merge": "^4.1.0"

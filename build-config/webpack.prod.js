@@ -12,13 +12,7 @@ module.exports = Merge(CommonConfig, {
         commonjs: 'react',
         amd: 'react'
       },
-      'prop-types': 'prop-types',
-      'wavesurfer.js': {
-        root: 'WaveSurfer',
-        commonjs2: 'wavesurfer.js',
-        commonjs: 'wavesurfer.js',
-        amd: 'wavesurfer'
-      }
+      'prop-types': 'prop-types'
     }
   ],
   plugins: [

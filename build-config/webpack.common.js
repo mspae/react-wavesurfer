@@ -8,11 +8,6 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      WaveSurfer: 'wavesurfer.js'
-    })
-  ],
   module: {
     rules: [
       {

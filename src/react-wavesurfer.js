@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import assign from 'deep-assign';
+import WaveSurfer from 'wavesurfer.js/dist/wavesurfer.js';
 
 const EVENTS = [
   'audioprocess',
@@ -42,57 +43,23 @@ function positiveIntegerProptype(props, propName, componentName) {
   return null;
 }
 
-const resizeThrottler = fn => () => {
-  let resizeTimeout;
-
-  if (!resizeTimeout) {
-    resizeTimeout = setTimeout(() => {
-      resizeTimeout = null;
-      fn();
-    }, 66);
-  }
-};
-
 class Wavesurfer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isReady: false
+      isReady: false,
+      wavesurfer: null,
+      pos: null
     };
 
     if (typeof WaveSurfer === undefined) {
       throw new Error('WaveSurfer is undefined!');
     }
 
-    this._wavesurfer = Object.create(WaveSurfer);
     this._loadMediaElt = this._loadMediaElt.bind(this);
     this._loadAudio = this._loadAudio.bind(this);
     this._seekTo = this._seekTo.bind(this);
-
-    if (this.props.responsive) {
-      this._handleResize = resizeThrottler(() => {
-        // pause playback for resize operation
-        if (this.props.playing) {
-          this._wavesurfer.pause();
-        }
-
-        // resize the waveform
-        this._wavesurfer.drawBuffer();
-
-        // We allow resize before file isloaded, since we can get wave data from outside,
-        // so there might not be a file loaded when resizing
-        if (this.state.isReady) {
-          // restore previous position
-          this._seekTo(this.props.pos);
-        }
-
-        // restore playback
-        if (this.props.playing) {
-          this._wavesurfer.play();
-        }
-      });
-    }
   }
 
   componentDidMount() {
@@ -105,7 +72,7 @@ class Wavesurfer extends Component {
       options.backend = 'MediaElement';
     }
 
-    this._wavesurfer.init(options);
+    this._wavesurfer = WaveSurfer.create(options);
 
     // file was loaded, wave was drawn
     this._wavesurfer.on('ready', () => {
@@ -153,7 +120,7 @@ class Wavesurfer extends Component {
       if (this.state.isReady) {
         const formattedPos = this._posToSec(pos);
         this.setState({
-          formattedPos
+          pos: formattedPos
         });
         this.props.onPosChange({
           wavesurfer: this._wavesurfer,
@@ -184,10 +151,6 @@ class Wavesurfer extends Component {
     // if mediaElt prop, load media Element
     if (this.props.mediaElt) {
       this._loadMediaElt(this.props.mediaElt, this.props.audioPeaks);
-    }
-
-    if (this.props.responsive) {
-      window.addEventListener('resize', this._handleResize, false);
     }
   }
 
@@ -264,24 +227,11 @@ class Wavesurfer extends Component {
     }
 
     // update audioRate
-    if (this.props.options.audioRate !== nextProps.options.audioRate) {
+    if (
+      nextProps.options &&
+      this.props.options.audioRate !== nextProps.options.audioRate
+    ) {
       this._wavesurfer.setPlaybackRate(nextProps.options.audioRate);
-    }
-
-    // turn responsive on
-    if (
-      nextProps.responsive &&
-      this.props.responsive !== nextProps.responsive
-    ) {
-      window.addEventListener('resize', this._handleResize, false);
-    }
-
-    // turn responsive off
-    if (
-      !nextProps.responsive &&
-      this.props.responsive !== nextProps.responsive
-    ) {
-      window.removeEventListener('resize', this._handleResize);
     }
   }
 
@@ -293,10 +243,6 @@ class Wavesurfer extends Component {
 
     // destroy wavesurfer instance
     this._wavesurfer.destroy();
-
-    if (this.props.responsive) {
-      window.removeEventListener('resize', this._handleResize);
-    }
   }
 
   // receives seconds and transforms this to the position as a float 0-1
@@ -401,11 +347,15 @@ Wavesurfer.propTypes = {
   audioPeaks: PropTypes.array,
   volume: PropTypes.number,
   zoom: PropTypes.number,
-  responsive: PropTypes.bool,
   onPosChange: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+  /**
+   * @see https://wavesurfer-js.org/doc/typedef/index.html#static-typedef-WavesurferParams
+   */
   options: PropTypes.shape({
+    audioContext: PropTypes.instanceOf(AudioContext),
     audioRate: PropTypes.number,
+    autoCenter: PropTypes.bool,
     backend: PropTypes.oneOf(['WebAudio', 'MediaElement']),
     barWidth: (props, propName, componentName) => {
       const prop = props[propName];
@@ -416,27 +366,39 @@ Wavesurfer.propTypes = {
 
       return null;
     },
-
+    closeAudioContext: PropTypes.bool,
     cursorColor: PropTypes.string,
     cursorWidth: positiveIntegerProptype,
-    dragSelection: PropTypes.bool,
     fillParent: PropTypes.bool,
+    forceDecode: PropTypes.bool,
     height: positiveIntegerProptype,
     hideScrollbar: PropTypes.bool,
     interact: PropTypes.bool,
     loopSelection: PropTypes.bool,
+    maxCanvasWidth: positiveIntegerProptype,
     mediaControls: PropTypes.bool,
+    mediaType: (props, propName, componentName) => {
+      const prop = props[propName];
+      const backend = props['backend'] || 'WebAudio';
+      if (backend !== 'MediaElement' && prop) {
+        return new Error(`Invalid ${propName} supplied to ${componentName}
+          This prop type expects the backend to be of type 'MediaElement'`);
+      }
+    },
     minPxPerSec: positiveIntegerProptype,
     normalize: PropTypes.bool,
+    partialRender: PropTypes.bool,
     pixelRatio: PropTypes.number,
     progressColor: PropTypes.string,
+    renderer: PropTypes.func,
+    responsive: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
     scrollParent: PropTypes.bool,
-    skipLength: PropTypes.number,
+    skipLength: positiveIntegerProptype,
+    splitChannels: PropTypes.bool,
     waveColor: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.instanceOf(window.CanvasGradient)
-    ]),
-    autoCenter: PropTypes.bool
+    ])
   })
 };
 
@@ -444,7 +406,6 @@ Wavesurfer.defaultProps = {
   playing: false,
   pos: 0,
   options: WaveSurfer.defaultParams,
-  responsive: true,
   onPosChange: () => {}
 };
 

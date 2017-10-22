@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import WaveSurferRegions from 'wavesurfer.js/dist/plugin/wavesurfer.regions.js';
 
 const REGIONS_EVENTS = [
   'region-in',
@@ -39,75 +40,64 @@ class Regions extends Component {
   constructor(props) {
     super(props);
 
-    // this is so that jscs does not force us to go functional
-    this.state = {};
+    this.state = {
+      isInitialised: false
+    };
   }
 
   componentDidMount() {
-    if (this.props.isReady) {
-      this._init.call(this);
-    }
-
-    this.props.wavesurfer.on('ready', this._init.bind(this));
+    this._init(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
     // only update if the wavesurfer instance has been ready
-    if (!this.props.isReady) {
+    if (!nextProps.wavesurfer) {
       return;
     }
 
+    if (!this.state.isInitialised) {
+      this._init(nextProps);
+    }
+
     // cache reference to old regions
-    const oldRegions = Object.create(this.props.wavesurfer.regions.list);
-    let newRegionId;
-    let oldRegionId;
+    const oldRegions = { ...nextProps.wavesurfer.regions.list };
 
-    for (newRegionId in nextProps.regions) {
-      if ({}.hasOwnProperty.call(nextProps.regions, newRegionId)) {
-        const newRegion = nextProps.regions[newRegionId];
-
-        // remove from oldRegions
-        delete oldRegions[newRegionId];
-
-        // new regions
-        if (!this.props.wavesurfer.regions.list[newRegionId]) {
-          this._hookUpRegionEvents(nextProps.wavesurfer.addRegion(newRegion));
-
-          // update regions
-        } else if (
-          oldRegions[newRegionId] &&
-          (oldRegions[newRegionId].start !== newRegion.start ||
-            oldRegions[newRegionId].end !== newRegion.end)
-        ) {
-          nextProps.wavesurfer.regions.list[newRegionId].update({
-            start: newRegion.start,
-            end: newRegion.end
-          });
-        }
+    Object.keys(nextProps.regions).forEach(regionId => {
+      const region = nextProps.regions[regionId];
+      // remove from oldRegions
+      delete oldRegions[regionId];
+      // new regions
+      if (!nextProps.wavesurfer.regions.list[regionId]) {
+        this._hookUpRegionEvents(nextProps.wavesurfer.addRegion(region));
+        // update regions
+      } else if (
+        oldRegions[regionId] &&
+        (oldRegions[regionId].start !== region.start ||
+          oldRegions[regionId].end !== region.end)
+      ) {
+        nextProps.wavesurfer.regions.list[regionId].update(region);
       }
-    }
+    });
 
-    // remove any old regions
-    for (oldRegionId in oldRegions) {
-      if ({}.hasOwnProperty.call(oldRegions, oldRegionId)) {
-        nextProps.wavesurfer.regions.list[oldRegionId].remove();
-      }
-    }
-  }
-
-  shouldComponentUpdate() {
-    return false;
+    Object.keys(oldRegions).forEach(regionId => {
+      nextProps.wavesurfer.regions.list[regionId].remove();
+    });
   }
 
   componentWillUnmount() {
+    this.props.wavesurfer.destroyPlugin('regions');
     REGION_EVENTS.forEach(e => {
       this.props.wavesurfer.un(e);
     });
   }
 
-  _init() {
-    const { wavesurfer, regions } = this.props;
-    let newRegionId;
+  _init(props) {
+    const { regions, wavesurfer } = props;
+    if (!wavesurfer) {
+      return;
+    }
+
+    wavesurfer.addPlugin(WaveSurferRegions.create()).initPlugin('regions');
 
     REGIONS_EVENTS.forEach(e => {
       const propCallback = this.props[`on${capitaliseFirstLetter(e)}`];
@@ -122,11 +112,13 @@ class Regions extends Component {
     });
 
     // add regions and hook up callbacks to region objects
-    for (newRegionId in regions) {
-      if ({}.hasOwnProperty.call(regions, newRegionId)) {
-        this._hookUpRegionEvents(wavesurfer.addRegion(regions[newRegionId]));
-      }
-    }
+    Object.keys(regions).forEach(regionId => {
+      const region = regions[regionId];
+      this._hookUpRegionEvents(wavesurfer.addRegion(region));
+    });
+    this.setState({
+      isInitialised: true
+    });
   }
 
   _hookUpRegionEvents(region) {
@@ -159,7 +151,6 @@ class Regions extends Component {
 }
 
 Regions.propTypes = {
-  isReady: PropTypes.bool,
   regions: PropTypes.object,
   wavesurfer: PropTypes.object
 };

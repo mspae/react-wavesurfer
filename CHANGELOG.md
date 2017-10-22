@@ -1,6 +1,10 @@
 ## Change Log
 
-### upcoming (2017/08/20 10:48 +00:00)
+### v0.8.6 (2017/08/20 10:49 +00:00)
+- [13dd157](https://github.com/mspae/react-wavesurfer/commit/13dd1572c7defd64c045f61e4d3ddaf2ac3c0f5e) bumper version for v0.8.6 and changelog (@mspae)
+- [1bff2bb](https://github.com/mspae/react-wavesurfer/commit/1bff2bb119d5951cdc5ac136e12cf3eaa6363280) documented plugin files not being there anymore (@mspae)
+- [36b622d](https://github.com/mspae/react-wavesurfer/commit/36b622d0c9934e4306e4dd9847556eaebe9eed13) ws files are seperate (@mspae)
+- [8ef2e2c](https://github.com/mspae/react-wavesurfer/commit/8ef2e2ceaf421526ac58a43648f41369ba7ab8e9) fixed volume ref error (@mspae)
 - [46df85e](https://github.com/mspae/react-wavesurfer/commit/46df85e60a37134ca0f52fc5ebbbebf065cbd405) updated changelog for v0.8.5 (@mspae)
 
 ### v0.8.5 (2017/08/18 11:46 +00:00)

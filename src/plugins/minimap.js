@@ -1,42 +1,60 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import WaveSurferMinimap from 'wavesurfer.js/dist/plugin/wavesurfer.minimap.js';
 
 class Minimap extends Component {
-  componentDidMount() {
-    this._map = undefined;
+  constructor(props) {
+    super(props);
 
-    // on('ready') returns an event descriptor which is an
-    // object which has the property un, which is the un method
-    // properly bound to this callback, we cache it and can call
-    // it alter to just remove this event listener
-    this._readyListener = this.props.wavesurfer.on('ready', () => {
-      this._init();
-    });
+    this.state = {
+      isInitialised: false
+    };
+  }
+
+  componentDidMount() {
+    this._init(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // only update if the wavesurfer instance has been ready
+    if (!nextProps.wavesurfer) {
+      return;
+    }
+
+    if (!this.state.isInitialised) {
+      this._init(nextProps);
+    }
   }
 
   componentWillUnmount() {
-    this._readyListener.un();
+    this.props.wavesurfer.destroyPlugin('minimap');
   }
 
-  _init() {
-    this._map = Object.create(WaveSurfer.Minimap);
-    this._map.init(this.props.wavesurfer, this.props.options);
-    this._map.render();
+  _init(props) {
+    const { options, wavesurfer } = props;
+    if (!wavesurfer) {
+      return;
+    }
+
+    wavesurfer
+      .addPlugin(WaveSurferMinimap.create(options))
+      .initPlugin('minimap');
+    this.setState({
+      isInitialised: true
+    });
   }
 
   render() {
-    return false;
+    return null;
   }
 }
 
 Minimap.propTypes = {
-  isReady: PropTypes.bool.isRequired,
   options: PropTypes.object.isRequired,
   wavesurfer: PropTypes.object
 };
 
 Minimap.defaultProps = {
-  isReady: false,
   options: {}
 };
 

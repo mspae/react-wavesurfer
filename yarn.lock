@@ -5187,7 +5187,7 @@ watchpack@^1.4.0:
     chokidar "^1.7.0"
     graceful-fs "^4.1.2"
 
-wavesurfer.js@^2.0.0:
+wavesurfer.js@2.0.0-beta02:
   version "2.0.0-beta02"
   resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-2.0.0-beta02.tgz#e9e540a3a93c6fb54508dfba835ca2534970d071"
 

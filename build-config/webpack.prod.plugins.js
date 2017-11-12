@@ -4,9 +4,9 @@ const path = require('path');
 
 module.exports = Merge(ProdConfig, {
   entry: {
-    'plugins/regions': './src/plugins/regions',
-    'plugins/timeline': './src/plugins/timeline',
-    'plugins/minimap': './src/plugins/minimap'
+    'plugins/regions': './src/plugins/regions.tsx',
+    'plugins/timeline': './src/plugins/timeline.tsx',
+    'plugins/minimap': './src/plugins/minimap.tsx'
   },
 
   output: {

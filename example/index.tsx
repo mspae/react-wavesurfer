@@ -1,15 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-require('wavesurfer.js');
-require('wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js');
-require('wavesurfer.js/dist/plugin/wavesurfer.regions.min.js');
-require('wavesurfer.js/dist/plugin/wavesurfer.minimap.min.js');
-
-
+import SimpleExample from './components/simple';
 import RegionsExample from './components/regions';
 import ZoomExample from './components/zoom';
-import SimpleExample from './components/simple';
 import TimelineExample from './components/timeline';
 import PeaksExample from './components/peaks';
 import MediaElementExample from './components/mediaElement';

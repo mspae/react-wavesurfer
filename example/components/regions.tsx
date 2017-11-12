@@ -1,9 +1,23 @@
-import React from 'react';
-import assign from 'deep-assign';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as assign from 'deep-assign';
 import Wavesurfer from '../../src/react-wavesurfer';
 import Regions from '../../src/plugins/regions';
+import { ICallbackArgs } from '../../src/interface';
 
-class RegionsExample extends React.Component {
+export default class RegionsExample extends PureComponent {
+  state: {
+    playing: boolean;
+    audioFile: string;
+    activeRegion: string;
+    regions: {
+      [regionId: string]: {
+        id: string;
+        start: number,
+        end: number
+      }
+    }
+  }
   constructor(props) {
     super(props);
 
@@ -31,7 +45,7 @@ class RegionsExample extends React.Component {
     };
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handleRegionClick = this.handleRegionClick.bind(this);
-    this.handleSingleRegionUpdate = this.handleSingleRegionUpdate.bind(this);
+    this.handleRegionUpdate = this.handleRegionUpdate.bind(this);
     this.handleRegionChange = this.handleRegionChange.bind(this);
   }
 
@@ -41,10 +55,10 @@ class RegionsExample extends React.Component {
     });
   }
 
-  handleSingleRegionUpdate(e) {
+  handleRegionUpdate(e: ICallbackArgs): void {
     const newState = assign({}, this.state, {
       regions: {
-        [e.region.id]: e.region
+        [e.originalArgs[0].id]: e.originalArgs[0]
       }
     });
     this.setState(newState);
@@ -116,17 +130,15 @@ class RegionsExample extends React.Component {
         <Wavesurfer
           audioFile={this.state.audioFile}
           playing={this.state.playing}
-          onReady={this.handleReady}
         >
-          <Regions
-            onSingleRegionUpdate={this.handleSingleRegionUpdate}
+          {ws => (<Regions
+            wavesurfer={ws}
+            onRegionUpdated={this.handleRegionUpdate}
             onRegionClick={this.handleRegionClick}
             regions={this.state.regions}
-          />
+          />)}
         </Wavesurfer>
       </div>
     );
   }
 }
-
-module.exports = RegionsExample;

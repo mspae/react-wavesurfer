@@ -1,8 +1,14 @@
-import React from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import Wavesurfer from '../../src/react-wavesurfer';
-import Minimap from '../../src/plugins/minimap';
+import Timeline from '../../src/plugins/timeline';
 
-class MinimapExample extends React.Component {
+export default class TimelineExample extends Component {
+  state: {
+    audioFile: string;
+    playing: boolean;
+  };
+
   constructor(props) {
     super(props);
 
@@ -20,26 +26,27 @@ class MinimapExample extends React.Component {
   }
 
   render() {
-    const minimapOptions = {
+    const timelineOptions = {
+      timeInterval: 0.5,
       height: 30,
-      waveColor: '#ddd',
-      progressColor: '#999',
-      cursorColor: '#999'
+      primaryFontColor: '#00f',
+      primaryColor: '#00f'
     };
     return (
       <div className="example col-xs-12">
-        <h3>Minimap</h3>
+        <h3>Timeline</h3>
         <Wavesurfer
           audioFile={this.state.audioFile}
           playing={this.state.playing}
         >
-          <Minimap
-            options={minimapOptions}
+        {ws => (
+          <Timeline
+            wavesurfer={ws}
+            options={timelineOptions}
           />
+        )}
         </Wavesurfer>
       </div>
     );
   }
 }
-
-module.exports = MinimapExample;

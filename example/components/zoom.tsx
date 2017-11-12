@@ -1,7 +1,14 @@
-import React from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import Wavesurfer from '../../src/react-wavesurfer';
 
-class ZoomExample extends React.Component {
+export default class ZoomExample extends PureComponent {
+  state: {
+    audioFile: string;
+    playing: boolean;
+    zoom: number
+  };
+
   constructor(props) {
     super(props);
 
@@ -49,12 +56,9 @@ class ZoomExample extends React.Component {
         <Wavesurfer
           audioFile={this.state.audioFile}
           playing={this.state.playing}
-          onReady={this.handleReady}
           zoom={this.state.zoom}
         />
       </div>
     );
   }
 }
-
-module.exports = ZoomExample;

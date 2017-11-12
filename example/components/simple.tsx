@@ -1,10 +1,19 @@
-import React from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import Wavesurfer from '../../src/react-wavesurfer';
 
 /**
  * Simple example of a React component with a Wavesurfer
  */
-class SimpleExample extends React.Component {
+export default class SimpleExample extends PureComponent {
+  state: {
+    playing: boolean;
+    audioFile: string;
+    pos: number;
+    volume: number;
+    audioRate: number;
+  }
+
   constructor(props) {
     super(props);
 
@@ -139,5 +148,3 @@ class SimpleExample extends React.Component {
     );
   }
 }
-
-module.exports = SimpleExample;

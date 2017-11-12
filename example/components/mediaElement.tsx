@@ -1,10 +1,13 @@
-import React from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import Wavesurfer from '../../src/react-wavesurfer';
 
-class MediaElementExample extends React.Component {
+export default class MediaElementExample extends PureComponent {
+  _el?: HTMLMediaElement;
+
   constructor(props) {
     super(props);
-    this._getAudioSourceEl = this._getAudioSourceEl.bind(this);
+    this._getEl = this._getEl.bind(this);
   }
 
   // only after the initial render the audio source element exists,
@@ -13,8 +16,8 @@ class MediaElementExample extends React.Component {
     this.forceUpdate();
   }
 
-  _getAudioSourceEl() {
-    return this.audioSourceEl;
+  private _getEl() {
+    return this._el;
   }
 
   // if audio source dom element exists (after first render),
@@ -27,11 +30,11 @@ class MediaElementExample extends React.Component {
         <audio
           src="../resources/demo.wav"
           id="audioSource"
-          ref={(c) => { this.audioSourceEl = c; }}
+          ref={(c) => { this._el = c; }}
         />
         <p>Passing in the media element as a ref:</p>
-        {(this._getAudioSourceEl())
-        ? <Wavesurfer mediaElt={this._getAudioSourceEl()} />
+        {(this._getEl())
+        ? <Wavesurfer mediaElt={this._getEl()} />
         : null}
 
         <p>Passing in the media element as a selector:</p>
@@ -40,5 +43,3 @@ class MediaElementExample extends React.Component {
     );
   }
 }
-
-module.exports = MediaElementExample;

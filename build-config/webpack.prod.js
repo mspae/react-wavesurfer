@@ -4,17 +4,10 @@ const webpack = require('webpack');
 
 module.exports = Merge(CommonConfig, {
   devtool: 'source-map',
-  externals: [
-    {
-      react: {
-        root: 'React',
-        commonjs2: 'react',
-        commonjs: 'react',
-        amd: 'react'
-      },
-      'prop-types': 'prop-types'
-    }
-  ],
+  externals: {
+    "react": "React",
+    "react-dom": "ReactDOM"
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {

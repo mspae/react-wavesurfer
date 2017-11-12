@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = Merge(CommonConfig, {
   devtool: 'eval-source-map',
-  entry: ['./example/index.jsx'],
+  entry: ['./example/index.tsx'],
   resolve: {
     alias: {
       wavesurfer: require.resolve('wavesurfer.js')

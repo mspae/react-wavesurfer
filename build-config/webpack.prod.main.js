@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = Merge(ProdConfig, {
   entry: {
-    'react-wavesurfer': './src/react-wavesurfer'
+    'react-wavesurfer': './src/react-wavesurfer.tsx'
   },
   output: {
     path: path.join(__dirname, '../lib'),

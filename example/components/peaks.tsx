@@ -1,7 +1,12 @@
-import React from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import Wavesurfer from '../../src/react-wavesurfer';
 
-class PeaksExample extends React.Component {
+export default class PeaksExample extends PureComponent {
+  state: {
+    audioFile: string;
+    audioPeaks?: number[]
+  }
   constructor(props) {
     super(props);
 
@@ -37,12 +42,9 @@ class PeaksExample extends React.Component {
         <Wavesurfer
           audioFile={this.state.audioFile}
           audioPeaks={this.state.audioPeaks}
-          zoom={this.state.zoom}
           options={{ backend: 'WebAudio' }}
         />
       </div>
     );
   }
 }
-
-module.exports = PeaksExample;

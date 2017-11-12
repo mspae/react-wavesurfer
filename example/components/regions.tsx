@@ -56,24 +56,24 @@ export default class RegionsExample extends PureComponent {
   }
 
   handleRegionUpdate(e: ICallbackArgs): void {
-    const newState = assign({}, this.state, {
+    this.setState(assign({}, this.state, {
       regions: {
-        [e.originalArgs[0].id]: e.originalArgs[0]
+        [e.originalArgs[0].id]: {
+          start: e.originalArgs[0].start,
+          end: e.originalArgs[0].end
+        }
       }
-    });
-    this.setState(newState);
+    }));
   }
 
   handleRegionChange(e) {
-    const newState = assign({}, this.state, {
+    this.setState(assign({}, this.state, {
       regions: {
         [this.state.activeRegion]: {
-          [e.target.name]: Number(e.target.value)
+          [e.target.name]: +e.target.value
         }
       }
-    });
-
-    this.setState(newState);
+    }));
   }
 
   handleRegionClick(e) {
@@ -89,17 +89,31 @@ export default class RegionsExample extends PureComponent {
     const activeStart = this.state.activeRegion && this.state.regions[this.state.activeRegion]
       ? this.state.regions[this.state.activeRegion].start
       : 0;
+
+      console.log(this.state);
     return (
       <div className="example col-xs-12">
         <h3>Regions</h3>
         <button onClick={this.handleTogglePlay} className="btn btn-primary btn-block">
           toggle play
         </button>
+        <button onClick={() => {
+          const newState = assign({}, this.state, {
+            regions: {
+              'One': {
+                'start': 2
+              }
+            }
+          });
+          this.setState(newState);
+        }} className="btn btn-primary btn-block">
+          move
+        </button>
         <div className="row">
           <div className="form-group col-xs-4">
             <label htmlFor="region-id">ID:</label>
             <input
-              name="region-id"
+              name="id"
               className="form-control prop-value"
               type="text"
               placeholder={this.state.activeRegion}
@@ -109,7 +123,7 @@ export default class RegionsExample extends PureComponent {
           <div className="form-group col-xs-4">
             <label htmlFor="region-start">Start:</label>
             <input
-              name="region-start"
+              name="start"
               type="number"
               className="form-control prop-value"
               value={activeStart}
@@ -119,7 +133,7 @@ export default class RegionsExample extends PureComponent {
           <div className="form-group col-xs-4">
             <label htmlFor="region-end">End:</label>
             <input
-              name="region-end"
+              name="end"
               type="number"
               className="form-control prop-value"
               value={activeEnd}

@@ -68,7 +68,6 @@ export default class SimpleExample extends PureComponent {
       progressColor: '#6c718c',
       waveColor: '#c4c8dc',
       normalize: true,
-      barWidth: 4,
       audioRate: this.state.audioRate
     };
     return (

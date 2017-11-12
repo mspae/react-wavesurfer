@@ -77,7 +77,6 @@ export default class Regions extends Component<IRegionsProps, {}> {
 
   static propTypes = {
     regions: PropTypes.object,
-    wavesurfer: PropTypes.object.isRequired,
     options: PropTypes.object,
     onSingleRegionIn: PropTypes.func,
     onSingleRegionOut: PropTypes.func,

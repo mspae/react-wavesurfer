@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import Wavesurfer from '../../src/react-wavesurfer';
 import Timeline from '../../src/plugins/timeline';
 
-export default class TimelineExample extends Component {
+export default class TimelineExample extends PureComponent {
   state: {
     audioFile: string;
     playing: boolean;

@@ -58,7 +58,7 @@ class Regions extends Component {
     }
 
     // cache reference to old regions
-    const oldRegions = Object.create(this.props.wavesurfer.regions.list);
+    const oldRegions = Object.assign({}, this.props.wavesurfer.regions.list);
     let newRegionId;
     let oldRegionId;
 

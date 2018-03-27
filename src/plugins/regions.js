@@ -66,9 +66,6 @@ class Regions extends Component {
       if ({}.hasOwnProperty.call(nextProps.regions, newRegionId)) {
         const newRegion = nextProps.regions[newRegionId];
 
-        // remove from oldRegions
-        delete oldRegions[newRegionId];
-
         // new regions
         if (!this.props.wavesurfer.regions.list[newRegionId]) {
           this._hookUpRegionEvents(nextProps.wavesurfer.addRegion(newRegion));
@@ -84,6 +81,9 @@ class Regions extends Component {
             end: newRegion.end
           });
         }
+        
+        // remove from oldRegions
+        delete oldRegions[newRegionId];
       }
     }
 

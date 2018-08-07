@@ -1,3 +1,7 @@
+# Project is unmaintained!
+
+Please note I'm not maintaining this project anymore. I recommend using wavesurfer.js version 2 as it makes it much easier to use with React.
+
 # react-wavesurfer
 
 [![npm version](https://img.shields.io/npm/v/react-wavesurfer.svg)](https://www.npmjs.com/package/react-wavesurfer)

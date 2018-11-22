@@ -58,16 +58,13 @@ class Regions extends Component {
     }
 
     // cache reference to old regions
-    const oldRegions = Object.create(this.props.wavesurfer.regions.list);
+    const oldRegions = Object.assign({}, this.props.wavesurfer.regions.list);
     let newRegionId;
     let oldRegionId;
 
     for (newRegionId in nextProps.regions) {
       if ({}.hasOwnProperty.call(nextProps.regions, newRegionId)) {
         const newRegion = nextProps.regions[newRegionId];
-
-        // remove from oldRegions
-        delete oldRegions[newRegionId];
 
         // new regions
         if (!this.props.wavesurfer.regions.list[newRegionId]) {
@@ -84,6 +81,9 @@ class Regions extends Component {
             end: newRegion.end
           });
         }
+        
+        // remove from oldRegions
+        delete oldRegions[newRegionId];
       }
     }
 

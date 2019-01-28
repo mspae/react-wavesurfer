@@ -32,26 +32,23 @@ import ReactDOM from 'react-dom';
 import Wavesurfer from 'react-wavesurfer';
 
 class MyComponent extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    playing: false,
+    pos: 0
+  }
 
-    this.state = {
-      playing: false,
-      pos: 0
-    };
-    this.handleTogglePlay = this.handleTogglePlay.bind(this);
-    this.handlePosChange = this.handlePosChange.bind(this);
+  handleTogglePlay = () => {
+    this.setState(prevState => ({
+      playing: !prevState.playing
+    }));
   }
-  handleTogglePlay() {
-    this.setState({
-      playing: !this.state.playing
-    });
-  }
-  handlePosChange(e) {
+
+  handlePosChange = (e) => {
     this.setState({
       pos: e.originalArgs[0]
     });
   }
+
   render() {
     return (
       <div>
